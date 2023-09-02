@@ -128,10 +128,10 @@ div.content
 {
     margin-top: 10px;
     color: #8b8b8b;
-    left: 0px;
+    /* left: 0px;
     right: 0px;
     position: absolute;
-    bottom: 0;
+    bottom: 0; */
 }
 .header
 {
