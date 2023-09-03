@@ -6,14 +6,5 @@
     <description>Recent content on Reinhard Lüftenegger</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://remalue.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>research</title>
-      <link>https://remalue.github.io/research/</link>
-      <pubDate>Mon, 28 Feb 2022 21:54:30 +0100</pubDate>
-      
-      <guid>https://remalue.github.io/research/</guid>
-      <description>publications In the following, you find a list of my research publications together with a short abstract exp&amp;shy;lai&amp;shy;ning the respective main contribution.  preprints  conference proceedings Reinforced Concrete: Fast Hash Function for Zero Knowledge Proofs and Verifiable Computation with: Mario Barbara, Dmitry Khovratovich, Lorenzo Grassi, Christian Rechberger, Markus Schofnegger, Roman Walch  eprint DOI -- bibtex -- @USENIX 2022 --  Short abstract Short description here.     Influence of the Linear Layer on the Algebraic Degree in SP-Networks with: Carlos Cid, Aldo Gunsing, Lorenzo Grassi, Christian Rechberger, Markus Schofnegger  @FSE 2022 eprint DOI -- bibtex   Short abstract Most (keyed or unkeyed) cryptographic permutations admit a representation as a (multivariate) polynomial over a finite field.</description>
-    </item>
-    
   </channel>
 </rss>

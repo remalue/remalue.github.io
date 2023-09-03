@@ -25,18 +25,19 @@ body
     font-family: 'Roboto Slab', 'Roboto', 'Lato', sans-serif;
     font-size: 20px;
     font-weight: 400;
-
+    
     width: auto;
-    height: 100%;
-    min-height: 100%;
     margin: 0;
-
     background-color: #eeeeee;
+
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
+
 html
 {
     position: relative;
-
     height: 100%;
     min-height: 100%;
     margin: 0;
@@ -45,6 +46,15 @@ li
 {
     text-align: left;
 }
+
+
+@media screen and (max-width: 250px) {
+    .author
+    {
+        font-size: 1.5rem;
+    }
+}
+
 .author
 {
     font-family: 'Roboto', sans-serif;
@@ -71,6 +81,9 @@ li
     overflow: auto;
     padding: 0 15px;
     max-width: 900px;
+    /* min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto; */
 }
 .content
 {
@@ -85,34 +98,34 @@ div.content
 
     color: rgb(58, 58, 58);
 }
-.copyright
-{
-    font-family: 'Roboto', sans-serif;
-    font-size: 12px;
-    font-weight: 200;
+
+@media screen and (max-width: 250px) {
+    .description
+    {
+        font-size: 1rem;
+    }
 }
+
 .description
 {
     font-family: 'Roboto', sans-serif;
     font-weight: 350;
-    color: #484848;
+    color: rgb(50, 50, 50);
 }
+
 .error
 {
     font-family: 'Roboto', sans-serif;
-
     margin-top: 100px;
 }
 .error h1
 {
     font-size: 80px;
-
     color: #8b8b8b;
 }
 .error p
 {
     margin-top: 150px;
-
     color: #777;
 }
 .excerpt
@@ -128,19 +141,25 @@ div.content
 {
     margin-top: 10px;
     color: #8b8b8b;
-    /* left: 0px;
-    right: 0px;
-    position: absolute;
-    bottom: 0; */
+    padding-bottom: 2vh;
+    /* background-color: #eeeeee; */
 }
 .header
 {
     margin-top: 10%;
     margin-bottom: 5%;
 }
+
+.responsive {
+    width: 300px;
+    max-width: 90%;
+    /* height: auto; */
+}
+
 .headshot
 {
-    height: 300px;
+    box-shadow: 0px 0px 10px rgb(90, 90, 90);
+
 }
 .info
 {
@@ -185,6 +204,13 @@ h3.intro
     font-family: 'Roboto', sans-serif;
     padding: 0;
 }
+
+/* main {
+    min-height: 91vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+} */
+
 .main-menu
 {
     margin-top: 10px;
@@ -197,13 +223,10 @@ h3.intro
 }
 .menu-item
 {
-    font-family: 'Lato', sans-serif;
-    font-size: 1.5rem ;
+    font-family: 'Roboto', sans-serif;
     font-weight: 300;
-
-    text-decoration: none;
-
-    color: #966 !important;
+    /* text-decoration: none; */
+    color: rgb(50, 50, 50) !important;
 }
 .meta
 {
@@ -232,17 +255,17 @@ section.meta {
 .navbar {
     font-family: 'Roboto', sans-serif;
     font-weight: 250;
-    padding: 10px 7px;
     font-size: 1.5rem;
 }
 
-
-.powered
+.copyright, .powered
 {
     font-family: 'Roboto', sans-serif;
-    font-size: 12px;
     font-weight: 300;
+    font-size: 0.8rem;
+    padding: 0 10px;
 }
+
 .social {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -293,9 +316,6 @@ pre > code {
   font-size: 30px;
 }
 
-.headshot {
-    box-shadow: 0px 0px 10px rgb(90, 90, 90);
-}
 
 .row {
   list-style-type: none;
