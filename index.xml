@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Reinhard Lüftenegger</title>
-    <link>https://remalue.github.io/</link>
-    <description>Recent content on Reinhard Lüftenegger</description>
+    <title>ALPSY</title>
+    <link>http://example.org/</link>
+    <description>Recent content on ALPSY</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://remalue.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Accomodation</title>
+      <link>http://example.org/accomodation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/accomodation/</guid>
+      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eros ex, mattis et scelerisque non, hendrerit id eros. Etiam maximus arcu vel risus finibus accumsan aliquet id justo. Phasellus orci leo, accumsan eu feugiat vel, dictum non nibh. Mauris lacinia nibh interdum neque aliquam tincidunt. Sed dignissim ante a elit ornare, non placerat mi porta. Aliquam congue mollis velit, eget bibendum augue mollis id. Nullam volutpat enim in sapien placerat tempus.</description>
+    </item>
+    
+    <item>
+      <title>Location &amp; Travel</title>
+      <link>http://example.org/location/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/location/</guid>
+      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eros ex, mattis et scelerisque non, hendrerit id eros. Etiam maximus arcu vel risus finibus accumsan aliquet id justo. Phasellus orci leo, accumsan eu feugiat vel, dictum non nibh. Mauris lacinia nibh interdum neque aliquam tincidunt. Sed dignissim ante a elit ornare, non placerat mi porta. Aliquam congue mollis velit, eget bibendum augue mollis id. Nullam volutpat enim in sapien placerat tempus.</description>
+    </item>
+    
+    <item>
+      <title>Program</title>
+      <link>http://example.org/program/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/program/</guid>
+      <description>WED, 03.01. Reception Etiam sollicitudin metus non felis feugiat, at tincidunt nibh posuere. Mauris mollis ligula nec lectus imperdiet, a tincidunt felis luctus. Sed pretium nisi et odio euismod, quis semper orci ultricies. Vivamus faucibus pharetra ultrices. Maecenas sodales augue turpis, ut laoreet metus tincidunt eget. Morbi ac justo laoreet, finibus massa mollis, mollis lectus. Etiam vel pulvinar ipsum. Maecenas tempus felis non dignissim dictum. Cras et feugiat magna.
+THU, 04.</description>
+    </item>
+    
   </channel>
 </rss>
