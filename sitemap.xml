@@ -2,15 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://remalue.github.io/accomodation/</loc>
-  </url><url>
-    <loc>https://remalue.github.io/</loc>
-  </url><url>
     <loc>https://remalue.github.io/categories/</loc>
   </url><url>
-    <loc>https://remalue.github.io/location/</loc>
-  </url><url>
-    <loc>https://remalue.github.io/program/</loc>
+    <loc>https://remalue.github.io/</loc>
   </url><url>
     <loc>https://remalue.github.io/tags/</loc>
   </url>
