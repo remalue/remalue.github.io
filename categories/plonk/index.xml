@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plonk on Reinhard Lüftenegger</title>
+    <link>https://remalue.github.io/categories/plonk/</link>
+    <description>Recent content in Plonk on Reinhard Lüftenegger</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Dec 2025 02:00:11 +0100</lastBuildDate>
+    <atom:link href="https://remalue.github.io/categories/plonk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Batching Techniques in PLONK</title>
+      <link>https://remalue.github.io/blog/batching_plonk/</link>
+      <pubDate>Wed, 30 Oct 2024 09:20:31 +0100</pubDate>
+      <guid>https://remalue.github.io/blog/batching_plonk/</guid>
+      <description>&lt;p&gt;The PLONK protocol uses batching techniques in several places. Generally speaking, batching allows to combine multiple different checks (or instances) into a single one. Conceptually, it can be compared to a &lt;em&gt;compression&lt;/em&gt; (or &lt;em&gt;folding&lt;/em&gt;) of instances, where the validity of a single batched instance attests to the validity of all input instances. In this article, we use the terms &amp;ldquo;compression&amp;rdquo;, &amp;ldquo;batching&amp;rdquo;, and &amp;ldquo;folding&amp;rdquo; synonymously.&lt;/p&gt;&#xA;&lt;p&gt;Let us exemplify the underlying idea before we explore how PLONK leverages batching. Assume we want to check that all numbers in the sequence $(a_1,\ldots,a_n)\in\mathbb R^n$ of real numbers are zero. How can we do that? Naively, we could apply $n$ zero checks&#xA;$$&#xA;a_1\stackrel{?}{=}0,\ldots,a_n\stackrel{?}{=}0.&#xA;$$&#xA;The point is, we can also do that in a &lt;em&gt;single&lt;/em&gt; zero check. The underlying idea is very powerful and widely used across the domain of (zero-knowledge) argument systems. It works by taking a &lt;em&gt;random&lt;/em&gt; linear combination of the numbers $a_1,\ldots,a_n$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Permutation Check in PLONK</title>
+      <link>https://remalue.github.io/blog/permutation_check_plonk/</link>
+      <pubDate>Fri, 25 Oct 2024 13:41:10 +0200</pubDate>
+      <guid>https://remalue.github.io/blog/permutation_check_plonk/</guid>
+      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;Notation&lt;/div&gt;&#xA;&lt;p&gt;Let $\mathbb F$ denote a field and let $\mathbb F_p$ denote a prime field with $p$ elements.&lt;/p&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;One of the cornerstones of &lt;a href=&#34;https://eprint.iacr.org/2019/953.pdf&#34;&gt;PLONK&lt;/a&gt; is an efficient statistical test for checking if two vectors $(a_1,\ldots,a_m), (b_1,\ldots,b_m)\in\mathbb F_p^m$ are a fixed and specified permutation $\sigma\in\mathcal{S}_m$ of each other, i.e., for checking that&#xA;$$&#xA;\forall i\in\{1,\ldots,m\}: a_{\sigma(i)} = b_i.&#xA;$$&lt;/p&gt;&#xA;&lt;p&gt;We use the shorthand notation $\sigma(a) = b$ for this statement. This statistical test implicitly uses the following Lemma.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

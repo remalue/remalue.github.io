@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Reinhard Lüftenegger personal website">
+<meta name="keywords" content="cryptography, mathematics, research, security">
+
+
+  
+    <title>
+      Batching Techniques in PLONK &middot; Reinhard Lüftenegger
+    </title>
+  
+
+
+<meta name="generator" content="Hugo 0.152.2">
+
+
+
+<script>
+  MathJax = {
+    
+    tex: {
+      packages: {'[+]': ['amsthm',]},
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+      
+      
+      tags: "ams",
+      macros: {
+        qed: "\\blacksquare",
+        coloneqq: "\\mathrel{\\vcenter{:}}=",
+        eqqcolon: "=\\mathrel{\\vcenter{:}}\\mkern2mu",
+        qex: "\\square",
+      }
+    },
+    
+    
+    
+  };
+</script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="../../css/local-fonts.css">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../fonts/inter/inter.css">
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+<link rel="shortcut icon" href="../../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
+<link rel="manifest" href="../../site.webmanifest" />
+
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
+</head>
+
+
+
+
+
+
+<body lang="en-us">
+
+    
+<nav class="navbar navbar-expand-sm navbar-light" id="head-navbar">
+<div class="container-fluid">
+  
+    
+    <div id="head-toggle-button">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav">
+
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+            <li class="nav-item top">
+                <div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="theme-toggle-container">
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
+    </div>
+</div>
+</nav>
+
+    <main>
+    <div class="outer-container">
+        <div class="left-container"></div>
+        <div class="middle-container">
+        
+<header class="text-left title">
+  <div class="title">Batching Techniques in PLONK</div>
+  <h3 class="subtitle"> Via Random Many-to-One Compression </h3>
+</header>
+<section id="category-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+      
+        OCT 30, 2024
+      
+      
+      
+      
+      —
+      
+      
+      <a class="meta" href="../../categories/plonk">PLONK</a>, 
+      
+      <a class="meta" href="../../categories/zk">ZK</a>
+      
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="">
+  <div class="col-md-12 text-justify content">
+    
+    <div><br><div>
+    <p>The PLONK protocol uses batching techniques in several places. Generally speaking, batching allows to combine multiple different checks (or instances) into a single one. Conceptually, it can be compared to a <em>compression</em> (or <em>folding</em>) of instances, where the validity of a single batched instance attests to the validity of all input instances. In this article, we use the terms &ldquo;compression&rdquo;, &ldquo;batching&rdquo;, and &ldquo;folding&rdquo; synonymously.</p>
+<p>Let us exemplify the underlying idea before we explore how PLONK leverages batching. Assume we want to check that all numbers in the sequence $(a_1,\ldots,a_n)\in\mathbb R^n$ of real numbers are zero. How can we do that? Naively, we could apply $n$ zero checks
+$$
+a_1\stackrel{?}{=}0,\ldots,a_n\stackrel{?}{=}0.
+$$
+The point is, we can also do that in a <em>single</em> zero check. The underlying idea is very powerful and widely used across the domain of (zero-knowledge) argument systems. It works by taking a <em>random</em> linear combination of the numbers $a_1,\ldots,a_n$.</p>
+<p>Suppose we check the random linear combination
+$$
+a_1+\lambda_1\cdot a_2 + \cdots + \lambda_{n-1}\cdot a_n\stackrel{?}{=} 0
+$$
+for uniformly and independently random $\lambda_1,\ldots,\lambda_{n-1}\in S\subseteq\mathbb R$, where $S$ is finite. Then with high confidence we can infer that all $a_i$ are zero if and only if the random linear combination is zero. I.e., we have
+$$
+a_1+\lambda_1\cdot a_2 + \cdots + \lambda_{n-1}\cdot a_n\stackrel{\text{high confidence}}{\Longleftrightarrow} a_1=\cdots=a_n=0.
+$$
+How strong our confidence will be, crucially depends on the size of the set $S$. For a more detailed (and technical) explanation why this works see the write-up on the <a href="../../blog/szdl">Schwartz-Zippel-DeMillo-Lipton Lemma</a>. And for a visualization (as well as a fun quiz) take a <a href="../../blog/random_walk">Random Walk Home</a>.</p>
+<div class="callout callout-note">
+  <div class="callout-note-title">Different Batching (or Compression) Modes</div>
+<p>There is more than one way to compress the input instances. So far, we have seen the technique to take a random linear combination
+$$
+a_1+\lambda_1\cdot a_2 + \cdots + \lambda_{n-1}\cdot a_n,
+$$
+for independent and random $\lambda_1,\ldots,\lambda_{n-1}\in\mathbb F_p$. Another approach is to use successive powers of a random element $\lambda\in\mathbb F_p$, i.e.,
+$$
+a_1+\lambda\cdot a_2 + \cdots + \lambda^{n-1}\cdot a_n.
+$$
+This is perfectly admissible as well (but comes with a different soundness error). If we write above checks in terms of the underlying polynomials, the difference becomes apparent. In the first case, we have
+$$
+a_1+X_1\cdot a_2 + \cdots + X_{n-1}\cdot a_n \in\mathbb F_p[X_1,\ldots,X_{n-1}].
+$$
+And for the second case we get
+$$
+a_1+X\cdot a_2 + \cdots + X^{n-1}\cdot a_n \in\mathbb F_p[X].
+$$
+We call the first mode <em>affine</em> (or <em>linear</em>) batching. On the polynomial level, it introduces $n-1$ new variables to separate (or discriminate) the individual instances. The second mode is called <em>algebraic</em> (or <em>parametric</em>) batching. It introduces only a single new variable and separates the input instances via successive powers of this new variable.</p>
+<p>The soundness error is $1/ |\mathbb F|$ in the first case, and $(n-1)/{|\mathbb F|}$ in the second one.</p>
+</div>
+<p>Let us return to our main inquiry and see where and how PLONK employs batching techniques. PLONK uses batching for:</p>
+<ol>
+<li>Batch identity testing $f_1=0,\ldots,f_k=0$.</li>
+<li>Batch opening commitments $C_1,\ldots,C_l$ to $f_1,\ldots,f_l$ at point $w$.</li>
+<li>Batch verifying openings $f_1(w_1)=y_1,\ldots,f(w_m)=y_m$ with commitments $C_1,\ldots,C_m$.</li>
+</ol>
+<p>In the remainder of this article, we elaborate on each of these batching techniques. The principle is always the same:</p>
+<ul>
+<li>take a random parametric combination of the instances to check,</li>
+<li>do the check on the batched instance,</li>
+<li>infer a statement about the input instances and derive soundness error through the <a href="../../blog/szdl">Schwartz-Zippel-DeMillo-Lipton Lemma</a>.</li>
+</ul>
+<div class="callout callout-note">
+  <div class="callout-note-title">Nomenclature</div>
+<p>We use the abbreviation &ldquo;w.h.c.&rdquo; to denote &ldquo;with high confidence&rdquo;. The notion of <em>confidence</em> (or <em>likelihood</em>) is relevant in our setting of probabilistic polynomial identity testing. In this setting, we test the polynomial identity claim $F=0$ by checking if $F(u_1,\ldots,u_n)=0$ at independent and random $u_1,\ldots,u_n$.</p>
+<p>This statistical test has a certain (soundness) error $\beta$, i.e., an error that we wrongly accept a non-zero polynomial as the zero polynomial. We thus speak of <em>confidence</em> in this test, or the <em>likelihood</em> that this test correctly detects the zero-polynomial. If the evaluation check at a certain point holds, we may say &ldquo;the confidence (or likelihood ) that $F$ is the zero polynomial is $1-\beta$&rdquo;.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+</div>
+<h1 id="batch-identity-testing">Batch Identity Testing</h1>
+<p>Let $f_1,\ldots, f_k\in\mathbb F_p[X]$. How can we check the $k$ polynomial identities
+$$
+f_1(X) = 0,\ldots,f_k(X)=0?
+$$
+Naively applying a statistical test, we can test each identity probabilistically and conduct $k$ checks
+$$
+f_1(\alpha)=0,\ldots,f_k(\alpha)=0.
+$$
+at a random point $\alpha\in\mathbb F_p$. However, there is a possibility to compress all $k$ checks into a single check. We view the problem as the following polynomial identity:
+$$
+0 = f_1(X)+Y\cdot f_2(X)+\cdots+Y^{k-1}\cdot f_k(X)\in\mathbb F_p[X,Y].
+$$
+This gives us
+$$
+\begin{alignat*}{3}
+&amp;\forall i=1,\ldots,k: f_i(X)=0\\
+&amp;\Longleftrightarrow f_1(X)+Y\cdot f_2(X)+\cdots+Y^{k-1}\cdot f_k(X)=0 &amp;&amp;\quad (\text{in }\mathbb F_p[X,Y]) \\
+&amp;\stackrel{w.h.c}{\Longleftrightarrow} f_1(X)+\beta\cdot f_2(X)+\cdots+\beta^{k-1}\cdot f_k(X)=0 &amp;&amp;\quad (\text{in }\mathbb F_p[X]) \\
+&amp;\stackrel{w.h.c}{\Longleftrightarrow} f_1(\alpha)+\beta\cdot f_2(\alpha)+\cdots+\beta^{k-1}\cdot f_k(\alpha)=0 &amp;&amp;\quad (\text{in }\mathbb F_p)
+\end{alignat*}
+$$
+for independent and uniformly random $\alpha,\beta\in\mathbb F_p$.</p>
+<h1 id="batch-opening-commitments">Batch Opening Commitments</h1>
+<p>Given commitments $C_1,\ldots, C_l$ to $f_1,\ldots,f_l$, how to open all of them at $w$? The naive method constructs $l$ different quotient polynomials $q_1(X),\ldots,q_l(X)$ such that
+$$
+\forall i=1,\ldots,l: f_i(X)-f_i(w)=q_i(X)(X-w).
+$$
+The opening, then, consists of the evaluation $y_i\coloneqq f_i(w)$ and (commitments to) the quotient polynomials $q_i(X)$, for $i=1,\ldots,l$.</p>
+<p>Instead of creating $l$ different quotients $q_1(X),\ldots,q_l(X)$, we may generate a single quotient polynomial $q(X)\in\mathbb F_p[X]$ arising from the identity
+$$
+\sum_{i=1}^l \beta^{i-1}\cdot (f_i(X)-y_i) = q(X)\cdot (X-w),
+$$
+for a uniformly random $\beta\in\mathbb F_p$. Let us explore why this is admissible. For $y_i\coloneqq f_i(w)$ it holds
+$$
+\begin{alignat}{1}
+&amp;\forall i=1,\ldots,l: f_i(w)=y_i\\
+&amp;\Longleftrightarrow \forall i=1,\ldots,l: f_i(X)-y_i=q_i(X)(X-w)\\
+&amp;\Longleftrightarrow \forall i=1,\ldots,l: (X-w)\mid (f_i(X)-y_i)\\
+&amp;\label{eq:sum-divisor}\Longleftrightarrow (X-w)\mid \sum_{i=1}^l Y^{i-1}\cdot (f_i(X)-y_i)\\
+&amp;\Longleftrightarrow \sum_{i=1}^l Y^{i-1}\cdot (f_i(X)-y_i) = q(X,Y)\cdot (X-w)\quad (\text{for some }q\in\mathbb F_p[X,Y])\\
+&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^l \beta^{i-1}\cdot (f_i(X)-y_i) = q(X,\beta)\cdot (X-w)\quad (\text{for random }\beta\in\mathbb F_p)\\
+&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^l \beta^{i-1}\cdot (f_i(\alpha)-y_i) = q(\alpha,\beta)\cdot (\alpha-w).\quad (\text{for random }\alpha,\beta\in\mathbb F_p)
+\end{alignat}
+$$
+Only the equivalence in \eqref{eq:sum-divisor} deserves a more detailed explanation. We give a proof here.</p>
+<p><code>Claim.</code>
+$$
+\forall i=1,\ldots,l: (X-w)\mid g_i(X)
+\Longleftrightarrow (X-w)\mid \sum_{i=1}^l Y^{i-1}\cdot g_i(X)
+$$
+<code>Proof.</code> The direction &quot; $\Longrightarrow$&quot; is clear. For the direction &ldquo;$\Longleftarrow$&rdquo; we use induction over $l$. For $l=1$, the claim is clear. Now suppose the claim holds for $l$. We show that it holds for $l+1$. We have
+$$
+\begin{aligned}
+&amp;(X-w)\mid \sum_{i=1}^{l+1} Y^{i-1} g_i(X)\\
+&amp;\Longrightarrow \sum_{i=1}^{l+1} Y^{i-1} g_i(X) = q(X,Y)\cdot(X-w)\\
+&amp;\stackrel{Y=0}{\Longrightarrow} g_1(X) = q(X,0)\cdot (X-w)
+\end{aligned}
+$$
+This means, $(X-w)\mid g_1(X)$. Hence, we can write
+$$
+\begin{aligned}
+&amp;\sum_{i=2}^{l+1} Y^{i-1}\cdot g_i(X) = (q(X,Y)-q(X,0))\cdot(X-w)\\
+&amp;\Longrightarrow (X-w)\mid Y\cdot\sum_{i=1}^{l} Y^{i-1} g_{i+1}(X)\\
+&amp;\Longrightarrow (X-w)\mid \sum_{i=1}^{l} Y^{i-1} g_{i+1}(X)\quad (\text{since }\text{gcd}(X-w,Y)=1)\\
+&amp;\stackrel{I.H.}{\Longrightarrow}(X-w)\mid g_2(X),\ldots,g_l(X).\qed
+\end{aligned}
+$$</p>
+<h1 id="batch-verifying-openings">Batch Verifying Openings</h1>
+<p>How to verify that $f_1(w)=y_1, \ldots,f_m(w)=y_m$ given commitments $C_1,\ldots,C_m$ to $f_1,\ldots,f_m$ and commitments $Q_1,\ldots,Q_m$ to quotients $q_1,\ldots,q_m$? Naively, we can carry out $m$ pairing checks
+$$
+\begin{align}
+\label{eq:m-checks}
+\forall i=1,\ldots,m: e(C_i,g)=e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i},
+\end{align}
+$$
+where $g_2^{\tau}$ is (one of the powers) created during the setup ceremony of PLONK. However, we can also combine these $m$ checks into a single one as follows.</p>
+<p>We first observe that for any $i=1,\ldots,m$ it holds
+$$
+\begin{aligned}
+&amp;e(C_i,g_2)= e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i} \\
+% \Longleftrightarrow\quad &amp;e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\
+\Longleftrightarrow\quad &amp;e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g^{\tau}/g_2^w) \\
+% \Longleftrightarrow\quad &amp;e(g_1,g_2)^{f_i(\tau)}\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g^{\tau}/g_2^w) \\
+% \Longleftrightarrow\quad &amp;e(g_1,g_2)^{f_1(\tau)-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\
+% \Longleftrightarrow\quad &amp;e\left(C_i/g_1^{y_i},g_2\right) = e(Q_i,g_2^{\tau}/g_2^w) \\
+\Longleftrightarrow\quad &amp;e\left(C_i/g_1^{y_i},g_2\right) = e(Q_i,g_2^{\tau})\cdot e(Q_i,g_2^{w})^{-1} \\
+\Longleftrightarrow\quad &amp;e\left(C_i/g_1^{y_i}\cdot Q_i^w,g_2\right) = e(Q_i,g_2^{\tau}). \\
+\end{aligned}
+$$
+Furthermore, it holds
+$$
+\begin{aligned}
+f_i(w) = y_i &amp;\Longleftrightarrow f_1(X)-y_1=q_i(X)\cdot (X-w)\\
+&amp;\Longleftrightarrow \underbrace{f_1(X)-y_1-q_i(X)\cdot (X-w)}_{\eqqcolon F_i(X)}=0.\\
+\end{aligned}
+$$
+Crucially, for combining above $m$ checks into a single one, we use the equivalences
+$$
+\begin{aligned}
+&amp;\forall i=1,\ldots,m: f_i(w) = y_i\\
+&amp;\stackrel{}{\Longleftrightarrow} \sum_{i=1}^m Y^{i-1}\cdot F_i(X)=0 \quad(\text{in }\mathbb F_p[X,Y])\\
+&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^m \beta^{i-1}\cdot F_i(X)=0 \quad(\text{in }\mathbb F_p[X])
+\end{aligned}
+$$
+for random $\beta\in\mathbb F_p$. Rewriting the last equivalence gives us
+$$
+\begin{aligned}
+&amp; \underbrace{\sum_{i=1}^m \beta^{i-1}\cdot(f_i(X)-y_i)}_{\eqqcolon f(X)} = (X-w)\cdot \underbrace{\sum_{i=1}^m \beta^{i-1}\cdot q_i(X)}_{\eqqcolon q(X)}.\\
+% \Longleftrightarrow\quad &amp; f_1(\alpha)-y_1-Q_1(\alpha) w + \beta\cdot (f_2(\alpha)-y_2-Q_2(\alpha) w) = \alpha Q_1(\alpha) + \beta\cdot \alpha Q_2(\alpha)
+\end{aligned}
+$$
+In this form, $\eqref{eq:m-checks}$ is equivalent to
+$$
+\begin{aligned}
+e\left(C/g_1^{0}\cdot Q^w,g_2\right) = e(Q,g_2^{\tau}),
+\end{aligned}
+$$
+where $C$ is the commitment to $f(X)$, and $Q$ is the commitment to $q(X)$. We can compute $C$ via the commitments $C_1,\ldots, C_m$
+$$
+C = g_1^{f(\tau)} = \prod_{i=1}^m \left(\frac{g_1^{f_i(\tau)}}{g_1^{y_i}}\right)^{\beta^{i-1}} = \prod_{i=1}^m \left(\frac{C_i}{g_1^{y_i}}\right)^{\beta^{i-1}} ,
+$$
+and $Q$ via the commitments $Q_1,\ldots,Q_m$
+$$
+Q = g_1^{q(\tau)} = g_1^{\sum_{i=1}^m \beta^{i-1} q_i(\tau)} = \prod_{i=1}^m g_1^{\beta^{i-1} q_i(\tau)} = \prod_{i=1}^m Q_i^{\beta^{i-1}}.
+$$
+To conclude, verifying the opening $y=f(w)=0$ of $f(X)$ at $w$ can be done via the pairing check
+$$
+\begin{aligned}
+e\left(C / g_1^0\cdot Q^w, g_2\right)
+= e\left(\prod_{i=1}^m (C_i/g_1^{y_i}\cdot Q_i^w)^{\beta^{i-1}},g_2\right)
+= e\left(\prod_{i=1}^m Q_i^{\beta^{i-1}}, g_2^\tau\right)
+= e\left(Q, g_2^{\tau}\right).
+\end{aligned}
+$$</p>
+<!-- ############### -->
+<!-- Footnotes -->
+<!-- ############### -->
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>We could also use the word &ldquo;probability&rdquo; instead of confidence (or likelihood). However, if a given polynomial $F$ evaluates to zero at random $u_1,\ldots,u_n$ we believe that saying &ldquo;the probability that $F$ is the zero polynomial&rdquo; might be misleading. After all, the polynomial $F$ is given and fixed. Hence, the probability that $F=0$ is either $1$ if $F=0$ or $0$ if $F\neq 0$. The randomness in this experiment refers to repeatedly selecting $u_1,\ldots,u_n$ and testing if $F(u_1,\ldots,u_n)=0$. Considering the case distinction at the end of the article on the <a href="../../blog/szdl">Schwartz-Zippel-DeMillo-Lipton Lemma</a>, we can now meaningfully speak of, e.g., &ldquo;the probability that $F(u_1,\ldots,u_n)=0$ under the premise that $F=0$&rdquo;. We believe, the formulation &ldquo;the confidence (or likelihood) that $F$ is the zero polynomial&rdquo; more accurately expresses the fact that the involved (error) probabilities refer to the statistical test itself. In other words, we derive the confidence (or likelihood) for the claim $F=0$ from the confidence in the underlying statistical test.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+</section>
+<section id="tag-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+    </h6>
+  </div>
+  
+</section>
+
+        
+
+        
+
+        
+        </div>
+        <div class="right-container">
+            
+            
+        </div>
+    </div>
+    </main>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer">
+  
+  
+  
+  <div class="text-center crypto" style="font-family: 'Noto Sans'; font-weight: 300;">
+    <a href="../../cryptography">/kr&#618;pt&#594;&#720;gr&#601;fi/</a>
+  </div>
+  
+  <div class="text-center copyright">
+    ©2026 Reinhard Lüftenegger.
+    Some <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Rights</a> Reserved.
+  </div>
+  
+  
+  <div class="text-center powered">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+    
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+</body>
+
+
+
+</html>

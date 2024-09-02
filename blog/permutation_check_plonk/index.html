@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Reinhard Lüftenegger personal website">
+<meta name="keywords" content="cryptography, mathematics, research, security">
+
+
+  
+    <title>
+      The Permutation Check in PLONK &middot; Reinhard Lüftenegger
+    </title>
+  
+
+
+<meta name="generator" content="Hugo 0.152.2">
+
+
+
+<script>
+  MathJax = {
+    
+    tex: {
+      packages: {'[+]': ['amsthm',]},
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+      
+      
+      tags: "ams",
+      macros: {
+        qed: "\\blacksquare",
+        coloneqq: "\\mathrel{\\vcenter{:}}=",
+        eqqcolon: "=\\mathrel{\\vcenter{:}}\\mkern2mu",
+        qex: "\\square",
+      }
+    },
+    
+    
+    
+  };
+</script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="../../css/local-fonts.css">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../fonts/inter/inter.css">
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+<link rel="shortcut icon" href="../../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
+<link rel="manifest" href="../../site.webmanifest" />
+
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
+</head>
+
+
+
+
+
+
+<body lang="en-us">
+
+    
+<nav class="navbar navbar-expand-sm navbar-light" id="head-navbar">
+<div class="container-fluid">
+  
+    
+    <div id="head-toggle-button">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav">
+
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+            <li class="nav-item top">
+                <div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="theme-toggle-container">
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
+    </div>
+</div>
+</nav>
+
+    <main>
+    <div class="outer-container">
+        <div class="left-container"></div>
+        <div class="middle-container">
+        
+<header class="text-left title">
+  <div class="title">The Permutation Check in PLONK</div>
+  <h3 class="subtitle">  </h3>
+</header>
+<section id="category-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+      
+        OCT 25, 2024
+      
+      
+      
+      
+      —
+      
+      
+      <a class="meta" href="../../categories/plonk">PLONK</a>, 
+      
+      <a class="meta" href="../../categories/zk">ZK</a>
+      
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="">
+  <div class="col-md-12 text-justify content">
+    
+    <div><br><div>
+    <div class="callout callout-note">
+  <div class="callout-note-title">Notation</div>
+<p>Let $\mathbb F$ denote a field and let $\mathbb F_p$ denote a prime field with $p$ elements.</p>
+</div>
+<p>One of the cornerstones of <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a> is an efficient statistical test for checking if two vectors $(a_1,\ldots,a_m), (b_1,\ldots,b_m)\in\mathbb F_p^m$ are a fixed and specified permutation $\sigma\in\mathcal{S}_m$ of each other, i.e., for checking that
+$$
+\forall i\in\{1,\ldots,m\}: a_{\sigma(i)} = b_i.
+$$</p>
+<p>We use the shorthand notation $\sigma(a) = b$ for this statement. This statistical test implicitly uses the following Lemma.</p>
+<p><code>Lemma.</code>
+Let $\mathbb F$ be a field and let $\mathbb F[X,Y]$ be the polynomial ring over $\mathbb F$ in variables $X,Y$. Furthermore, let $a_i,b_i\in\mathbb F$, for $i\in\{1,\ldots,m\}$, and let $\sigma\in S_m$ be a permutation. Then for any pairwise distinct $u_1,\ldots,u_m\in\mathbb F$ we have
+$$\prod_{i=1}^m (a_i + u_i X + Y) = \prod_{i=1}^m (b_i + u_{\sigma(i)} X + Y) \Longleftrightarrow \sigma(a)=b.$$</p>
+<p><code>Proof.</code>
+Since $\sigma\in S_m$ is a permutation, it holds
+$$
+\prod_{i=1}^m (a_i + u_i X + Y) = \prod_{i=1}^m (a_{\sigma(i)} + u_{\sigma(i)} X + Y).
+$$
+The direction &ldquo;$\Longleftarrow$&rdquo; is, hence, clear. Indeed, since $a_{\sigma(i)}=b_i$, for all $i\in\{1,\ldots,m\}$, the statement follows immediately. For the direction &ldquo;$\Longrightarrow$&rdquo; we consider the following. The ring $\mathbb F[X,Y]$ is a unique factorization domain, and every factor in the products
+$$
+\prod_{i=1}^m (a_i + u_i X + Y),\; \prod_{i=1}^m (b_i + u_{\sigma(i)} X + Y)
+$$
+is irreducible. Furthermore, both products are monic in the variable $Y$. Since $u_1,\ldots,u_m$ are pairwise distinct, there is a bijective correspondence between the factors on the left and right side. This correspondence is given by
+$$
+a_{\sigma(i)} + u_{\sigma(i)} X + Y = b_i + u_{\sigma(i)} X + Y,
+$$
+for all $i\in\{1,\ldots,m\}$. As a consequence $a_{\sigma(i)}=b_i$, for all $i$. $\qed$</p>
+<p>In PLONK, we use above permutation check to prove the correct wiring of gates, i.e., that witness variables are set (or copied) correctly across multiple gates. Let&rsquo;s say we have in total $m$ witness variables $(w_1,\ldots,w_m)$. Then, we can apply above permutation check lemma with the premise
+$$
+w\coloneqq(w_1,\ldots,w_m)=(a_1,\ldots,a_m)=(b_1,\ldots,b_m)
+$$
+Hence, we are proving that $\sigma(w)=w$.</p>
+<p>The equalities between witness variables define an equivalence relation $\equiv$ on the index set $\{1,\ldots, m\}$ as follows:
+$$
+i\equiv j :\Longleftrightarrow w_i=w_j.
+$$
+This equivalence relation $\equiv$ partitions the index set ${{1,\ldots,3n}}$ into a set of <em>disjoint</em> equivalence classes $[i_1]_{\equiv},\ldots,[i_t]_{\equiv}$ with
+$$
+[i]_\equiv\coloneqq \{j\in\{1,\ldots,m\} : j=i \},
+$$
+and such that
+$$
+\{1,\ldots,m\} = \bigcup_{k=1}^t[i_k]_\equiv
+$$
+We define a permutation $\sigma\in S_m$ based on these equivalence classes as the following product of cycles:
+$$
+\sigma = ([i_1]_\equiv)\cdots([i_t]_\equiv).
+$$
+The ordering of indices within a cycle doesn&rsquo;t matter. This is also the reason why $\sigma$ is not unique for a given equivalence relation. Cycles of length $1$ are not explicitly written down in the cycle notation.</p>
+<p>In other words, two witness variables are equal (i.e., copied) if and only if the corresponding indices belong to the same cycle in $\sigma$. The indices of uncopied variables are left untouched.</p>
+<p><code>Example.</code> Let&rsquo;s say $m=6$ and it holds $w_1=w_3$. In this case, the permutation $\sigma\in\mathcal{S}_6$ is given by
+$$
+\sigma = (13).
+$$
+Assuming that, additionally, it holds $w_3=w_4$, we have
+$$
+\sigma = (134).
+$$
+But also the following definition of $\sigma$ encoded the copy constraints correctly:
+$$
+\sigma = (143).
+$$</p>
+<div class="callout callout-note">
+  <div class="callout-note-title">Roots of Unity as Evaluation Domain</div>
+<p>PLONK represents each column of the execution trace (or gate table) as a polynomial. The evaluation domain to obtain this polynomial representation are the powers $$H\coloneqq\{1, \omega,\omega^2,\ldots,\omega^{n-1}\}$$ of a primitive $n$-th root of unity $\omega$, usually taken from the multiplicative subgroup of the scalar field of an elliptic curve group.</p>
+</div>
+<p>For $n$ (vanilla) PLONK gates, the table layout of the gates consists of $n$ rows (one for each gate) and contains the $3$ witness columns
+$$
+\begin{aligned}
+W_1 \coloneqq (x_{1,1},\ldots,x_{1,n}),\quad
+W_2 \coloneqq (x_{2,1},\ldots,x_{2,n}),\quad
+W_3 \coloneqq (x_{3,1},\ldots,x_{3,n}).
+\end{aligned}
+$$
+These columns collect the left input, right input, and output of each (vanilla) PLONK gate
+$$
+s_{1,i}\cdot x_{1,i} + s_{2,i}\cdot x_{2,i} + s_{3,i}\cdot x_{3,i} + s_{4,i}\cdot x_{1,i} x_{2,i} + s_{5,i}.
+$$</p>
+<p>Each witness vector $W_i$ is encoded via the polynomial
+$$
+W_i(X)\coloneqq \sum_{j=1}^n\mathcal L_j(X)\cdot x_{i,j}
+$$
+over the evaluation domain ${\omega,\ldots,\omega^n}$. Here, the polynomials $\mathcal L_1(X),\ldots,\mathcal L_n(X)$ are the Lagrange basis polynomials for the $n$-dimensional $\mathbb F_p$-vector of all polynomials of degree at most $n-1$ with the property
+$$
+\mathcal L_j(\omega^k) =
+\begin{cases}
+1, &amp; j=k,\\
+0, &amp; \text{otherwise}.
+\end{cases}%
+$$</p>
+<p>To prove the correct wiring of the witness vectors $W_1,W_2,W_3$ in PLONK, we concatenate and combine them into a single vector $(W_1,W_2,W_3)$ of length $3n$.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> The goal is to apply the permutation argument to the combined vector $(W_1,W_2,W_3)$.</p>
+<p>The next figure illustrates this concatenation and, additionally, lists the evaluation domain of each $S_i$ when represented as a polynomial.</p>
+<img class="svg" src="../../img/initial_layout.svg" style="background-color: #fafafa;" alt="Copy constraints without shift"/>
+<p>We face the problem that each $W_i$ has the same evaluation domain $\omega,\ldots,\omega^n$. The permutation argument in above lemma, however, requires distinct elements $w_1,\ldots,w_{3n}$.</p>
+<p>We, therefore, choose $c_1,c_2\in\mathbb F_p$ such that the sets
+$$
+H \coloneqq \{\omega,\ldots,\omega^n\},\quad c_1H = \{c_1\omega,\ldots,c_1\omega^n\},\quad c_2H = \{c_2\omega,\ldots,c_2\omega^n\},
+$$
+are pairwise disjunct.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> Now, we have a domain of length $3n$ with truly distinct elements as the following figure depicts.</p>
+<!--  For notational purposes we write
+$$
+A\coloneqq (s_{1,1},\ldots,s_{1,n},s_{2,1},\ldots,s_{2,n},s_{3,1},\ldots,s_{3,n})
+$$
+and
+$$
+W\coloneqq (\omega,\ldots,\omega^n,c_1\omega,\ldots,c_1\omega^n,c_2\omega,\ldots,c_2\omega^n).
+$$ -->
+<img class="svg" src="../../img/shifted_layout.svg" style="background-color: #fafafa;" alt="Copy constraints with shift"/>
+<p>We define $w=(w_1,\ldots,w_{3n})$ with
+$$
+w_{(i-1)n+j} \coloneqq x_{i,j} = W_i(\omega^j),
+$$
+and $u=(u_1,\ldots,u_{3n})$ with
+$$
+u_{(i-1)n+j} \coloneqq c_i\omega^j,
+$$
+where $i=1,2,3$, $j=1,\ldots,n$, $c_0\coloneqq 1$, and $c_1,c_2$ as above. The vector $w$ contains all $3n$ witness variables and we assume that $\sigma$ encodes all copy constraints (i.e., equalities between variables in $a$).</p>
+<p>At this point, we could use the <a href="../../blog/szdl">Schwartz-Zippel-DiMello-Lipton Lemma</a> and check if</p>
+<p>$$
+\prod_{i=1}^{3n}( w_i + u_i\cdot \beta + \gamma) - \prod_{i=1}^{3n} (w_i + u_{\sigma(i)}\cdot\beta + \gamma) = 0
+$$
+for i.i.d. uniformly random $\beta,\gamma\in\mathbb F_p$. If the check held, with an error probability of at most $\frac{3n}{p}$ we could infer that the two involved polynomials are indeed identical and, hence, $\sigma(w)=w$. However, as we are going to discuss, the permutation check in PLONK doesn&rsquo;t stop here but reduces above zero check to a vanishing check.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+<p>For this vanishing check, we encode the vector $u$ and its permutation $\sigma(u)$ via, in total, $6$ polynomials over the domain $\{\omega,\ldots,\omega^n\}$:
+$$
+U_{\text{id},i}(X) \coloneqq c_{i-1}X,\quad i=1,2,3,
+$$
+and
+$$
+U_{\sigma,i}(X) \coloneqq \sum_{j=1}^n c_{i-1}\omega^{\sigma(j)}\cdot\mathcal{L}_j(X),\quad i=1,2,3.
+$$</p>
+<p>For notational purposes, we also define the polynomials in $\mathbb F_p[T,X,Y]$
+$$
+f(T,X,Y)\coloneqq \prod_{i=1}^{3} ( W_i(T) + U_{\text{id},i}(T)\cdot X + Y),
+$$
+and
+$$
+g(T,X,Y)\coloneqq \prod_{i=1}^{3} ( W_i(T) + U_{\sigma,i}(T)\cdot X + Y).
+$$</p>
+<p>This gives us
+$$
+\hspace{-1.3em}
+\begin{alignat*}{3}
+&amp;\prod_{i=1}^{3n}( w_i + u_i X + Y) &amp;&amp;= \prod_{i=1}^{3n} (w_i + u_{\sigma(i)} X + Y) \\
+\Longleftrightarrow\quad &amp;\prod_{j=1}^n\prod_{i=1}^{3} ( x_{i,j} + c_{i-1}\omega^j X + Y) &amp;&amp;= \prod_{j=1}^n\prod_{i=1}^{3} (x_{i,j} + c_{i-1}\omega^{\sigma(j)} X + Y)\\
+\Longleftrightarrow\quad &amp;\prod_{j=1}^n \underbrace{\prod_{i=1}^{3} ( W_i(\omega^j) + U_{\text{id},i}(\omega^j) X + Y)}_{= f(\omega^j,X,Y)}
+&amp;&amp;= \prod_{j=1}^n \underbrace{\prod_{i=1}^{3} (W_i(\omega^j) + U_{\sigma,i}(\omega^j) X + Y)}_{=g(\omega^j,X,Y)}\\
+\Longleftrightarrow\quad &amp;\prod_{j=1}^n f(\omega^j,X,Y) &amp;&amp;= \prod_{j=1}^n g(\omega^j,X,Y)\\
+\stackrel{w.h.c.}{\Longleftrightarrow}\quad &amp;\prod_{j=1}^n f(\omega^j,\beta,\gamma) &amp;&amp;= \prod_{j=1}^n g(\omega^j,\beta,\gamma)\quad{ \small(\text{for random $\beta,\gamma\in\mathbb F_p$})}\\
+\Longleftrightarrow\quad &amp;\frac{\prod_{j=1}^n f(\omega^j,\beta,\gamma)}{\prod_{j=1}^n g(\omega^j,\beta,\gamma)} &amp;&amp;= 1\quad{ \small(\text{assuming that }g(\omega^j,\beta,\gamma)\neq 0,\forall j)}.
+% \label{eq:inverse-check}\Longleftrightarrow\quad &amp;\frac{\prod_{j=1}^n f(\omega^j,X,Y)}{\prod_{j=1}^n g(\omega^j,X,Y)} &amp;&amp;= 1.
+\end{alignat*}
+$$</p>
+<!-- Here, we can think of $f(\omega^j, X,Y)$ as the evaluation of the polynomial $f(T,X,Y)$ at the point $T=\omega^j$. And similarly for $g(T,X,Y)$. -->
+<p>As a further processing step, the authors of PLONK define the polynomial $\Phi(T)$ in $\mathbb F_p[T]$</p>
+<!-- rational function $\Phi(S,X,Y)$ given by -->
+<p>$$
+\begin{alignat*}{2}
+&amp;\omega &amp;&amp;\mapsto 1,\\
+&amp;\omega^2 &amp;&amp;\mapsto \frac{f(\omega,\beta,\gamma)}{g(\omega,\beta,\gamma)},\\
+&amp;\omega^3 &amp;&amp;\mapsto \frac{f(\omega,\beta,\gamma)}{g(\omega,\beta,\gamma)}\cdot \frac{f(\omega^2,\beta,\gamma)}{g(\omega^2,\beta,\gamma)},\\
+1 = \;&amp;\omega^n &amp;&amp;\mapsto \frac{f(\omega,\beta,\gamma)}{g(\omega,\beta,\gamma)}\cdot\ldots\cdot \frac{f(\omega^{n-1},\beta,\gamma)}{g(\omega^{n-1},\beta,\gamma)}.\\
+\end{alignat*}
+$$
+If $\mathcal L_1(T),\ldots, \mathcal L_n(T)$ denote the Lagrange basis given by
+$$
+\mathcal L_i(T)\coloneqq \prod_{j=1,\ldots,n:\;j\neq i} \frac{T-\omega^j}{\omega^i-\omega^j},
+$$
+we can write
+$$
+\Phi(T) = \sum_{i=1}^n \mathcal L_i(T)\cdot\prod_{j=1}^{i-1}\frac{f(\omega^j,\beta,\gamma)}{g(\omega^j\beta,\gamma)}\in\mathbb F_p[T].
+$$</p>
+<!-- We will now make our lives a bit easier and simplify the notation a bit. Since
+$$
+\mathbb F_p[T,X,Y]\cong\mathbb F_p[X,Y][T]\subseteq\mathbb F_p(X,Y)[T]
+$$
+as rings, we can view $f(T,X,Y)$ and $g(T,X,Y)$ as elements in $\mathbb F_p(X,Y)[T]$. This allows us to "hide" to omit the variables $X,Y$ from the notation (for the moment), and just write $f(T)$ and $g(T)$ instead. -->
+<p>Now, above identity<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
+$$
+\frac{\prod_{j=1}^n f(\omega^j,\beta,\gamma)}{\prod_{j=1}^n g(\omega^j,\beta,\gamma)} = 1
+$$
+is equivalent to the proposition that for all $a\in H$ it holds</p>
+<ul>
+<li>$\mathcal L_1(a)\cdot (\Phi(a)-1)=0$,</li>
+<li>$\Phi(a)\cdot f(a,\beta,\gamma) - \Phi(\omega a)\cdot g(a,\beta,\gamma)=0$.</li>
+</ul>
+<p>This proposition is, in turn, equivalent to</p>
+<ul>
+<li>$\mathcal L_1(T)\cdot(\Phi(T)-1) = Q_1(T)\cdot Z_H(T)$,</li>
+<li>$\Phi(T)\cdot f(T,\beta,\gamma) - \Phi(\omega T)\cdot g(T,\beta,\gamma) = Q_2(T)\cdot Z_H(T)$,</li>
+</ul>
+<p>for certain $Q_1,Q_2\in\mathbb F_p[T]$ and
+$$
+Z_H(T)\coloneqq T^n-1 = \prod_{a\in H}(T-a)\in\mathbb F_p[T].
+$$</p>
+<p>For notational purposes, let&rsquo;s introduce
+$$
+C_1(T)\coloneqq \mathcal L_1(T)\cdot(\Phi(T)-1) - Q_1(T)\cdot Z_H(T),
+$$
+and
+$$
+C_2(T)\coloneqq \Phi(T)\cdot f(T,\beta,\gamma) - \Phi(\omega T)\cdot g(T,\beta,\gamma) - Q_2(T)\cdot Z_H(T).
+$$</p>
+<!-- 
+Even if $C_1$ and $C_2$ are rational, we can still use the [Schwartz-Zippel-DiMello-Lipton Lemma](/blog/szdl) for probabilistically checking the identities $C_1(T,X,Y)=C_2(T,X,Y)=0$.
+
+This is because for any rational function $R(T,X,Y)\in\mathbb F_p(T,X,Y)$ it holds
+$$
+\begin{alignat*}{1}
+&R(T,X,Y)=0\\\\
+\stackrel{w.h.c}{\Longleftrightarrow}\\; &R(\gamma,\alpha,\beta) = \frac{N(\gamma,\alpha,\beta)}{D(\gamma,\alpha,\beta)}=0\\\\
+\Longleftrightarrow\\; &N(\gamma,\alpha,\beta) = 0
+\end{alignat*}
+$$
+for random $\alpha,\beta,\gamma\in\mathbb F_p$ and assuming that $D(\gamma,\alpha,\beta)\neq 0$ (i.e., $(\gamma,\alpha,\beta)$ is not a pole of $R$). -->
+<div class="callout callout-summary">
+  <div class="callout-summary-title">Summary</div>
+<p>Checking the copy constraints in PLONK involves the following chain of equivalent identities:
+$$
+\begin{alignat*}{2}
+&amp; \sigma(w) = w \\
+&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \frac{\prod_{j=1}^n f(\omega^j,\beta,\gamma)}{\prod_{j=1}^n g(\omega^j,\beta,\gamma)} = 1{\small\quad(\text{for random $\beta,\gamma\in\mathbb F_p\wedge g(\omega^j,\beta,\gamma)\neq 0, \forall j$})}\\
+&amp;\Longleftrightarrow C_1(T) = C_2(T) = 0
+\end{alignat*}
+$$
+In practice, PLONK uses the last expressions (or $H$-ranged identities) to prove the copy constraints (i.e., the correct wiring of witness variables across multiple gates).</p>
+</div>
+<!-- ############### -->
+<!-- Footnotes -->
+<!-- ############### -->
+<!-- Since it holds $p-1=n\cdot r$, for some $r\in\mathbb N$, just pick $a,b\in\mathbb N$ with $a,b\neq 0\bmod r$ and $a\neq b\bmod r$.  -->
+<!-- [^5]: We convince ourselves about this last equivalence if we iteratively apply the algorithm for division with remainder in $\mathbb F_p[S,X,Y]$ (with variable ordering $S>Y>X$) for each $a\in H$. Then, for a polynomial $P(S,X,Y)$ we get the decomposition $P(S,X,Y) = (S-a)\cdot Q(S,X,Y) + R(X,Y)$. Since no term in $R$ is divisible by $S$, we have that $R=R(X,Y)$ is, indeed, a polynomial only in $X,Y$. Since $P(a,X,Y)=0$, we get $R(X,Y)=0$. We conclude, $(S-a)\mid P(S,X,Y)$. -->
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>By writing $(W_1,W_2,W_3)$ we slightly abuse notation here.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>This is possible. Pick any $c_1\notin H$ and, then, any $c_2\notin H\cup c_1H$.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>The authors of <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a> call this a <em>ranged polynomial protocol</em>.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>Again, we emphasize the condition that $g(\omega^j,\beta,\gamma)\neq 0$. In particular, the PLONK paper, assumes that $g(\omega^j,\beta,\gamma)\neq 0$ for randomly chosen elements $\beta,\gamma\in\mathbb F_p$. With high probability this will be the case. If not, the protocol is aborted, which introduces a negligible completeness error. In other words, PLONK is not perfectly complete, but (only) statistically complete.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+</section>
+<section id="tag-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+    </h6>
+  </div>
+  
+</section>
+
+        
+
+        
+
+        
+        </div>
+        <div class="right-container">
+            
+            
+        </div>
+    </div>
+    </main>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer">
+  
+  
+  
+  <div class="text-center crypto" style="font-family: 'Noto Sans'; font-weight: 300;">
+    <a href="../../cryptography">/kr&#618;pt&#594;&#720;gr&#601;fi/</a>
+  </div>
+  
+  <div class="text-center copyright">
+    ©2026 Reinhard Lüftenegger.
+    Some <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Rights</a> Reserved.
+  </div>
+  
+  
+  <div class="text-center powered">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+    
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+</body>
+
+
+
+</html>

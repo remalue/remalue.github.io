@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Reinhard Lüftenegger personal website">
+<meta name="keywords" content="cryptography, mathematics, research, security">
+
+
+  
+    <title>
+      Gröbner Bases (Made in Austria) &middot; Reinhard Lüftenegger
+    </title>
+  
+
+
+<meta name="generator" content="Hugo 0.152.2">
+
+
+
+<script>
+  MathJax = {
+    
+    tex: {
+      packages: {'[+]': ['amsthm',]},
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+      
+      
+      tags: "ams",
+      macros: {
+        qed: "\\blacksquare",
+        coloneqq: "\\mathrel{\\vcenter{:}}=",
+        eqqcolon: "=\\mathrel{\\vcenter{:}}\\mkern2mu",
+        qex: "\\square",
+      }
+    },
+    
+    
+    
+  };
+</script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="../../css/local-fonts.css">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../fonts/inter/inter.css">
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+<link rel="shortcut icon" href="../../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
+<link rel="manifest" href="../../site.webmanifest" />
+
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
+</head>
+
+
+
+
+
+
+<body lang="en-us">
+
+    
+<nav class="navbar navbar-expand-sm navbar-light" id="head-navbar">
+<div class="container-fluid">
+  
+    
+    <div id="head-toggle-button">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav">
+
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+            <li class="nav-item top">
+                <div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="theme-toggle-container">
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
+    </div>
+</div>
+</nav>
+
+    <main>
+    <div class="outer-container">
+        <div class="left-container"></div>
+        <div class="middle-container">
+        
+<header class="text-left title">
+  <div class="title">Gröbner Bases (Made in Austria)</div>
+  <h3 class="subtitle"> Solving Systems of Non-Linear Polynomial Equations </h3>
+</header>
+<section id="category-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+      
+        FEB 15, 2025
+      
+      
+      
+      
+      —
+      
+      
+      <a class="meta" href="../../categories/algebra">ALGEBRA</a>
+      
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="">
+  <div class="col-md-12 text-justify content">
+    
+    <nav id="TableOfContents"></nav>
+    
+    <div><br><div>
+    <p>First ideas related to Gröbner basis theory go back as early as the 1920s. The discovery of the concept behind Gröbner bases is independently credited to Heisuke Hironaka (Japan, 1964) and Bruno Buchberger (Austria, 1965). It seems, history (or, at least, the naming convention) has favoured the Austrian researcher in this regard. After all, Wolfgang Gröbner, the PhD supervisor of Bruno Buchberger, is the namesake of what we call Gröbner bases today&hellip;</p>
+<h1 id="gröbner-bases-and-cryptography">Gröbner Bases and Cryptography</h1>
+<p>Before I give some intuition about Gröbner bases, let us discuss why they are important and what they are used for in cryptography. Briefly speaking, cryptographers use Gröbner bases as a tool for (symbolically) solving systems of polynomial equations.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> But why are systems of polynomial equations important in cryptography?</p>
+<p>The overwhelming majority of symmetric cryptographic primitives (like block ciphers, stream ciphers, hash functions, cryptographic permutations) as well as many asymmetric cryptosystems (like public-key encryption schemes, digital signature schemes, key-encapsulation mechanisms) can be modeled as a system of polynomial equations (over a finite field). Such a model can be used to analyze the security of the underlying cryptosystem (and, potentially, to break it).<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> Cryptography researchers usually call this type of analysis <em>algebraic cryptanalysis</em>.</p>
+<p>The authors of <a href="https://doi.org/10.1007/978-3-540-93806-4_17">[CW09]</a> attribute the first documented use of Gröbner bases in symmetric cryptography to <a href="https://doi.org/10.1007/BFb0055729">[SK98]</a>, as an improvement over the linear cryptanalysis of the Data Encryption Standard (DES). The adoption of Rijndael as the Advanced Encryption Standard (the successor of DES) in 2002 <a href="https://doi.org/10.1007/978-3-662-60769-5">[DJ02]</a>, together with the simple algebraic structure of Rijndael, motivated a considerable amount of research on algebraic cryptanalysis, and, in particular, on Gröbner basis techniques. Some relevant research results from this time are <a href="https://doi.org/10.1007/3-540-36178-2_17">[COP02]</a>, <a href="https://doi.org/10.1007/3-540-36552-4_13">[C02]</a>, <a href="https://doi.org/10.1007/978-3-540-30539-2_24">[AFI+04]</a>, <a href="https://doi.org/10.1007/978-0-387-36842-9">[CMR06]</a>, <a href="https://doi.org/10.1007/11799313_6">[BPW06]</a>.</p>
+<p>Starting around 2015, the increasing popularity of &ldquo;algebraic&rdquo;<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> cryptographic permutations and hash functions tailored for MPC-, FHE- and ZKP-protocols has led to a renewed interest in Gröbner basis cryptanalysis. This is because Gröbner basis techniques tend to be one of the most successful attack vectors in this context. As an example and to the best of my knowledge, my joint research in <a href="https://doi.org/10.1007/978-3-030-34618-8_13">[ACG+19]</a> marks the first successful Gröbner basis analysis of a real-world hash function <a href="https://eprint.iacr.org/2018/1098">[AD18]</a>. This is, indeed, a strong result.</p>
+<p>But, to keep things in perspective, it is fair to say that back in 2018/2019 the whole area of algebraic cryptographic primitives was a comparatively young field of research and much less well-understood as other, more established, areas of the design space in symmetric cryptography. Although knowledge around designing and analyzing algebraic primitives has advanced since then, the last sentence still holds true today.</p>
+<!-- In any case, designing, a "good" (i.e., efficient and secure) algebraic hash function means walking a fine line. The same property that makes an algebraic hash function efficient for the intended use case, also tends to open it up to algebraic cryptanalysis. The art is to find the right balance.[^3] -->
+<!-- Today, any new SNARK-friendly cryptographic primitive needs to provide arguments against algebraic cryptanalysis, including Gröbner basis analysis. -->
+<p>As of now, in February 2025, there exist many designs for SNARK-friendly cryptographic primitives (Poseidon, Reinforced Concrete, Monolith, Anemoi, Rescue, Tip5, Arion, &hellip;). I recommend checking out the <a href="https://stap-zoo.com/all-stap-primitives/">STAP Zoo</a>, it is an excellent tracker of research in this area and, at the time of writing this article, the single most comprehensive resource one can find. Especially the communities around building decentralized systems (&ldquo;web3&rdquo;) and systems for verifiable (confidential) computation (&ldquo;programmable cryptography&rdquo;) push the adoption of SNARK-friendly primitives. With this push, also Gröbner bases will remain important as one of the main tools to assess the security of these primitives.</p>
+<h1 id="the-root-of-the-matter-solving-systems-of-polynomial-equations">The Root of the Matter: Solving Systems of Polynomial Equations</h1>
+<p>We turn our attention to the general procedure of Gröbner basis cryptanalysis. Conceptually, it consists of two steps.</p>
+<ol>
+<li>Modelling a cryptographic primitive as a system of polynomial equations with unknown parameters as variables. A parameter of interest might be the secret key of a block cipher or a preimage of a given hash value.</li>
+<li>Solving the system of polynomial equations using Gröbner basis techniques.</li>
+</ol>
+<!-- In this context, ``solving'' most often means finding (exactly) one solution of the equation system
+(e.g., for a key-recovery attack on a block cipher). -->
+<p>Euation systems stemming from problems in symmetric cryptography most often have a finite number of solutions.&ldquo;Solving&rdquo; may have one of the following meanings: $(a)$ finding exactly one solution, $(b)$ finding all solutions, or $(c)$ finding that no solution exists. The situation where there is no solution might arise in a so-called hybrid form of Gröbner basis cryptanalysis. Here,
+the idea is to combine exhaustive search with Gröbner basis computations: we fix some of the (unknown) variables and, subsequently, solve the remaining equation system. The remaining equation system might be ill-conditioned, and, hence, not admit any solution. In practice, the solving step is usually a triad of computations.</p>
+<ul>
+<li>Computing a $degrevlex$ Gröbner basis for the zero-dimensionl input system using an algorithm such as F4 <a href="https://doi.org/10.1016/S0022-4049(99)00005-5">[F99]</a>, or F5 <a href="https://doi.org/10.1145/2465506.2465522">[F02]</a>.</li>
+<li>Converting the \textit{degrevlex} Gröbner basis to a $lex$ Gröbner basis (or any other elimination order, which facilitates variable elimination)
+using an algorithm such as FGLM <a href="https://doi.org/10.1006/jsco.1993.1051">[FGL+93]</a>, or a probabilistic <a href="https://doi.org/10.1145/2608628.2608669">[FGH+14]</a> or sparse variant thereof <a href="https://doi.org/10.1145/1993886.1993908">[FM11]</a>, <a href="https://doi.org/10.1016/j.jsc.2016.07.025">[FM17]</a>.</li>
+<li>Factoring the univariate polynomial in the $lex$ Gröbner basis using any polynomial factoring algorithm. Determine the solutions of the corresponding variable. If needed, back-subsitute any solution into other equations in the $lex$ Gröbner basis to obtain a partial or full solution of the system.</li>
+</ul>
+<p>The following figure summarizes above description.</p>
+<img class="svg" style="width: 90%; margin-top: 0em; background-color: #fafafa" src="../../img/gb_approach.svg" alt="Solving systems of equations with Groebner Bases"/>
+<p>Having presented a little insight how Gröbner bases are applied in cryptanalysis, I would like to close this article with a comparison of Gaussian row reduction and Gröbner basis algorithms. The aim is to build some intuition about Gröbner bases and why they can be used to solve systems of non-linear polynomial equations.</p>
+<h1 id="triangularize-and-conquer">Triangularize and Conquer</h1>
+<p>In secondary school, we all are taught a basic algorithm to solve systems of linear equations: Gaussian elimination. The basic idea is the following: we successively eliminate variables in the equation system until we get a linear equation in only one variable. From this univariate equation we can easily derive the solution for the corresponding variable and back-substitute into the other equations to obtain the full solution. The resulting shape of the equation system after Gaussian elimination resembles a triangle (or staircase, if you like). Hence, this process is also called <em>triangularization</em> or <em>reduction to row echelon form</em>.</p>
+<p>What I have just said about triangularization is true, but it is only half of the truth. I should have been a bit more precise. I should have said: <em>if a unique solution exists</em>, we proceed as described. It is entirely possible, that the equation system has no solution. Or infinitely many solutions. Phrased more formally: it is well known<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> that the set of solutions to a linear system of equations forms a vector space (or affine space). In any of the above cases, triangularization yields a basis of this vector space.</p>
+<p>As a first mental model of Gröbner basis algorithms it is valid to think about them as a generalization of Gaussian elimination to the case of non-linear systems of polynomial equations. Instead of a linear equation system, a Gröbner basis algorithm takes as input a polynomial equation system (which, in general, is non-linear but can be linear as well) and outputs a triangularized form of this system.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> From this triangularized form, we can extract the solutions to the initial system in a straightforward manner.</p>
+<p>The following figure aims to highlight the analogy between Gaussian elimination and the computation of a Gröbner basis.</p>
+<img class="svg" style="width: 90%; margin-top: 0em; background-color: #fafafa;" src="../../img/gb_posso.svg" alt="Solving systems of equations"/>
+<!-- ############# -->
+<!-- Footnotes     -->
+<!-- ############# -->
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Independent of cryptography, Gröbner basis theory is an area of ongoing research by itself and continues to be actively developed.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>&ldquo;Breaking&rdquo; a cryptosystem can mean, both, finding an attack in practice or also finding a (theoretical) vulnerability that violates the security claims made by the designers. A theoretical vulnerability might not necessarily translate to an attack realizable with practical computing resources.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>&ldquo;Algebraic&rdquo; cryptographic primitives often have a simple algebraic structure, i.e., their building blocks are based on low-degree polynomial power maps like $x\mapsto x^3$. Moreover, they often work over a (large) prime field $\mathbb F_p$. In contrast, more &ldquo;traditional&rdquo; primitives, like the AES <a href="https://doi.org/10.1007/978-3-662-60769-5">[DJ02]</a> or Keccak <a href="https://keccak.team/files/Keccak-reference-3.0.pdf">[BDP+11]</a>, work with vectors of bits or bytes, i.e., they operate over some binary extension field $\mathbb F_{2^n}$.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>At least among the mathematically inclined.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>To be more precise, and also in reference to what has been said before about algebraic cryptanalysis: technically speaking, only a Gröbner basis with respect to the $lex$ term order admits this triangular shape. But for the sake of keeping technicalities at a minimum, I deliberately chose to be imprecise here. This is probably a suitable point to mention an excellent (if not the best) textbook on the theory behind Gröbner bases <a href="https://doi.org/10.1007/978-3-319-16721-3">[CLO15]</a>.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+</section>
+<section id="tag-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+    </h6>
+  </div>
+  
+</section>
+
+        
+
+        
+
+        
+        </div>
+        <div class="right-container">
+            
+            
+        </div>
+    </div>
+    </main>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer">
+  
+  
+  
+  <div class="text-center crypto" style="font-family: 'Noto Sans'; font-weight: 300;">
+    <a href="../../cryptography">/kr&#618;pt&#594;&#720;gr&#601;fi/</a>
+  </div>
+  
+  <div class="text-center copyright">
+    ©2026 Reinhard Lüftenegger.
+    Some <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Rights</a> Reserved.
+  </div>
+  
+  
+  <div class="text-center powered">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+    
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+</body>
+
+
+
+</html>

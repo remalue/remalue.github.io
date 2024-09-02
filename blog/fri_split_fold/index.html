@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Reinhard Lüftenegger personal website">
+<meta name="keywords" content="cryptography, mathematics, research, security">
+
+
+  
+    <title>
+      Split-and-Fold in FRI &middot; Reinhard Lüftenegger
+    </title>
+  
+
+
+<meta name="generator" content="Hugo 0.152.2">
+
+
+
+<script>
+  MathJax = {
+    
+    tex: {
+      packages: {'[+]': ['amsthm',]},
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+      
+      
+      tags: "ams",
+      macros: {
+        qed: "\\blacksquare",
+        coloneqq: "\\mathrel{\\vcenter{:}}=",
+        eqqcolon: "=\\mathrel{\\vcenter{:}}\\mkern2mu",
+        qex: "\\square",
+      }
+    },
+    
+    
+    
+  };
+</script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="../../css/local-fonts.css">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../fonts/inter/inter.css">
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+<link rel="shortcut icon" href="../../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
+<link rel="manifest" href="../../site.webmanifest" />
+
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
+</head>
+
+
+
+
+
+
+<body lang="en-us">
+
+    
+<nav class="navbar navbar-expand-sm navbar-light" id="head-navbar">
+<div class="container-fluid">
+  
+    
+    <div id="head-toggle-button">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav">
+
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+            <li class="nav-item top">
+                <div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="theme-toggle-container">
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
+    </div>
+</div>
+</nav>
+
+    <main>
+    <div class="outer-container">
+        <div class="left-container"></div>
+        <div class="middle-container">
+        
+<header class="text-left title">
+  <div class="title">Split-and-Fold in FRI</div>
+  <h3 class="subtitle"> Divide and Conquer for Efficient Proximity Testing </h3>
+</header>
+<section id="category-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+      
+        NOV 5, 2024
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="">
+  <div class="col-md-12 text-justify content">
+    
+    <div><br><div>
+    <div class="callout callout-note">
+  <div class="callout-note-title">Notation</div>
+<p>Let $\mathbb F$ denote a finite field.</p>
+</div>
+<p>The <a href="https://drops.dagstuhl.de/storage/00lipics/lipics-vol107-icalp2018/LIPIcs.ICALP.2018.14/LIPIcs.ICALP.2018.14.pdf">Fast Reed-Solomon Interactive Oracle Proof of Proximity (FRI)</a> allows a prover to convince a verifier that a given function
+$$f:D\subseteq\mathbb F\longrightarrow\mathbb F$$ is a low-degree polynomial function, or at least &ldquo;close&rdquo; (in the sense of proximal) to such a low-degree polynomial function. More formally and in the language of codes, the FRI protocol enables a prover to convince a verifier that
+$$
+\Delta\!\left(f,\text{RS}[\mathbb F,D,\rho]\right)&lt;\delta,
+$$
+where $\text{RS}[\mathbb F,D,\rho]$ is a Reed-Solom code with rate $\rho$ and $\Delta$ is a suitable <em>distance measure</em>.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>Essentially, FRI is a statistical test for the claim that a function $f$ is &ldquo;close&rdquo; to $\text{RS}[\mathbb F,D,\rho]$. How exactly the distance measure $\Delta$ is defined and what &ldquo;close&rdquo; (or &ldquo;proximal&rdquo;) means, is not important for this article.</p>
+<!-- For a more comprehensive treatment of Reed-Solom codes, the FRI protocol, and a discussion of the concept of proximity see the article on [The FRI Protocol](/blog/fri).  -->
+<p>In this article, we focus on the main component of FRI, i.e., the split-and-fold procedure. In particular, we discuss how FRI reduces the problem of proving proximity for a function $f=f^{(0)}$ over $D=D^{(0)}$ to the problem of proving proximity for a function $f^{(1)}$ over $D^{(1)}$,$~$where the size of $D^{(1)}$ is at least half<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> the size of $D^{(0)}$.</p>
+<p>The reduction approach in FRI strongly resembles the one applied by the Fast Fourier Transform (FFT), which iteratively halves the problem size. The efficiency of this divide-and-conquer approach, both in FRI as well as in the FFT, relies on a special &ldquo;symmetry&rdquo; property of the underlying domain $D$.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+<div class="callout callout-note">
+  <div class="callout-note-title">Specification</div>
+<p>From now on and for a more streamlined presentation, we assume that $D=D^{(0)}$ is the set ofh $n$-th roots of unity, where $n=2^k$, for $k\in\mathbb N$. Regarding the existence of such roots of unity, we state: if $q=|\mathbb F|$ then
+$$
+\text{$2^k$-th roots of unity exist}\Longleftrightarrow 2^{k}\mid q-1.
+$$
+This is not a restriction. Although the split-and-fold approach in FRI also works in a more general setting for, e.g., $n=3^k$ or $n=5^k$ (or even mixed factors), in practice, using roots of unity with respect to a large power of $2$ suffices.</p>
+<p>Hence, from now on let $D^{(0)}=\langle \omega \rangle = \{\omega,\omega^2,\ldots,\omega^n\}$ for a primitive $n=2^k$-th root of unity.</p>
+</div>
+<p>Before we dive into the actual split-and-fold procedure in FRI, it is insightful to consider the correspondence between functions on $D$ and polynomial residue classes modulo $Z_D(X)\coloneqq \prod_{d\in D}(X-d)=X^n-1$. Expressed more formally, there is a ring isomorphism
+$$
+\psi: \mathbb F[X]/ \langle X^n-1\rangle \longrightarrow \mathbb F^D\coloneqq\{f:D\rightarrow\mathbb F\mid f\text{ a function}\}.
+$$
+This follows immediately from the (First) Isomorphism Theorem for rings. Indeed, there is a ring homomorphism
+$$
+\begin{alignat*}{2}
+\psi&rsquo;:~ &amp;\mathbb F[X] &amp;&amp;\longrightarrow \mathbb F^D\\
+&amp;p(X) &amp;&amp;\longmapsto (x\mapsto p(x))
+\end{alignat*}
+$$
+such that $\ker\psi&rsquo;=Z_D(X)$ and $\text{im}\,\psi&rsquo; = \mathbb F^D$ (check!). As remarked above, $D$ is the set of $n=2^k$-th roots of unity and therefore $Z_D(X) = X^n-1$. As a consequence, by the Isomorphism Theorem, we get
+$$
+\mathbb F[X]/\langle X^n-1\rangle \cong \mathbb F^D.
+$$
+In other words, whenever we speak of a function $f:D\rightarrow\mathbb F$, we may treat it as a (univariate) polynomial $f(X)$ with maximum degree $n-1$, i.e., as an element in the quotient ring $\mathbb F[X]/ \langle X^n-1\rangle$.</p>
+<div class="callout callout-note">
+  <div class="callout-note-title">Notation</div>
+<p>We use the same letter $f$ to, both, denote a function $f:D\rightarrow\mathbb F$ and the <em>unique</em> polynomial $f(X)$ in $\mathbb F[X]/ \langle X^n-1\rangle$ representing $f$.</p>
+<!-- Whenever we explicitly refer to $f$ as function, we also use the notation $f|_{D}$. -->
+</div>
+<p>An important parameter of the split-and-fold process in FRI is the splitting constant $\eta$. For $\eta=1$ the initial problem size is split into halves, for $\eta=2$ into fourths, for $\eta=3$ into eigths, and so on. The case $\eta=0$ is the trivial case, where no split (and no fold) happens.</p>
+<img class="svg" style="width: 70%; background-color: #fafafa;" src="../../img/splitting.svg" alt="Different splitting parameters"/>
+<p>The main technique for folding (or compressing) several instances into a single instance is to take a random algebraic combination of the input instances. This technique is successfully used in (many) different contexts, not only in FRI but also in the <a href="">Inner Product Argument</a> (which is used in <a href="">Halo</a> and <a href="">Halo2</a>) or for efficient batch opening and verifying commitments in <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a>. See the article on <a href="../../blog/batching_plonk">Batching Techniques in PLONK</a> for a more detailed discussion of the latter context.</p>
+<p>The following illustration visualizes a single iteration of the split-and-fold process in FRI for $\eta=1$.
+<img class="svg" style="width: 80%; background-color: #fafafa;" src="../../img/split_fold.svg" alt="Split-and-fold in FRI"/></p>
+<p>The high-level approach for several iterations of the split-and-fold process is as follows. Let $f:D\longrightarrow \mathbb F$ be the function for which we want to establish a low-degree claim.</p>
+<ol>
+<li>Split the initial instance $f$ into $2^\eta$ smaller instances $f_0,\ldots,f_{\eta-1}$, each of relative size $\frac{1}{2^\eta}$ compared to the the initial size.</li>
+<li>Fold (or compress) the $2^\eta$ smaller instances $f_0,\ldots,f_{\eta-1}$ into a single instance by taking a random algebraic combination $f_0 + \alpha \cdot f_1 + \cdots + \alpha^{2^\eta-1}\cdot f_{2^\eta-1}$ of the smaller instances, for $\alpha\in\mathbb F$ uniformly random.</li>
+<li>Repeat the process for the folded instance.</li>
+</ol>
+<p>How often the split-and-fold process is repeated is a parameter of the FRI protocol. In general, a logarithmic number of iterations is enough (logarithmic in $|D|$, or, to be more precise, logarithmic in the low-degree claim $k$).</p>
+<p>Let us elaborate on this process. For the sake of a better understanding, the following explanation will be more verbose for the case $\eta=1$. This case should provide enough intuition for the reasoning and proofs behind the general case.</p>
+<h1 id="splitting">Splitting</h1>
+<p>Conceptually, the first step in the split-and-fold technique is to split the function $f$ into several different parts. For $\eta=1$, we can write $f:D\longrightarrow\mathbb F$ as the following polynomial:<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
+$$
+\begin{aligned}
+f(X) &amp;= \sum_{i=0}^{n-1} a_i X^i = \sum_{i=0}^{n/2-1}a_{2i} X^{2i} + \sum_{i=0}^{n/2-1}a_{2i+1} X^{2i+1}\\
+&amp;= \underbrace{\sum_{i=0}^{n/2-1}a_{2i} X^{2i}}_{\eqqcolon f_0(X^2)} + X\cdot \underbrace{\sum_{i=0}^{n/2-1}a_{2i+1} X^{2i}}_{\eqqcolon f_1(X^2)}\\
+&amp;= f_0(X^2)+X\cdot f_1(X^2).
+\end{aligned}
+$$
+This is the same approach as in the FFT. The polynomial $f_0(X^2)$ collects all terms in $f(X)$ with even exponents and $X\cdot f_1(X)$ collects all terms with odd exponents. We note, the polynonomials $f_0(X),f_1(X)$ are polynomials of degree at most $\frac{n-1}{2}$. In other words, for $\eta=1$, we partition the set of all possible exponents $E=\{0,1,2,\ldots,n-1\}$ into two sets $$E_0^{(1)}\coloneqq \{0,2,\ldots,n-2\}$$ and $$E_1^{(1)}\coloneqq \{1,3,\ldots,n-1\}$$.</p>
+<p>In a similar way, for $\eta=2$ we arrive at
+$$
+\begin{aligned}
+f(X) = f_0(X^4) + X\cdot f_1(X^4) + X^2\cdot f_2(X^4) + X^3\cdot f_3(X^4),
+\end{aligned}
+$$
+and for $\eta=3$ at
+$$
+\begin{aligned}
+f(X) = f_0(X^8) + X\cdot f_1(X^4) + \cdots + X^7\cdot f_7(X^8).
+\end{aligned}
+$$
+For general $\eta$ we get<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>
+$$
+\begin{alignat}{1}
+\label{eq:sum-decomposition}
+f(X) = \sum_{i=0}^{2^\eta-1} X^{i}\cdot f_i(X^{2^\eta}).
+\end{alignat}
+$$
+As indicated above for the case $\eta=1$, a way to visualize this splitting is by having a look at how the set of exponents $E\subseteq\{0,1,\ldots,n-1\}$ in $f$ is partioned. We partition $E$ as follows:
+$$
+\begin{aligned}
+\eta=1:\; E &amp;= E_0^{(1)}\cup E_1^{(1)}, \\
+\eta=2:\; E &amp;= E_0^{(2)}\cup E_1^{(2)}\cup E_2^{(2)} \cup E_3^{(2)}, \\
+\eta=3:\; E &amp;= E_0^{(3)}\cup E_1^{(3)}\cup \ldots \cup E_7^{(3)}, \\
+\end{aligned}
+$$
+where
+$$
+E_i^{(\eta)}\coloneqq \{e\in E: e=i\bmod 2^{\eta}\}.
+$$
+In the general case, we get
+$$
+E = \bigcup_{i=0}^{2^{\eta}-1} E_i^{(\eta)}.
+$$
+We remark, by definition it holds $|E_i^{(\eta)}|\leq \frac{n}{2^{\eta}}$. These observations yield
+$$
+\begin{alignat}{2}
+f(X) &amp;= \sum_{i=1}^{n-1} a_i X^i = \sum_{j=0}^{2^{\eta}-1}\sum_{i\in E_j^{(\eta)}} a_i X^{i} = \sum_{j=0}^{2^{\eta}-1} X^{j}\cdot\sum_{i\in E_j^{(\eta)}} a_i X^{i-j}\\
+\label{eq:sum-partitions} &amp;= \sum_{j=0}^{2^{\eta}-1} X^{j}\cdot \underbrace{\left(\sum_{i=0}^{n/2^{\eta}-1} a_{i\cdot 2^{\eta}+j}\cdot X^{i}\right)}_{=f_j(X^{2^{\eta}})}.
+\end{alignat}
+$$</p>
+<p>In particular, we point out the equality between \eqref{eq:sum-decomposition} and \eqref{eq:sum-partitions}.</p>
+<p><code>Example.</code> Let&rsquo;s say $\deg(f)=11$ and $f(X) = \sum_{i=0}^{11} a_i X^i$. For $\eta=0,1,2,3$, below figure depicts how the set of exponents is partioned. For each $\eta$, same colors (or, equivalently, same numbers) indicate that the corresponding exponents lie in the same partition set.</p>
+<img class="svg" style="width: 80%; background-color: #fafafa;" src="../../img/exponents.svg" alt="Partioning of exponents"/>
+<p>For $\eta=1$, we just split exponents into even and odd ones, i.e., the sets of exponents that are congruent $0$ and $1$ modulo $2$. For $\eta=2$, we have four partition sets, i.e., the sets of exponents congruent $0$, $1$, $2$, and $3$ modulo $4$. Writing down the resulting partition for $\eta=1$ gives us
+$$
+\begin{aligned}
+f(X) &amp;=\sum_{i=0}^{11} a_i X^i \\
+&amp;= (a_0+a_2 X^2+\cdots+a_{10} X^{10}) + X\cdot (a_1+a_3X^2 + \cdots + a_{11} X^{10})\\
+&amp;= f_0(X^2) + X\cdot f_1(X^2).
+\end{aligned}
+$$
+Here, $f_0(X)$ and $f_1(X)$ are given by
+$$
+f_0(X) = a_0 + a_2 X + a_4 X^2 + a_6 X^3 + a_8 X^4 + a_{10} X^5,
+$$
+and
+$$
+f_1(X) = a_1 + a_3 X + a_5 X^2 + a_7 X^3 + a_9 X^4 + a_{11} X^5.\qex
+$$</p>
+<div class="callout callout-note">
+  <div class="callout-note-title">Notation</div>
+<p>Since the split-and-fold process is iterated several times, we also need to reflect this in our notation. We, therefore, write
+$f^{(i)}$, $f_j^{(i)}$, and $D^{(i)}$ for the input polynomial, the (intermediate) split instances, and the domain in iteration $i=0,1,\ldots$, respectively.</p>
+</div>
+<h1 id="folding">Folding</h1>
+<p>With our discussion of the splitting procedure at hand, we may proceed to the folding part. In the first iteration of the split-and-fold procedure, we fold (or compress) all the polynomials $f_0^{(0)},\ldots,f_{2^{\eta}-1}^{(0)}$ into a single new polynomial $f^{(1)}$ by taking a random algebraic combination
+$$
+f^{(1)}(X)\coloneqq \sum_{i=0}^{2^{\eta}-1} \alpha_0^{i}\cdot f_i^{(0)}(X),
+$$
+for $\alpha_0\in\mathbb F$ uniformly random. The true power of folding comes from the fact that the domain $D^{(1)}$ of $f^{(1)}$ has only a fraction of the size of $D^{(0)}$. To be more precise, we have
+$$
+\frac{|D^{(1)}|}{|D^{(0)}|} = \frac{1}{2^{\eta}}.
+$$</p>
+<p>To see this, consider the following. As designated above, $D=D^{(0)}$ is the set of $n$-th roots of unity, where $n=2^k$ for some $k\in\mathbb N$. Consequently, we have
+$$
+D^{(0)} = \langle \omega\rangle,
+$$
+for $\omega$ a primitive $n$-th root of unity. Let us assume we have $\eta=1$, i.e., we iteratively split the problem size in half. For $f^{(0)} = f$ this yields
+$$
+f^{(0)}(X) = f_0^{(0)}(X^2) + X\cdot f_1^{(0)}(X^2).
+$$
+Therefore, the &ldquo;folding&rdquo; of $f^{(0)}$ is given by
+$$
+f^{(1)}(X) = f_0^{(0)}(X^2) + \alpha_0\cdot f_1^{(0)}(X^2),
+$$
+for $\alpha_0\in\mathbb F$ uniformly random. The salient point of folding is the fact that in the definition of $f^{(1)}$ only square values enter into $f_0$ and $f_1$. Because of the symmetry of $n$-th roots of unity we have
+$$
+D^{(1)} \coloneqq \{\omega^2 : \omega\in D^{(0)}\} = \{\omega^2,\omega^4,\omega^6,\ldots,\omega^n\} = \langle \omega^2\rangle.
+$$
+This point is crucial. It means, the domain over which $f_0$ and $f_1$ are working is, in fact, $D^{(1)}$. And $D^{(1)}$ has only half the size of $D^{(0)}$. The same reasoning applies for general $\eta$. In the general case, we have
+$$
+f^{(1)}(X) = f_0^{(0)}\left(X^{2^{\eta}}\right) + \alpha_0\cdot f_1^{(0)}\left(X^{2^{\eta}}\right) + \cdots + \alpha_0^{2^{\eta}-1}\cdot f_{2^{\eta}-1}^{(0)}\left(X^{2^{\eta}}\right),
+$$
+and, thus
+$$
+D^{(1)} \coloneqq \{\omega^{2^{\eta}} : \omega\in D^{(0)}\} = \langle \omega^{2^{\eta}}\rangle.
+$$</p>
+<div class="callout callout-note">
+  <div class="callout-note-title">Several Iterations</div>
+<p>So far we have described the split-and-fold process for a <em>single</em> iteration. In FRI, this process would be iterated several times. The iteration is straightforward: we apply the whole process again to $f^{(1)}$ and get $f^{(2)}$, then to $f^{(2)}$ and get $f^{(3)}$, and so forth.</p>
+</div>
+<h1 id="consistency-checks">Consistency Checks</h1>
+<p>What do we gain from the split-and-fold process? In essence, we reduce the problem of proving proximity for $f=f^{(0)}$ to the problem of proving proximity for $f^{(1)}$. Roughly, the logic is as follows:</p>
+<ul>
+<li>if $f^{(1)}$ is close to $\text{RS}[\mathbb F,D^{(1)},\rho]$, and</li>
+<li>if $f^{(1)}$ was &ldquo;folded correctly&rdquo; (i.e., $f^{(1)}$ was, indeed, constructed from $f^{(0)}$ as described above),</li>
+<li>then with high likelihood also $f^{(0)}$ is close to $\text{RS}[\mathbb F,D^{(0)},\rho]$.</li>
+</ul>
+<!-- For a concrete analysis of how large the likelihood will be (i.e., how large the soundness error of above inference is) and a more detailed discussion of the complete FRI protocol, we refer to the write-up on [The FRI Protocol](/blog/fri). -->
+<p>In the last iteration of the split-and-fold procedure, the prover provides the terminal function in full and the verifier constructs a Reed-Solomon codeword from this terminal function. Intuitively, a cheating prover can therefore be detected with high confidence by checking the consistency of the folding in each iteration.</p>
+<p>The remainder of this article will focus on how we can check that $f^{(1)}$ has been &ldquo;folded correctly&rdquo;, i.e., that it holds
+$$
+f^{(1)}(X) = \sum_{i=0}^{2^{\eta}-1} X^i\cdot f_j^{(0)}(X).
+$$
+We may call this a <em>consistency check</em>. Above polynomial identity can be checked probabilistically by evaluating it at (a few) random points in $D$. However, in FRI, the verifier is only given query access to the functions $f^{(0)}$ and $f^{(1)}$, but not to the functions $f_j^{(0)}$. Hence, we need a way to conduct the consistency check only in terms of the funtions $f^{(0)}$, $f^{(1)}$, <em>without</em> the intermediate functions $f_j^{(0)}$.</p>
+<h3 id="the-case-eta1">The Case $\eta=1$</h3>
+<p>Let us first discuss how we achieve this for the case $\eta=1$. In this case, the folded polynomial $f^{(1)}(X)$ after one folding step is given by
+$$
+f^{(1)}(X) = f_0^{(0)}(X)+\alpha_0\cdot f_1^{(0)}(X),
+$$
+for $\alpha_0\in\mathbb F$ uniformly random. We define the bivariate polynomial
+$$
+Q(X,Y)\coloneqq f_0^{(0)}(X)+Y\cdot f_1^{(0)}(X)\in \mathbb F[X,Y].
+$$
+Then, we have the equalities
+$$
+\begin{alignat*}{3}
+Q(X^2,X)  &amp;= f_0^{(0)}(X^2) + X\cdot f_1^{(0)}(X^2) &amp;&amp;= f^{(0)}(X),\\
+Q(X,\alpha_0)  &amp;= f_0^{(0)}(X) + \alpha_0\cdot f_1^{(0)}(X) &amp;&amp;= f^{(1)}(X),\\
+Q(X^2,\alpha_0)  &amp;= f_0^{(0)}(X^2) + \alpha_0\cdot f_1^{(0)}(X^2) &amp;&amp;= f^{(1)}(X^2),\\
+\end{alignat*}
+$$
+where $\alpha_0$ is the same $\alpha_0$ that has been used in the construction of $f^{(1)}$. Let $\varphi$ be a primitive 2nd root of unity, i.e., a primitive root of $X^2-1$. We define the rational Lagrange functions $L_0, L_1\in\mathbb F(X,Y)$ as follows:
+$$
+\begin{aligned}
+L_0(X,Y)\coloneqq \frac{Y-\varphi X}{X-\varphi X},\\
+L_1(X,Y)\coloneqq \frac{Y-X}{\varphi X- X}.
+\end{aligned}
+$$
+For notational purposes, it will be convenient to work with the rational function $L\in\mathbb F(X,Y)$ given by
+$$
+L(X,Y)\coloneqq f^{(0)}(X)\cdot L_0(X,Y) + f^{(0)}(\varphi X)\cdot L_1(X,Y).
+$$
+Later in this article we will show that it holds<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>
+$$
+\begin{alignat*}{2}
+Q(X^{2},Y) &amp;\stackrel{}{=} L(X,Y)\\
+&amp;\stackrel{}{=} \frac{f^{(0)}(X)+f^{(0)}(\varphi X)}{2} + Y\cdot\frac{f^{(0)}(X)+\varphi\cdot f^{(0)}(\varphi X)}{2X}.
+\end{alignat*}
+$$
+Then, after substituting $Y=\alpha_0$, we can easily derive
+$$
+\begin{alignat}{2}
+f^{(1)}(X^2) &amp;= Q(X^2,\alpha_0)\\
+&amp;= L(X,\alpha_0)\\
+\label{eq:bivariate-identity} &amp;= f^{(0)}(X)\cdot L_0(X,\alpha_0) + f^{(0)}(\varphi X)\cdot L_1(X,\alpha_0)\\
+&amp;= \frac{f^{(0)}(X)+f^{(0)}(\varphi X)}{2} + \alpha_0\cdot\frac{f^{(0)}(X)+\varphi\cdot f^{(0)}(\varphi X)}{2X}.
+\end{alignat}
+$$
+The equality in \eqref{eq:bivariate-identity} only contains the functions $f^{(0)}$ and $f^{(1)}$. Hence, our sought polynomial identity for the consistency check is
+$$
+f^{(1)}(X^2) = f^{(0)}(X)\cdot L_0(X,\alpha_0) + f^{(0)}(\varphi X)\cdot L_1(X,\alpha_0),
+$$
+where $\varphi$ is a primitive 2nd root of unity and $\alpha_0\in\mathbb F$ is the folding randomness.</p>
+<!-- In other words,the evaluations of the rational functions $Q(X^{2},Y)$ and $L(X,Y)$ agree on $D^{(0)}\times \mathbb F$. -->
+<!-- We can check this equality (or rational identity) probabilistically by checking it only at a single random point (see the [Schwartz-Zippel-DeMillo-Lipton Lemma]()). We do so, by choosing a random $x\in D^{(0)}$, querying $f^{(1)}(x^2)$ as well as $f^{(0)}(x)$, $f^{(0)}(\varphi x)$ and then checking if
+$$
+Q(x^2,\alpha_0) = f^{(1)}(x^2) \stackrel{?}{=} f^{(0)}(x)\cdot L_0(x,\alpha_0) + f^{(0)}(\varphi x)\cdot L_1(x,\alpha_0).
+$$ -->
+<p><code>Summary.</code> To conduct the consistency check in the case $\eta=1$, we do the following:</p>
+<ol>
+<li>We sample a uniformly random $x\in D^{(0)}$.</li>
+<li>We query $f^{(1)}(x^{2})$, and $f^{(0)}(x)$, $f^{(0)}(\varphi x)$, where $\varphi$ is a primitive root of $X^2-1$ (i.e., $\varphi=-1$).</li>
+<li>Subsequently, we check if
+$$
+f^{(1)}\left(x^{2}\right) \stackrel{?}{=} f^{(0)}(x)\cdot L_0(x,\alpha_0) + f^{(0)}(\varphi x)\cdot L_1(x,\alpha_0).
+$$</li>
+</ol>
+<h3 id="the-general-case-eta">The General Case $\eta$</h3>
+<p>For a general splitting parameter $\eta$ we need $\varphi$ to be a primitive $2^{\eta}$-th root of unity, i.e., a primitive root of $X^{2^{\eta}}-1$. In the general case, we split $f^{(0)}$ as
+$$
+f^{(0)}(X) = \sum_{i=0}^{2^{\eta}-1} X^{i}\cdot f_i^{(0)}(X^{2^{\eta}}) .
+$$
+We define
+$$
+Q(X,Y)\coloneqq \sum_{i=0}^{2^{\eta}-1} Y^i\cdot f_i^{(0)}(X),
+$$
+and
+$$
+L(X,Y)\coloneqq \sum_{i=0}^{2^{\eta}-1} f^{(0)}(\varphi^{i} X)\cdot L_i(X,Y),
+$$
+where
+$$
+\begin{aligned}
+L_i(X,Y) \coloneqq \prod_{j=0,\ldots,2^{\eta}-1:\;j\neq i} \frac{Y-\varphi^j X }{\varphi^i X - \varphi^j X}
+\end{aligned}
+$$
+are the rational Lagrange functions in $\mathbb F(X,Y)$. In the general case it holds
+$$
+\begin{alignat}{2}
+\label{eq:general-bivariate-identity}Q(X^{2^{\eta}},Y) &amp;\stackrel{}{=} L(X,Y)\\
+\label{eq:general-lagrange}&amp;= \sum_{i=0}^{2^{\eta}-1} f^{(0)}(\varphi^{i} X)\cdot L_i(X,Y).\\
+\end{alignat}
+$$</p>
+<p>It is interesting to note that the right side of \eqref{eq:general-lagrange} resembles Lagrange interpolation over the supporting points
+$$
+(X,f^{(0)}(X)),(\varphi X,f^{(0)}(\varphi X)),\ldots,(\varphi^{2^{\eta}-1}X,f^{(0)}(\varphi^{2^{\eta}-1}X)).
+$$
+Hence, to conduct the consistency check in the general case, we sample a uniformly random $x\in D^{(0)}$ and query $f^{(1)}$ at $x^{2^{\eta}}$, and $f^{(0)}$ at $x,\varphi x,\ldots, \varphi^{2^{\eta}-1} x$. Subsequently, we check if
+$$
+f^{(1)}\left(x^{2^{\eta}}\right) \stackrel{?}{=} \sum_{i=0}^{2^{\eta}-1} f^{(0)}(\varphi^{i} x)\cdot L_i(x,\alpha_0).
+$$</p>
+<p>The only aspect which remains to be shown is a proof for $\eqref{eq:general-bivariate-identity}$. We exercise it here.</p>
+<p><code>Claim</code>. It holds
+$
+Q(X^{2^{\eta}},Y) = L(X,Y).
+$</p>
+<p><code>Proof</code>.
+Let $\varphi\in\mathbb F$ be a primitive $2^{\eta}$-th root of unity. The polynomial
+$$
+Q(X^{2^{\eta}},Y) = \sum_{i=0}^{2^{\eta}-1} Y^i\cdot f_i^{(0)}(X^{2^{\eta}})\in\mathbb F(X)[Y]
+%\sum_{i=0}^{2^{\eta}-1} f^{(0)}(\varphi^{i} x)\cdot L_i(x,Y)
+$$
+is a polynomial of degree $2^{\eta}-1$ in $Y$ over the rational function field $\mathbb F(X)$<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> with the property
+$$
+Q(X^{2^{\eta}},X) = f^{(0)}(X),\ldots, Q(X^{2^{\eta}},\varphi^{2^{\eta}-1} X) = f^{(0)}(\varphi^{2^{\eta}-1} X).
+%f^{(0)}(x),\ldots, Q(x^{2^{\eta}},\varphi^{2^{\eta}-1} x) = f^{(0)}(\varphi^{2^{\eta}-1} x).
+$$
+Furthermore, the polynomial
+$$
+L(X,Y) = \sum_{i=0}^{2^{\eta}-1} f^{(0)}(\varphi^{i} X)\cdot L_i(X,Y)\in\mathbb F(X)[Y]
+$$
+is also a polynomial in $Y$ of degree $2^{\eta}-1$ over $\mathbb F(X)$ with
+$$
+L(X,X) = f^{(0)}(X),\ldots, L(X,\varphi^{2^{\eta}-1} X) = f^{(0)}(\varphi^{2^{\eta}-1} X).
+$$
+We observe that, both, $Q(X^{2^{\eta}},Y)$ and $L(X,Y)$ are of degree $2^{\eta}-1$ in $Y$ and they agree on the set $\{ X,\varphi X,\ldots,\varphi^{2^{\eta}-1}X\}$ of $2^{\eta}$ distinct points in $\mathbb F(X)$. Hence
+$$
+Q(X^{2^{\eta}},Y) = L(X,Y).\qed
+$$</p>
+<!-- ############# -->
+<!-- Footnotes     -->
+<!-- ############# -->
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>The used distance measure is the (relative) Hamming distance. For $f,g:D\subseteq\mathbb F\longrightarrow\mathbb F$, it is defined by
+$$
+\Delta(f,g)=\frac{|\{x\in D: f(x)\neq g(x)\}|}{|D|}.
+$$
+The distance of a function $f$ from the code $V\coloneqq\text{RS}[\mathbb F,D,\rho]$ is defined as
+$$
+\Delta(f,V)\coloneqq\min_{v\in V} \Delta(f,v).
+$$&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>More generally, we could also reduce the problem size to a third, a fourth, etc.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>Intuitively, if $D=\{a_1,\ldots,a_n\}$, for $n\in\mathbb N$ even, this &ldquo;symmetry&rdquo; property can be described as
+$$
+\forall i=1,\ldots,n: a_i = -a_{i+(n/2)}.
+$$
+Definitely, the $n$-th roots of unity $\{\omega,\omega^2,\ldots,\omega^n=1\}$ satisfy this property. The $n$-th roots of unity are the roots of the polynomial $X^n-1$ in $\mathbb F$. They form a cyclic subgroup of the multiplicative group of $\mathbb F$ (i.e., the multiplicative group of all non-zero elements in $\mathbb F$).&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>We note, every function $f:D\longrightarrow\mathbb F$ can be uniquely represented by a polynomial of degree at most $|D|-1$.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>Here, we overload notation by using the same symbol $f_i$ for several different values of $\eta$. However, for each $\eta$, the polynomial $f_i$ would be a different one. For true formal disambiguity, we needed to index the function $f_i$ also with the splitting parameter $\eta$, i.e., we needed to write $f_{i,\eta}$. The same held true for $f^{(i)}$ and $D^{(i)}$ defined later in the article. For the sake of a simpler notation and presentation, we are opting to be less precise and believe this causes no confusion.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p>The polynomial $f^{(0)}(X)\cdot L_0(X,Y) + f^{(0)}(\varphi X)\cdot L_1(X,Y)$ resembles the Lagrange interpolation polynomial over $\mathbb F(X)$ with points $(X,f^{(0)}(X))$ and $(\varphi X,f^{(0)}(\varphi X))$. Furthermore, the equality
+$$
+\begin{alignat*}{2}
+Q(X^2,Y) &amp;= \frac{f^{(0)}(X)+f^{(0)}(\varphi X)}{2} + Y\cdot\frac{f^{(0)}(X)+\varphi\cdot f^{(0)}(\varphi X)}{2X}\\
+&amp;= \frac{f^{(0)}(X)+f^{(0)}(-X)}{2} + Y\cdot\frac{f^{(0)}(X) - f^{(0)}(-X)}{2X}
+\end{alignat*}
+$$
+is an additional way to carry out the consistency check. This additional way is often stated as an explanatory example of the consistency check for the special case $\eta=1$. While it can be generalized as well, the equality
+$$
+Q(X^2,Y) = f^{(0)}(X)\cdot L_0(X,Y) + f^{(0)}(\varphi X)\cdot L_1(X,Y)
+$$
+generalizes in a more straightforward manner.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7">
+<p>$\mathbb F(X)$ is the field of rational functions over $\mathbb F$ in the variable $X$.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+</section>
+<section id="tag-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+    </h6>
+  </div>
+  
+</section>
+
+        
+
+        
+
+        
+        </div>
+        <div class="right-container">
+            
+            
+        </div>
+    </div>
+    </main>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer">
+  
+  
+  
+  <div class="text-center crypto" style="font-family: 'Noto Sans'; font-weight: 300;">
+    <a href="../../cryptography">/kr&#618;pt&#594;&#720;gr&#601;fi/</a>
+  </div>
+  
+  <div class="text-center copyright">
+    ©2026 Reinhard Lüftenegger.
+    Some <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Rights</a> Reserved.
+  </div>
+  
+  
+  <div class="text-center powered">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+    
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+</body>
+
+
+
+</html>

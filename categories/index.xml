@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Reinhard Lüftenegger</title>
+    <link>https://remalue.github.io/categories/</link>
+    <description>Recent content in Categories on Reinhard Lüftenegger</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Dec 2025 02:00:11 +0100</lastBuildDate>
+    <atom:link href="https://remalue.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Algebra</title>
+      <link>https://remalue.github.io/categories/algebra/</link>
+      <pubDate>Sat, 15 Feb 2025 17:26:55 +0100</pubDate>
+      <guid>https://remalue.github.io/categories/algebra/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fun</title>
+      <link>https://remalue.github.io/categories/fun/</link>
+      <pubDate>Thu, 31 Oct 2024 18:49:14 +0100</pubDate>
+      <guid>https://remalue.github.io/categories/fun/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Plonk</title>
+      <link>https://remalue.github.io/categories/plonk/</link>
+      <pubDate>Wed, 30 Oct 2024 09:20:31 +0100</pubDate>
+      <guid>https://remalue.github.io/categories/plonk/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Zk</title>
+      <link>https://remalue.github.io/categories/zk/</link>
+      <pubDate>Wed, 30 Oct 2024 09:20:31 +0100</pubDate>
+      <guid>https://remalue.github.io/categories/zk/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

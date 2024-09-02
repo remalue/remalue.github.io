@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publications on Reinhard Lüftenegger</title>
+    <link>https://remalue.github.io/publication/</link>
+    <description>Recent content in Publications on Reinhard Lüftenegger</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 15 Feb 2025 22:10:25 +0100</lastBuildDate>
+    <atom:link href="https://remalue.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Algebraic Cryptanalysis of STARK-Friendly Designs: Application to MARVELlous and MiMC</title>
+      <link>https://remalue.github.io/publication/acgklrs-19/</link>
+      <pubDate>Sat, 15 Feb 2025 18:05:15 +0000</pubDate>
+      <guid>https://remalue.github.io/publication/acgklrs-19/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

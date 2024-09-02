@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Reinhard Lüftenegger personal website">
+<meta name="keywords" content="cryptography, mathematics, research, security">
+
+
+  
+    <title>
+      A Plea for Minimalism &middot; Reinhard Lüftenegger
+    </title>
+  
+
+
+<meta name="generator" content="Hugo 0.152.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="../../css/local-fonts.css">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../fonts/inter/inter.css">
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+<link rel="shortcut icon" href="../../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
+<link rel="manifest" href="../../site.webmanifest" />
+
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
+</head>
+
+
+
+
+
+
+<body lang="en-us">
+
+    
+<nav class="navbar navbar-expand-sm navbar-light" id="head-navbar">
+<div class="container-fluid">
+  
+    
+    <div id="head-toggle-button">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav">
+
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+            <li class="nav-item top">
+                <div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="theme-toggle-container">
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
+    </div>
+</div>
+</nav>
+
+    <main>
+    <div class="outer-container">
+        <div class="left-container"></div>
+        <div class="middle-container">
+        
+<header class="text-left title">
+  <div class="title">A Plea for Minimalism</div>
+  <h3 class="subtitle">  </h3>
+</header>
+<section id="category-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+      
+        NOV 19, 2025
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="">
+  <div class="col-md-12 text-justify content">
+    
+    <div><br><div>
+    <div class="callout callout-note">
+  <div class="callout-note-title">Experimental feature ahead</div>
+<p>In this text vignette, I express my thoughts and reflections in a raw and unfinished form. Consider them as rockfall. Loose thoughts that are not yet fully formed.</p>
+</div>
+<p>If science is an art, then it&rsquo;s a minimalistic one (Occam&rsquo;s razor).</p>
+<p><em>The joy of geometry</em>. This is how I would paraphrase minimalism. The joy of perceiving and experiencing geometrical shapes, patterns or forms. Or, in a slightly more refined phrasing, <em>the joy of experiencing beauty in geometry</em>.</p>
+<!-- And although I really like this saying (for it's dialectic nature), it may have lost its expressive power because it is often used as a platitude. But it certainly isn't. -->
+<p>It&rsquo;s certainly not hard to argue for the aspect of geometricality in minimalism. So, what type of joy are we talking about here? Why do minimalism, and geometry, respectively, stimulate joy?</p>
+<h4 id="approximating-a-definition-of-minimalism">approximating a definition of minimalism</h4>
+<p>I advocate the following hypotheses.</p>
+<ol>
+<li>Minimalism promotes creativity.</li>
+<li>Minimalism is a relational concept.</li>
+<li>Minimalism alludes to geometry.</li>
+<li>Minimalism oscillates between immersion and reflection.</li>
+</ol>
+<h1 id="minimalism-counterbalances-restlessness">Minimalism counterbalances restlessness</h1>
+<p>Although we, as humans, seem to enjoy complexity and sophistication, we also enjoy simplicity and tranquility. Reduce complexity whenever possible, and in the right places. This gives more mental space to genuinely appreciate complexity, rather than being overwhelmed by it. Do not fear being idle. Idleness promotes creativity.</p>
+<p>We, as humans, seem to have a disposition for aesthetics. Whether sensorical - visual, auditive, olfactoric - or intellectual, we possess a capacity for aesthetics. A capacity for experiencing <em>beauty</em>, whatever this may mean concretely and individually for each one of us.</p>
+<!-- For example, musical aesthetics does not seem to be a universal property. At the very least, it lives in a certain cultural context. -->
+<p>&ldquo;Geometrical&rdquo; alludes to undistracted, clear and considerate. Geometry has a certain strictness to it. But this strictness is a sincere and upright one. Candid and serene.</p>
+<!-- Minimalism is a philosophy. *A* philosophy, among many others. -->
+<p>In this regard, minimalism provides guiding principles, a vision and values. Try it, feel it, discard what isn&rsquo;t right. Oscillate between immersion and reflection. Minimalism is an attitude towards life, one <em>is</em> minimalistic. In the same sense as one <em>is</em> in a relationship.</p>
+<p>Minimalism has different qualities. It is honest, considerate, and respectful. Most often also aesthetically pleasing, as it displays geometrical clarity. It is determined and firm, but doesn&rsquo;t impose. Continuous, but never rigid. It is void, but not empty. Its clarity allows to contemplate and realize that everything has its place and trajectory. Even in a contingent world.</p>
+<!-- For a more detailed discussion on this topic, see the essay <a href="../../manifesto-extended">Small is Beautiful</a>. -->
+<h1 id="what-it-is-and-what-it-ismt">What it is, and what it ism&rsquo;t</h1>
+<p>Minimalism is not opportunism.</p>
+<!-- Unscrupulously taking advantage of circumstances and choosing the path of least resistance often contradicts minimalist principles. -->
+<p>Minimalism is not pragmatism, although pragmatic considerations may inspire minimalist action.</p>
+<p>Minimalism means knowing your objectives.</p>
+<p>Minimalism embraces, both, conservatism and progressivism. Conserve your energy and progress with focus. Progress and advance the status quo, and conserve in time.</p>
+<p>Minimalism is not monotony nor monochromy. Life is colourful and putting colours to our activities and thoughts is important. Minimalism helps us in our delibarate decisions which colours we want to cultivate.</p>
+<!-- A student learning for an exam puts in the bare minimum effort to pass. Colloquially speaking, the student adopts a "minimalistic" attitude. But, is this minimalism? *Not per se*. This colloquial notion of minimalism is rather different from the philosophical concept of minimalism. Another student preparing for the same exam aims at passing with the best grade. The student puts in a lot of effort and even reads texts that reach beyond the subject matter. Is this minimalism? *It might well be.* Once the objectives are clarified. Listen to best practices. Break them, if needed. -->
+<p>Minimalism is simplicity and parsimony first, complexity and redundancy second.</p>
+<p>Minimalism is relative, not absolute. Minimalism is about context. The same entity or action in different contexts may be minimalistic in one context, but not in another one.</p>
+<p>Minimalism means cherishing experiences over possession. Possess only a few items, hold them dear. High-quality items.</p>
+<p>A natural consequence of scarcity is a higher appreciation of existing resources. In the case of minimalism, the scarcity is due to a self-chosen reduction of form, or space, or materiality. &ldquo;Self-chosen&rdquo; means voluntary, intentional and properly motivated.</p>
+<p>Minimalism is a voluntary and intrinsic act (as is the case with any virtue). Minimalism is never imposed or enforced, by no means. Incentives, yes, and a pinch of persuasion are fair and have their place. Nevertheless, incentives loose their legitimacy if they become manipulation. One becomes minimalistic by <em>growing aware</em> of it. Resonating with it. Not by being &ldquo;incentivized&rdquo; into it.</p>
+<h1 id="how-do-we-implement-minimalistic-habits-is-there-a-road-to-minimalistic-virtue">How do we implement minimalistic habits? Is there a road to minimalistic virtue?</h1>
+<h4 id="focus">focus</h4>
+<p>Prioritize. Remove distractions. More is less, less is more.</p>
+<h4 id="create-meaning">create meaning</h4>
+<p>Add value. Think of how you can help your team, your peers, your loved ones. Before how and when, ask why.</p>
+<h4 id="roll-up-your-sleeves">roll up your sleeves</h4>
+<p>Be ready for the hard work.</p>
+<h4 id="simplicity">simplicity</h4>
+<p>Keep it simple. Simple is harder than complex. Keep it plain. Try to do it with as little indirection as possible. Be parsimonious. Parsimony requires a focus on what&rsquo;s essential. Parsimony adds constraints. Constraints stimulate creativity.</p>
+<h4 id="fail-fail-again-fail-better">fail, fail again, fail better.</h4>
+<p>Kill the baby. Don&rsquo;t be afraid of starting all over again. Fail soon, learn fast. Failure is your best friend. Perfection is the enemy of learning. First do it, then do it right, then do it better.</p>
+<!-- #### strive for excellence -->
+<!-- #### saving mental energy -->
+<!-- In business communication, minimize, both, content and effort. -->
+<!-- The promise of advanced technology is that it makes our life easier, more convenient, and, thus, saves us time. For more important things. -->
+<!-- #### be open minded
+People living in modern (industrialized) societies tend to always be in a rush.
+
+Furthermore, the page layout reflect this open-mindedness. The layout is open at the top, allowing the reader to be free in the perception of thoughts.
+
+Yet, open-mindedness needs a solid base. A balanced contrast, promoting clear readibility and legibility.
+
+The layout and design of this site aim at quietude and calmness of mind. In this regard, the chosen fonts serve a dual purpose. Their mechanical and geometrical forms provide quietude. The alluded geometricality supports calmness of mind. The eye gets rest, the mind relaxes. The content of the text unfolds before the mind. -->
+<h4 id="know-thyself">know thyself</h4>
+<p>Every person is an artist (Ad Reinhardt). Every person is a mystic (David Steindl-Rast). We all digest, filtrate, ferment thoughts and moods. We all contribute. That&rsquo;s why every individual counts. Know your potentials, know your limits.</p>
+<h4 id="march-comes-in-like-a-lion-and-goes-out-like-a-lamb">march comes in like a lion and goes out like a lamb</h4>
+<p>After all, we humans are connected to the world of instincts. As such, we share an instictive bond with nature and have a sense of its basic rhythms, and cycles. Ideally, we live in accordance with these cycles. The daily cycle, the cycle of vegetational loss and regeneration, the annual seasons, the weather cycle, the tidal cycle, the hydrologic cycle. And many more. Be open to change and change what you can. Know what you cannot. Living also means enduring. And moving on, if necessary.</p>
+<p>Minimalism lets us reconnect with our instictive nature through immersion and reflection. It helps us experience these cycles where and how they ought to be experienced. In an <em>integral</em> way. And not on a <em>substitute</em> level. Like consumerism. Or construed relationships with brands, substances, objects, or ourselves and our bodies. Minimalism helps us to <em>know</em> what <em>feels</em> right.</p>
+
+  </div>
+</section>
+<section id="tag-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+    </h6>
+  </div>
+  
+</section>
+
+        
+
+        
+
+        
+        </div>
+        <div class="right-container">
+            
+            
+        </div>
+    </div>
+    </main>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer">
+  
+  
+  
+  <div class="text-center crypto" style="font-family: 'Noto Sans'; font-weight: 300;">
+    <a href="../../cryptography">/kr&#618;pt&#594;&#720;gr&#601;fi/</a>
+  </div>
+  
+  <div class="text-center copyright">
+    ©2026 Reinhard Lüftenegger.
+    Some <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Rights</a> Reserved.
+  </div>
+  
+  
+  <div class="text-center powered">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+    
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+</body>
+
+
+
+</html>

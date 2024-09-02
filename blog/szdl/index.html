@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Reinhard Lüftenegger personal website">
+<meta name="keywords" content="cryptography, mathematics, research, security">
+
+
+  
+    <title>
+      Schwartz-Zippel-DeMillo-Lipton Lemma &middot; Reinhard Lüftenegger
+    </title>
+  
+
+
+<meta name="generator" content="Hugo 0.152.2">
+
+
+
+<script>
+  MathJax = {
+    
+    tex: {
+      packages: {'[+]': ['amsthm',]},
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+      
+      
+      tags: "ams",
+      macros: {
+        qed: "\\blacksquare",
+        coloneqq: "\\mathrel{\\vcenter{:}}=",
+        eqqcolon: "=\\mathrel{\\vcenter{:}}\\mkern2mu",
+        qex: "\\square",
+      }
+    },
+    
+    
+    
+  };
+</script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="../../css/local-fonts.css">
+<link rel="stylesheet" href="../../css/main.css">
+<link rel="stylesheet" href="../../fonts/inter/inter.css">
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+<link rel="shortcut icon" href="../../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
+<link rel="manifest" href="../../site.webmanifest" />
+
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
+</head>
+
+
+
+
+
+
+<body lang="en-us">
+
+    
+<nav class="navbar navbar-expand-sm navbar-light" id="head-navbar">
+<div class="container-fluid">
+  
+    
+    <div id="head-toggle-button">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav">
+
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+            <li class="nav-item top">
+                <div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="theme-toggle-container">
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
+    </div>
+</div>
+</nav>
+
+    <main>
+    <div class="outer-container">
+        <div class="left-container"></div>
+        <div class="middle-container">
+        
+<header class="text-left title">
+  <div class="title">Schwartz-Zippel-DeMillo-Lipton Lemma</div>
+  <h3 class="subtitle"> On the Density of Zeros of Polynomials </h3>
+</header>
+<section id="category-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+      
+        OCT 20, 2024
+      
+      
+      
+      
+      —
+      
+      
+      <a class="meta" href="../../categories/zk">ZK</a>
+      
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="">
+  <div class="col-md-12 text-justify content">
+    
+    <nav id="TableOfContents"></nav>
+    
+    <div><br><div>
+    <div class="callout callout-note">
+  <div class="callout-note-title">Notation</div>
+<p>For this article, let $\mathbb F$ denote a field. If $\mathbb F$ is a finite field with $q$ elements, then we shall assume that the degree of any polynomial is upper bounded by $q-1$.</p>
+</div>
+<p>One of the most important results in basic algebra is the Fundamental Theorem of Algebra. In the formulation that will be most useful for the context of this article it states the following.</p>
+<p><code>Fundamental Theorem of Algebra.</code>
+Every univariate polynomial of degree $d$ over a field $\mathbb F$ has at most $d$ roots in $\mathbb F$.</p>
+<p>Unfortunately, the same does not hold true anymore for multivariate polynomials in $n\geq 2$ variables as the following easy counterexample shows.</p>
+<p><code>Counterexample</code>. Consider the polynomial $f(X,Y)\in\mathbb{F}$ with $f(X,Y)\coloneqq X\cdot Y$. Then $f$ is a polynomial of degree $2$ but it has many more than just $2$ roots. They are given by
+$$
+\{ (0,y) : y\in \mathbb F\}\cup\{(x,0) : x\in\mathbb F\}.
+$$</p>
+<p>But not all hope is lost. We are still able to make a statement about the <em>density</em> of roots of polynomials.</p>
+<p>Viewing the Fundamental Theorem of Algebra from a different perspective, we have that for a univariate polynomial $f(X)\in\mathbb F[X]$ of degree $d$, the density of roots of $f$ over any <em>finite</em> subset $S\subseteq\mathbb F$ with $|S|\geq d$ is at most
+$$
+\frac{|\{a\in S : f(a)=0\}|}{|S|}\leq \frac{d}{|S|}.
+$$
+As it turns out, this formulation carries over to the multivariate case. It is exactly the assertion of the following lemma.</p>
+<p><code>Schwartz-Zippel-DeMillo-Lipton Lemma.</code>
+Let $n\in\mathbb N$ and let $f\in\mathbb F[X_1,\ldots,X_n]$ be a multivariate plynomial of degree $d$. Let $S\subseteq \mathbb F$ be a finite subset with $|S|\geq d$. Then it holds
+$$
+\frac{|\{(a_1,\ldots,a_n)\in S^n : f(a_1,\ldots,a_n)=0\}|}{|S|^n}
+\leq \frac{d}{|S|}.
+$$</p>
+<p>This is a <em>very</em> powerful result which is used extensively in many constructions for (succinct) argument systems.</p>
+<p>In particular, it is used for polynomial identity testing or for batching many such tests into a single test. As one concrete example, the <a href="../../blog/permutation_check_plonk/">permutation check</a> in PLONK uses this result as well. Before we proceed to the proof of the lemma, let us have another look at the counterexample from above. It helps us to illustrate the assertion of the lemma.</p>
+<p><code>Counterexample; revisited.</code> For the polynomial $f(X,Y) = X\cdot Y$ over $\mathbb F$ and a finite subset $S\subseteq \mathbb F$, we have
+$$
+\begin{aligned}
+\frac{|\{(a_1,a_2)\in S^2 : a_1\cdot a_2=0\}|}{|S|^2} &amp;=
+\begin{cases}
+0, &amp; 0\notin S\\
+\frac{2|S|-1}{|S|^2}, &amp; 0\in S
+\end{cases}\\
+&amp;\leq \frac{2}{|S|}.
+\end{aligned}
+$$</p>
+<p><code>Proof (of the Lemma).</code> By induction over $n$.</p>
+<p><code>Probabilistic version.</code>
+If we draw elements from $S$ independently and uniformly at random, we arrive at the probabilistic formulation of the Schwartz-Zippel-DeMillo-Lipton Lemma. Let $n\in\mathbb N$ and let $f\in\mathbb F[X_1,\ldots,X_n]$ be a multivariate polynomial of degree $d$. Furthermore, let $U_1,\ldots,U_n$ be identically and independently distributed random variables with a uniform distribution over $S$. Then it holds
+$$
+\text{Pr}(f(U_1,\ldots,U_n)=0)\leq\frac{d}{|S|}.
+$$
+In other words, the probability that (uniformly and independently selected) random elements $u_1,\ldots,u_n\in S$ are a root of $f$ is at most $\frac{d}{|S|}$.</p>
+<p>The real power of the lemma is unlocked if the set $S$ is very large compared to the degree $d$ of $f$, i.e., if $d\ll |S|$. In this case, the lemma asserts that it is highly unlikely for an element sampled uniformly at random from $\mathbb F_q^n$ to be a root of $f$.</p>
+<p>This gives us an efficient statistical test for checking if a (multivariate) polynomial is the zero polynomial, or, equivalently, if two (multivariate) polynomials are identical. Such a test is particularly advantageous if we don&rsquo;t want (or don&rsquo;t can) compare polynomials coefficient-wise.</p>
+<p><code>Polynomial Zero Testing.</code> Let $n\in\mathbb N$ and let $\mathbb F$ be a field. Given a polynomial $f\in\mathbb F[X_1,\ldots,X_n]$ of degree at most $d$, we employ the following statistical test for the claim $f=0$.</p>
+<ol>
+<li>Choose $u_1,\ldots,u_n\in S\subseteq\mathbb F$ uniformly and independently at random.</li>
+<li>Check if $f(u_1,\ldots,u_n) = 0$.</li>
+<li>If yes, accept. Otherwise reject.</li>
+</ol>
+<p>Put differently, we use the fact that $f(u_1,\ldots,u_n) = 0$ (as points) to infer that $f=0$ (as polynomials) with confidence (or likelihood) at least $1-\frac{d}{|S|}$. I.e., we have
+$$
+f(u_1,\ldots,u_n) = 0 \stackrel{\text{high confidence}}{\Longleftrightarrow} f=0.
+$$
+Let us elaborate on this test and have a look at the involved errors.</p>
+<ul>
+<li>$f=0$: $\text{Pr}(f(u_1,\ldots,u_n) = 0) = 1-\alpha = 1$ $\quad$ (correct accept)</li>
+<li>$f=0$: $\text{Pr}(f(u_1,\ldots,u_n)\neq 0) = \alpha = 0$ $\quad$ (false reject)</li>
+<li>$f\neq 0$: $\text{Pr}(f(u_1,\ldots,u_n) = 0) = \beta \leq \frac{d}{|S|}$ $\quad$ (false accept)</li>
+<li>$f\neq 0$: $\text{Pr}(f(u_1,\ldots,u_n)\neq 0) = 1 - \beta \geq 1-\frac{d}{|S|}$ $\quad$ (correct reject)</li>
+</ul>
+<div class="callout callout-note">
+  <div class="callout-note-title">Statistical Zero Testing</div>
+<p>By checking that $f(u_1,\ldots,u_n)=0$ we falsely accept a non-zero polynomial $f$ as the zero polynomial with error probability at most $\beta = d/ |S|$, for uniformly and independently at random selected $u_1,\ldots,u_n\in S$. However, we always correctly accept if $f$ is, indeed, the zero polynomial.</p>
+</div>
+<p>The error probability $\alpha$ that we falsely reject the zero polynomial corresponds to the completeness error in SNARKs. The error probability $\beta$ that we falsely accept a non-zero polynomial corresponds to the soundness error.</p>
+
+  </div>
+</section>
+<section id="tag-pane" class="meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+    </h6>
+  </div>
+  
+</section>
+
+        
+
+        
+
+        
+        </div>
+        <div class="right-container">
+            
+            
+        </div>
+    </div>
+    </main>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer">
+  
+  
+  
+  <div class="text-center crypto" style="font-family: 'Noto Sans'; font-weight: 300;">
+    <a href="../../cryptography">/kr&#618;pt&#594;&#720;gr&#601;fi/</a>
+  </div>
+  
+  <div class="text-center copyright">
+    ©2026 Reinhard Lüftenegger.
+    Some <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Rights</a> Reserved.
+  </div>
+  
+  
+  <div class="text-center powered">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+    
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+</body>
+
+
+
+</html>

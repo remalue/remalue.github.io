@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algebra on Reinhard Lüftenegger</title>
+    <link>https://remalue.github.io/categories/algebra/</link>
+    <description>Recent content in Algebra on Reinhard Lüftenegger</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Dec 2025 02:00:11 +0100</lastBuildDate>
+    <atom:link href="https://remalue.github.io/categories/algebra/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gröbner Bases (Made in Austria)</title>
+      <link>https://remalue.github.io/blog/gb/</link>
+      <pubDate>Sat, 15 Feb 2025 17:26:55 +0100</pubDate>
+      <guid>https://remalue.github.io/blog/gb/</guid>
+      <description>&lt;p&gt;First ideas related to Gröbner basis theory go back as early as the 1920s. The discovery of the concept behind Gröbner bases is independently credited to Heisuke Hironaka (Japan, 1964) and Bruno Buchberger (Austria, 1965). It seems, history (or, at least, the naming convention) has favoured the Austrian researcher in this regard. After all, Wolfgang Gröbner, the PhD supervisor of Bruno Buchberger, is the namesake of what we call Gröbner bases today&amp;hellip;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
