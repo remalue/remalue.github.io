@@ -23,8 +23,9 @@
 
 <script>
   MathJax = {
+    
     tex: {
-      packages: {'[+]': ['amsthm', ]},
+      packages: {'[+]': ['amsthm',]},
       inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
       displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
       
@@ -206,7 +207,23 @@ $$
 This is not a restriction. Although the split-and-fold approach in FRI also works in a more general setting for, e.g., $n=3^k$ or $n=5^k$ (or even mixed factors), in practice, using roots of unity with respect to a large power of $2$ suffices.</p>
 <p>Hence, from now on let $D^{(0)}=\langle \omega \rangle = \{\omega,\omega^2,\ldots,\omega^n\}$ for a primitive $n=2^k$-th root of unity.</p>
 </div>
-<p>An important parameter of FRI is the splitting constant $\eta$. For $\eta=1$ the initial problem size is split into halves, for $\eta=2$ into fourths, for $\eta=3$ into eigths, and so on. The case $\eta=0$ is the trivial case, where no split (and no fold) happens.</p>
+<p>Before we dive into the actual split-and-fold procedure in FRI, it is insightful to consider the correspondence between functions on $D$ and polynomial residue classes modulo $Z_D(X)\coloneqq \prod_{d\in D}(X-d)=X^n-1$. Expressed more formally, there is a ring isomorphism
+$$
+\psi: \mathbb F[X]/ \langle X^n-1\rangle \longrightarrow \mathbb F^D\coloneqq\{f:D\rightarrow\mathbb F\mid f\text{ a function}\}.
+$$
+This follows immediately from the (First) Isomorphism Theorem for rings. Indeed, there is a ring homomorphism
+$$
+\begin{alignat*}{2}
+\psi':~ &amp;\mathbb F[X] &amp;&amp;\longrightarrow \mathbb F^D\\
+&amp;p(X) &amp;&amp;\longmapsto (d\mapsto p(d))
+\end{alignat*}
+$$
+such that $\ker\psi'=Z_D(X)$ and $\text{im}\psi' = \mathbb F^D$ (check!). As remarked above, $D$ is the set of $n=2^k$-th roots of unity and therefore $Z_D(X) = X^n-1$. As a consequence, by the Isomorphism Theorem, we get
+$$
+\psi'/\langle X^n-1\rangle \cong \mathbb F^D.
+$$
+In other words, whenever we speak of a function $f:D\rightarrow\mathbb F$, we may treat it as a (univariate) polynomial with maximum degree $n-1$, i.e., as an element in the quotient ring $\mathbb F[X]/ \langle X^n-1\rangle$.</p>
+<p>An important parameter of the split-and-fold process in FRI is the splitting constant $\eta$. For $\eta=1$ the initial problem size is split into halves, for $\eta=2$ into fourths, for $\eta=3$ into eigths, and so on. The case $\eta=0$ is the trivial case, where no split (and no fold) happens.</p>
 <img class="svg" style="width: 70%; margin-top: 0em;" src="../../img/splitting.svg" alt="Different splitting parameters"/>
 <p>The main technique for folding (or compressing) several instances into a single instance is to take a random algebraic combination of the input instances. This technique is successfully used in (many) different contexts, not only in FRI but also in the <a href="">Inner Product Argument</a> (which is used in <a href="">Halo</a> and <a href="">Halo2</a>) or for efficient batch opening and verifying commitments in <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a>. See the article on <a href="../../blog/batching_plonk">Batching Techniques in PLONK</a> for a more detailed discussion of the latter context.</p>
 <p>The following illustration visualizes a single iteration of the split-and-fold process in FRI for $\eta=1$.
