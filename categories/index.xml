@@ -5,6 +5,34 @@
     <link>https://remalue.github.io/categories/</link>
     <description>Recent content in Categories on Reinhard Lüftenegger</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://remalue.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Thu, 31 Oct 2024 18:49:14 +0100</lastBuildDate><atom:link href="https://remalue.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>fun</title>
+      <link>https://remalue.github.io/categories/fun/</link>
+      <pubDate>Thu, 31 Oct 2024 18:49:14 +0100</pubDate>
+      
+      <guid>https://remalue.github.io/categories/fun/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plonk</title>
+      <link>https://remalue.github.io/categories/plonk/</link>
+      <pubDate>Wed, 30 Oct 2024 09:20:31 +0100</pubDate>
+      
+      <guid>https://remalue.github.io/categories/plonk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zk</title>
+      <link>https://remalue.github.io/categories/zk/</link>
+      <pubDate>Wed, 30 Oct 2024 09:20:31 +0100</pubDate>
+      
+      <guid>https://remalue.github.io/categories/zk/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

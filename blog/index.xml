@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Reinhard Lüftenegger</title>
-    <link>https://remalue.github.io/</link>
-    <description>Recent content on Reinhard Lüftenegger</description>
+    <title>Writing on Reinhard Lüftenegger</title>
+    <link>https://remalue.github.io/blog/</link>
+    <description>Recent content in Writing on Reinhard Lüftenegger</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Nov 2024 11:48:29 +0100</lastBuildDate><atom:link href="https://remalue.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Nov 2024 11:48:29 +0100</lastBuildDate><atom:link href="https://remalue.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Split-and-Fold in FRI</title>
       <link>https://remalue.github.io/blog/fri_split_fold/</link>
@@ -57,36 +57,6 @@ We use the shorthand notation $\sigma(a) = b$ for this statement. This statistic
       <description>Notation For this article, let $\mathbb F$ denote a field. If $\mathbb F$ is a finite field with $q$ elements, then we shall assume that the degree of any polynomial is upper bounded by $q-1$.
  One of the most important results in basic algebra is the Fundamental Theorem of Algebra. In the formulation that will be most useful for the context of this article it states the following.
 Fundamental Theorem of Algebra.</description>
-    </item>
-    
-    <item>
-      <title>[krip-to-gruh-fee]</title>
-      <link>https://remalue.github.io/cryptography/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://remalue.github.io/cryptography/</guid>
-      <description>The study (or art, wisdom, science) of protecting (digital) data by mathematics. More literally, the study of writing in cipher.
-Colloquially sometimes called (dark) magic, in the sense of mystery, wonder, marvel, beauty. But also in reference to the inherent abstractness of mathematical concepts.
-In practice, a mathematical transformation converts plain data into an unreadable form which conceals the original data. In some scenarios, the transformation is reversible by any party possessing certain secret knowledge, and practically by no other party.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://remalue.github.io/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://remalue.github.io/about/</guid>
-      <description>I am passionate about mathematics, cryptography, and the social value they generate. Up until now, many roles gave me the opportunity to put this passion into practice. From private tutor, teaching assistant and (undergraduate, graduate, doctoral) student to university teacher and (post-)doctoral cryptography researcher.
-Cryptography brings mathematics to the intersection of information security and privacy. As main tasks, cryptography protects the integrity of our data, communication, and computation with mathematics. In this role as a technical safeguard, cryptography also strengthens our integrity as individuals, society, and economic community.</description>
-    </item>
-    
-    <item>
-      <title>Andean Traverse</title>
-      <link>https://remalue.github.io/andes/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://remalue.github.io/andes/</guid>
-      <description></description>
     </item>
     
   </channel>

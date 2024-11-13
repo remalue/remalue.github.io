@@ -15,6 +15,7 @@
     --title-font: "League Spartan";
     --title-weight: 500;
     --title-color: #353438;
+    --h1-color: #353438;
     --subtitle-font: "Roboto Flex";
     --subtitle-color: #1a1a1a;
     --heading-font: "Roboto Flex";
@@ -26,6 +27,7 @@
     --role-font: "Metropolis";
     --description-font: "Metropolis";
     --line-height: 1.30;
+    --header-font-size: calc(1.5rem + 0.3vw);
 
   }
 
@@ -148,6 +150,14 @@ li
 {
     font-family: 'Lato', sans-serif;
 }
+
+blockquote {
+    text-align: center;
+    /* margin: 1em; */
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
 .category
 {
     color: #966 !important;
@@ -251,18 +261,23 @@ div.content
 
 .footer
 {
-    margin-top: 10px;
+    margin-top: 2rem;
     color: var(--meta-font);
     /* background-color: #eeeeee; */
 }
+
+.footnotes{
+    margin-top: 4rem;
+}
+
 .header
 {
-    margin-top: 50px;
+    margin-top: 40px;
     margin-bottom: 3%;
 }
 
 .responsive {
-    width: 330px;
+    width: 300px;
     max-width: 95%;
     /* height: auto; */
 }
@@ -273,7 +288,9 @@ div.content
 
 }
 h1 {
-    font-size: calc(1.0rem + 1.2vw);
+    margin-top: 2rem;
+    color: var(--h1-color);
+    font-size: var(--header-font-size);
 }
 .info
 {
@@ -450,7 +467,7 @@ section.meta {
     color: var(--subtitle-color);
     font-weight: 300;
     font-style: italic;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
 }
 
 .pop {
