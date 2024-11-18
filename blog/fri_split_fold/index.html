@@ -191,13 +191,8 @@ $$
 \Delta\left(f,\text{RS}[\mathbb F,D,\rho]\right)&lt;\delta,
 $$
 where $\text{RS}[\mathbb F,D,\rho]$ is a Reed-Solom code with rate $\rho$ and $\Delta$ is a suitable <em>distance measure</em>.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> Essentially, FRI is a statistical test for the claim that a function $f$ is &ldquo;close&rdquo; to $\text{RS}[\mathbb F,D,\rho]$. How exactly the distance measure $\Delta$ is defined and what &ldquo;close&rdquo; (or &ldquo;proximal&rdquo;) means, is not important for this article. For a more comprehensive treatment of Reed-Solom codes, the FRI protocol, and a discussion of the concept of proximity see the article on <a href="../../blog/fri">The FRI Protocol</a>.</p>
-<p>In this article, we focus on the main component of FRI, i.e., the split-and-fold procedure. In particular, we discuss how FRI reduces the problem of proving proximity for a function $f=f^{(0)}$ over $D=D^{(0)}$ to the problem of proving proximity for a function $f^{(1)}$ over $D^{(1)}$, where the size of $D^{(1)}$ is at least half<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> the size of $D^{(0)}$.</p>
-<p>The reduction approach in FRI strongly resembles the one applied by the Fast Fourier Transform (FFT), which iteratively halves the problem size. The efficiency of this divide-and-conquer approach, both in FRI as well as in the FFT, relies on a special &ldquo;symmetry&rdquo; property of the underlying domain $D$.</p>
-<p>Intuitively, if $D=\{a_1,\ldots,a_n\}$, for $n\in\mathbb N$ even, this &ldquo;symmetry&rdquo; property can be described as
-$$
-\forall i=1,\ldots,n: a_i = -a_{i+(n/2)}.
-$$
-Definitely, the $n$-th roots of unity $\{\omega,\omega^2,\ldots,\omega^n=1\}$ satisfy this property.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+<p>In this article, we focus on the main component of FRI, i.e., the split-and-fold procedure. In particular, we discuss how FRI reduces the problem of proving proximity for a function $f=f^{(0)}$ over $D=D^{(0)}$ to the problem of proving proximity for a function $f^{(1)}$ over $D^{(1)}$,$~$where the size of $D^{(1)}$ is at least half<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> the size of $D^{(0)}$.</p>
+<p>The reduction approach in FRI strongly resembles the one applied by the Fast Fourier Transform (FFT), which iteratively halves the problem size. The efficiency of this divide-and-conquer approach, both in FRI as well as in the FFT, relies on a special &ldquo;symmetry&rdquo; property of the underlying domain $D$.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
 <div class="callout callout-note">
   <div class="callout-note-title">Specification</div>
 <p>From now on and for a more streamlined presentation, we assume that $D=D^{(0)}$ is the set ofh $n$-th roots of unity, where $n=2^k$, for $k\in\mathbb N$. Regarding the existence of such roots of unity, we state: if $q=|\mathbb F|$ then
@@ -218,11 +213,16 @@ $$
 &amp;p(X) &amp;&amp;\longmapsto (d\mapsto p(d))
 \end{alignat*}
 $$
-such that $\ker\psi'=Z_D(X)$ and $\text{im}\psi' = \mathbb F^D$ (check!). As remarked above, $D$ is the set of $n=2^k$-th roots of unity and therefore $Z_D(X) = X^n-1$. As a consequence, by the Isomorphism Theorem, we get
+such that $\ker\psi'=Z_D(X)$ and $\text{im}\,\psi' = \mathbb F^D$ (check!). As remarked above, $D$ is the set of $n=2^k$-th roots of unity and therefore $Z_D(X) = X^n-1$. As a consequence, by the Isomorphism Theorem, we get
 $$
 \mathbb F[X]/\langle X^n-1\rangle \cong \mathbb F^D.
 $$
-In other words, whenever we speak of a function $f:D\rightarrow\mathbb F$, we may treat it as a (univariate) polynomial with maximum degree $n-1$, i.e., as an element in the quotient ring $\mathbb F[X]/ \langle X^n-1\rangle$.</p>
+In other words, whenever we speak of a function $f:D\rightarrow\mathbb F$, we may treat it as a (univariate) polynomial $f(X)$ with maximum degree $n-1$, i.e., as an element in the quotient ring $\mathbb F[X]/ \langle X^n-1\rangle$.</p>
+<div class="callout callout-note">
+  <div class="callout-note-title">Notation</div>
+<p>We use the same letter $f$ to, both, denote a function $f:D\rightarrow\mathbb F$ and the unique polynomial $f(X)$ in $\mathbb F[X]/ \langle X^n-1\rangle$ corresponding $f$.</p>
+<!-- Whenever we explicitly refer to $f$ as function, we also use the notation $f|_{D}$. -->
+</div>
 <p>An important parameter of the split-and-fold process in FRI is the splitting constant $\eta$. For $\eta=1$ the initial problem size is split into halves, for $\eta=2$ into fourths, for $\eta=3$ into eigths, and so on. The case $\eta=0$ is the trivial case, where no split (and no fold) happens.</p>
 <img class="svg" style="width: 70%; margin-top: 0em;" src="../../img/splitting.svg" alt="Different splitting parameters"/>
 <p>The main technique for folding (or compressing) several instances into a single instance is to take a random algebraic combination of the input instances. This technique is successfully used in (many) different contexts, not only in FRI but also in the <a href="">Inner Product Argument</a> (which is used in <a href="">Halo</a> and <a href="">Halo2</a>) or for efficient batch opening and verifying commitments in <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a>. See the article on <a href="../../blog/batching_plonk">Batching Techniques in PLONK</a> for a more detailed discussion of the latter context.</p>
@@ -361,8 +361,8 @@ $$</p>
 $$
 f^{(1)}(X) = \sum_{i=0}^{2^{\eta}-1} X^i\cdot f_j^{(0)}(X).
 $$
-We may call this a <em>consistency check</em>. In FRI, above polynomial identity is checked probabilistically: the verifier is given query access to the functions $f^{(0)}$, $f^{(1)}$, and checks if above equality holds at a few random points in $D^{(0)}$. Hence, we need a way to conduct the consistency check only in terms of the funtions $f^{(0)}$, $f^{(1)}$, <em>without</em> the intermediate functions $f_j^{(0)}$.</p>
-<p>Let us first discuss the case $\eta=1$. In this case, the consistency check is given by
+We may call this a <em>consistency check</em>. Above polynomial identity can be checked probabilistically by evaluating it at (a few) random points in $D$. However, in FRI, the verifier is only given query access to the functions $f^{(0)}$ and $f^{(1)}$, but not to the functions $f_j^{(0)}$. Hence, we need a way to conduct the consistency check only in terms of the funtions $f^{(0)}$, $f^{(1)}$, <em>without</em> the intermediate functions $f_j^{(0)}$.</p>
+<p>Let us first discuss how we achieve this for the case $\eta=1$. In this case, the consistency check is given by
 $$
 f^{(1)}(X) = f_0^{(0)}(X)+\alpha_0\cdot f_1^{(0)}(X).
 $$
@@ -496,7 +496,11 @@ $$&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;
 <p>More generally, we could also reduce the problem size to a third, a fourth, etc.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p>The $n$-th roots of unity are the roots of the polynomial $X^n-1$ in $\mathbb F$. They form a cyclic subgroup of the multiplicative group of $\mathbb F$ (i.e., the multiplicative group of all non-zero elements in $\mathbb F$).&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Intuitively, if $D=\{a_1,\ldots,a_n\}$, for $n\in\mathbb N$ even, this &ldquo;symmetry&rdquo; property can be described as
+$$
+\forall i=1,\ldots,n: a_i = -a_{i+(n/2)}.
+$$
+Definitely, the $n$-th roots of unity $\{\omega,\omega^2,\ldots,\omega^n=1\}$ satisfy this property. The $n$-th roots of unity are the roots of the polynomial $X^n-1$ in $\mathbb F$. They form a cyclic subgroup of the multiplicative group of $\mathbb F$ (i.e., the multiplicative group of all non-zero elements in $\mathbb F$).&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4" role="doc-endnote">
 <p>We note, every function $f:D\longrightarrow\mathbb F$ can be uniquely represented by a polynomial of degree at most $|D|-1$.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
