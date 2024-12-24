@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reinhard Lüftenegger</title>
+    <link>https://remalue.github.io/</link>
+    <description>Recent content on Reinhard Lüftenegger</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Nov 2024 09:19:10 +0100</lastBuildDate>
+    <atom:link href="https://remalue.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The FRI Protocol</title>
+      <link>https://remalue.github.io/blog/fri/</link>
+      <pubDate>Mon, 11 Nov 2024 09:19:10 +0100</pubDate>
+      <guid>https://remalue.github.io/blog/fri/</guid>
+      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;Notation&lt;/div&gt;&#xA;&lt;p&gt;Let $\mathbb F$ denote a finite field.&lt;/p&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;In essence, the &lt;a href=&#34;https://drops.dagstuhl.de/storage/00lipics/lipics-vol107-icalp2018/LIPIcs.ICALP.2018.14/LIPIcs.ICALP.2018.14.pdf&#34;&gt;Fast Reed-Solomon Interactive Oracle Proof of Proximity (FRI)&lt;/a&gt; is a statistical test which enables a verifier to check that a given (univariate) polynomial $P(X)$ over $\mathbb F$ is of low-degree (i.e., doesn&amp;rsquo;t exceed a certain degree bound $k$)&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;&#xA;&lt;p&gt;A verifier can naively check the claim $\deg(P)&amp;lt;k$ by querying the evaluations of $P$ on any $k$ points of $\mathbb F$, interpolating a polynomial $P&amp;rsquo;$ over those $k$ points and check if $P(a)=P&amp;rsquo;(a)$ for an additional random point $a\in\mathbb F$. Thus, such a naive verifier needs $\mathcal{O}(k)$ queries and $\mathcal{O}(k\log k)$ time (more on that later). The strength of FRI lies in its ability to check the same claim with only $\mathcal{O}(\log k)$ queries and in $\mathcal{O}(\log k)$ time (more on that later as well).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Split-and-Fold in FRI</title>
+      <link>https://remalue.github.io/blog/fri_split_fold/</link>
+      <pubDate>Tue, 05 Nov 2024 11:48:29 +0100</pubDate>
+      <guid>https://remalue.github.io/blog/fri_split_fold/</guid>
+      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;Notation&lt;/div&gt;&#xA;&lt;p&gt;Let $\mathbb F$ denote a finite field.&lt;/p&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;The &lt;a href=&#34;https://drops.dagstuhl.de/storage/00lipics/lipics-vol107-icalp2018/LIPIcs.ICALP.2018.14/LIPIcs.ICALP.2018.14.pdf&#34;&gt;Fast Reed-Solomon Interactive Oracle Proof of Proximity (FRI)&lt;/a&gt; allows a prover to convince a verifier that a given function&#xA;$$f:D\subseteq\mathbb F\longrightarrow\mathbb F$$ is a low-degree polynomial function, or at least &amp;ldquo;close&amp;rdquo; (in the sense of proximal) to such a low-degree polynomial function. More formally and in the language of codes, the FRI protocol enables a prover to convince a verifier that&#xA;$$&#xA;\Delta\left(f,\text{RS}[\mathbb F,D,\rho]\right)&amp;lt;\delta,&#xA;$$&#xA;where $\text{RS}[\mathbb F,D,\rho]$ is a Reed-Solom code with rate $\rho$ and $\Delta$ is a suitable &lt;em&gt;distance measure&lt;/em&gt;.&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; Essentially, FRI is a statistical test for the claim that a function $f$ is &amp;ldquo;close&amp;rdquo; to $\text{RS}[\mathbb F,D,\rho]$. How exactly the distance measure $\Delta$ is defined and what &amp;ldquo;close&amp;rdquo; (or &amp;ldquo;proximal&amp;rdquo;) means, is not important for this article. For a more comprehensive treatment of Reed-Solom codes, the FRI protocol, and a discussion of the concept of proximity see the article on &lt;a href=&#34;./blog/fri&#34;&gt;The FRI Protocol&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Random Walk Home</title>
+      <link>https://remalue.github.io/blog/random_walk/</link>
+      <pubDate>Thu, 31 Oct 2024 18:49:14 +0100</pubDate>
+      <guid>https://remalue.github.io/blog/random_walk/</guid>
+      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;&lt;/div&gt;&#xA;&lt;p&gt;$\ldots$ you decide to go for a walk and start from home. You are in a playful mood and decide to only take random left turns every now and then. You do the following:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;You roll a dice, get number $x$, and walk $x$ hundred meters straight ahead.&lt;/li&gt;&#xA;&lt;li&gt;You turn left.&lt;/li&gt;&#xA;&lt;li&gt;You repeat the process.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;What&amp;rsquo;s your (maximum) chance that after, let&amp;rsquo;s say, 4 dice rolls you end up home again? And after 10?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Batching Techniques in PLONK</title>
+      <link>https://remalue.github.io/blog/batching_plonk/</link>
+      <pubDate>Wed, 30 Oct 2024 09:20:31 +0100</pubDate>
+      <guid>https://remalue.github.io/blog/batching_plonk/</guid>
+      <description>&lt;p&gt;The PLONK protocol uses batching techniques at several places. Generally speaking, batching allows to combine multiple different checks (or instances) into a single one. Conceptually, it can be compared to a &lt;em&gt;compression&lt;/em&gt; (or &lt;em&gt;folding&lt;/em&gt;) of instances, where the validity of a single batched instance attests to the validity of all input instances. We use the terms &amp;ldquo;compression&amp;rdquo;, &amp;ldquo;batching&amp;rdquo;, and &amp;ldquo;folding&amp;rdquo; synonymously.&lt;/p&gt;&#xA;&lt;p&gt;Let us exemplify the underlying idea before we explore how PLONK leverages batching. Assume we want to check that all numbers in the sequence $(a_1,\ldots,a_n)\in\mathbb R^n$ of real numbers are zero. How can we do that? Naively, we could apply $n$ zero checks&#xA;$$&#xA;a_1\stackrel{?}{=}0,\ldots,a_n\stackrel{?}{=}0.&#xA;$$&#xA;The point is, we can also do that in a &lt;em&gt;single&lt;/em&gt; zero check. The underlying idea is very powerful and widely used across the domain of (zero-knowledge) argument systems. It works by taking a &lt;em&gt;random&lt;/em&gt; linear combination of the numbers $a_1,\ldots,a_n$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Permutation Check in PLONK</title>
+      <link>https://remalue.github.io/blog/permutation_check_plonk/</link>
+      <pubDate>Fri, 25 Oct 2024 13:41:10 +0200</pubDate>
+      <guid>https://remalue.github.io/blog/permutation_check_plonk/</guid>
+      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;Notation&lt;/div&gt;&#xA;&lt;p&gt;Let $\mathbb F$ denote a field and let $\mathbb F_p$ denote a prime field with $p$ elements.&lt;/p&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;One of the cornerstones of &lt;a href=&#34;https://eprint.iacr.org/2019/953.pdf&#34;&gt;PLONK&lt;/a&gt; is an efficient statistical test for checking if two vectors $(a_1,\ldots,a_m), (b_1,\ldots,b_m)\in\mathbb F_p^m$ are a permutation of each other, i.e., for checking that&#xA;$$&#xA;\forall i\in\{1,\ldots,m\}: a_{\sigma(i)} = b_i.&#xA;$$&lt;/p&gt;&#xA;&lt;p&gt;We use the shorthand notation $\sigma(a) = b$ for this statement. This statistical test implicitly uses the following Lemma.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Schwartz-Zippel-DeMillo-Lipton Lemma</title>
+      <link>https://remalue.github.io/blog/szdl/</link>
+      <pubDate>Sun, 20 Oct 2024 16:31:24 +0200</pubDate>
+      <guid>https://remalue.github.io/blog/szdl/</guid>
+      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;Notation&lt;/div&gt;&#xA;&lt;p&gt;For this article, let $\mathbb F$ denote a field. If $\mathbb F$ is a finite field with $q$ elements, then we shall assume that the degree of any polynomial is upper bounded by $q-1$.&lt;/p&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;One of the most important results in basic algebra is the Fundamental Theorem of Algebra. In the formulation that will be most useful for the context of this article it states the following.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;Fundamental Theorem of Algebra.&lt;/code&gt;&#xA;Every univariate polynomial of degree $d$ over a field $\mathbb F$ has at most $d$ roots in $\mathbb F$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[krip-to-gruh-fee]</title>
+      <link>https://remalue.github.io/cryptography/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://remalue.github.io/cryptography/</guid>
+      <description>&lt;p&gt;The study (or art, wisdom, science) of protecting (digital) data by mathematics. More literally, the study of writing in cipher.&lt;/p&gt;&#xA;&lt;p&gt;Colloquially sometimes called (dark) magic, in the sense of mystery, wonder, marvel, beauty. But also in reference to the inherent abstractness of mathematical concepts.&lt;/p&gt;&#xA;&lt;p&gt;In practice, a mathematical transformation converts plain data into an unreadable form which conceals the original data. In some scenarios, the transformation is reversible by any party possessing certain secret knowledge, and practically by no other party. A typical example is keeping message content confidential. In other scenarios, such as fingerprinting and thereby uniquely tagging data, the transformation is effectively irreversible.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>https://remalue.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://remalue.github.io/about/</guid>
+      <description>&lt;p&gt;I am passionate about mathematics, cryptography, and the social value they generate. Up until now, many roles gave me the opportunity to put this passion into practice. From private tutor, teaching assistant and (undergraduate, graduate, doctoral) student to university teacher and (post-)doctoral cryptography researcher.&lt;/p&gt;&#xA;&lt;p&gt;Cryptography brings mathematics to the intersection of information security and privacy. As main tasks, cryptography protects the integrity of our data, communication, and computation with mathematics. In this role as a technical safeguard, cryptography also strengthens our integrity as individuals, society, and economic community. I argue that the net benefit of (properly designed and implemented) cryptographic technology provides a substantial social and economic good.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Andean Traverse</title>
+      <link>https://remalue.github.io/andes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://remalue.github.io/andes/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;./img/sa/salt_flat.jpeg&#34;&gt;&lt;img src=&#34;./img/sa/salt_flat.jpeg&#34; style=&#34;width:100%; &#34;&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
