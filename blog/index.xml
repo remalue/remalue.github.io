@@ -6,15 +6,8 @@
     <description>Recent content in Writing on Reinhard Lüftenegger</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Nov 2024 09:19:10 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 05 Nov 2024 11:48:29 +0100</lastBuildDate>
     <atom:link href="https://remalue.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>The FRI Protocol</title>
-      <link>https://remalue.github.io/blog/fri/</link>
-      <pubDate>Mon, 11 Nov 2024 09:19:10 +0100</pubDate>
-      <guid>https://remalue.github.io/blog/fri/</guid>
-      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;Notation&lt;/div&gt;&#xA;&lt;p&gt;Let $\mathbb F$ denote a finite field.&lt;/p&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;In essence, the &lt;a href=&#34;https://drops.dagstuhl.de/storage/00lipics/lipics-vol107-icalp2018/LIPIcs.ICALP.2018.14/LIPIcs.ICALP.2018.14.pdf&#34;&gt;Fast Reed-Solomon Interactive Oracle Proof of Proximity (FRI)&lt;/a&gt; is a statistical test which enables a verifier to check that a given (univariate) polynomial $P(X)$ over $\mathbb F$ is of low-degree (i.e., doesn&amp;rsquo;t exceed a certain degree bound $k$)&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;&#xA;&lt;p&gt;A verifier can naively check the claim $\deg(P)&amp;lt;k$ by querying the evaluations of $P$ on any $k$ points of $\mathbb F$, interpolating a polynomial $P&amp;rsquo;$ over those $k$ points and check if $P(a)=P&amp;rsquo;(a)$ for an additional random point $a\in\mathbb F$. Thus, such a naive verifier needs $\mathcal{O}(k)$ queries and $\mathcal{O}(k\log k)$ time (more on that later). The strength of FRI lies in its ability to check the same claim with only $\mathcal{O}(\log k)$ queries and in $\mathcal{O}(\log k)$ time (more on that later as well).&lt;/p&gt;</description>
-    </item>
     <item>
       <title>Split-and-Fold in FRI</title>
       <link>https://remalue.github.io/blog/fri_split_fold/</link>
