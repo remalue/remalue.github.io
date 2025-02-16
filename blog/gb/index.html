@@ -214,7 +214,7 @@ the idea is to combine exhaustive search with Gröbner basis computations: we fi
 using an algorithm such as FGLM <a href="https://doi.org/10.1006/jsco.1993.1051">[FGL+93]</a>, or a probabilistic <a href="https://doi.org/10.1145/2608628.2608669">[FGH+14]</a> or sparse variant thereof <a href="https://doi.org/10.1145/1993886.1993908">[FM11]</a>, <a href="https://doi.org/10.1016/j.jsc.2016.07.025">[FM17]</a>.</li>
 <li>Factoring the univariate polynomial in the $lex$ Gröbner basis using any polynomial factoring algorithm. Determine the solutions of the corresponding variable. If needed, back-subsitute any solution into other equations in the $lex$ Gröbner basis to obtain a partial or full solution of the system.</li>
 </ul>
-<p>The following figure summarizes the above description.</p>
+<p>The following figure summarizes above description.</p>
 <img class="svg" style="width: 90%; margin-top: 0em;" src="../../img/gb_approach.svg" alt="Solving systems of equations with Groebner Bases"/>
 <p>Having presented a little insight how Gröbner bases are applied in cryptanalysis, I would like to close this article with a comparison of Gaussian row reduction and Gröbner basis algorithms. The aim is to build some intuition about Gröbner bases and why they can be used to solve systems of non-linear polynomial equations.</p>
 <h1 id="triangularize-and-conquer">Triangularize and Conquer</h1>
