@@ -17,7 +17,7 @@
 </title>
 
 
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.143.1">
 
 
 
@@ -34,7 +34,7 @@
       macros: {
         qed: "\\blacksquare",
         coloneqq: "\\mathrel{\\vcenter{:}}=",
-        eqqcolon: "=\\mathrel{\\vcenter{:}}",
+        eqqcolon: "=\\mathrel{\\vcenter{:}}\\mkern2mu",
         qex: "\\square",
       }
     },
@@ -146,8 +146,6 @@
         <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
         </div>
     </li>
-    
-    
     
     </ul>
     </div>
@@ -279,8 +277,8 @@ $$
 $$</p>
 <p>To prove the correct wiring of the witness vectors in PLONK, we concatenate the witness vectors $W_1,W_2,W_3$ and combine them into a single vector $(W_1,W_2,W_3)$ of length $3n$.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> The next figure illustrates this concatenation and, additionally, lists the evaluation domain of each $S_i$ when represented as a polynomial.</p>
 <img class="svg" src="../../img/initial_layout.svg" alt="Copy constraints without shift"/>
-<p>Next, we applied the permutation argument to the combined vector $(W_1,W_2,W_3)$. However, we would face the problem that each $W_i$ has the same evaluation domain $\omega,\ldots,\omega^n$. The permutation check in above lemma requires distinct elements $w_1,\ldots,w_{3n}$.</p>
-<p>We therefore choose $c_1,c_2\in\mathbb F_p$ such that the sets
+<p>The goal is to apply the permutation argument to the combined vector $(W_1,W_2,W_3)$. We face the problem that each $W_i$ has the same evaluation domain $\omega,\ldots,\omega^n$. The permutation argument in above lemma, however, requires distinct elements $w_1,\ldots,w_{3n}$.</p>
+<p>We, therefore, choose $c_1,c_2\in\mathbb F_p$ such that the sets
 $$
 H \coloneqq \{\omega,\ldots,\omega^n\},\quad c_1H = \{c_1\omega,\ldots,c_1\omega^n\},\quad c_2H = \{c_2\omega,\ldots,c_2\omega^n\},
 $$
@@ -363,8 +361,8 @@ $$
 We note, that $1.$, and $2.$ are equivalent to<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
 $$
 \begin{alignat*}{2}
-&amp;(A) \; &amp;&amp;\mathcal L_1(S)\cdot (\Phi(T,X,Y)-1) - Q_1(S,X,Y)\cdot Z_H(S) = 0, \\
-&amp;(B) \; &amp;&amp;\Phi(S,X,Y)\cdot f(S,X,Y) - \Phi(\omega S,X,Y)\cdot g(S,X,Y) - Q_2(S,X,Y)\cdot Z_H(S) = 0.
+&amp;\hspace{-1.5em}(A) \; &amp;&amp;\mathcal L_1(S) (\Phi(S,X,Y)-1) = Q_1(S,X,Y) Z_H(S) , \\
+&amp;\hspace{-1.5em}(B) \; &amp;&amp;\Phi(S,X,Y) f(S,X,Y) - \Phi(\omega S,X,Y) g(S,X,Y) = Q_2(S,X,Y) Z_H(S).
 \end{alignat*}
 $$
 for some $Q_1,Q_2\in\mathbb F_p(S,X,Y)$.</p>
@@ -378,26 +376,26 @@ for $\alpha,\beta,\gamma\in\mathbb F_p$ and assuming that $D(\gamma,\alpha,\beta
 <!-- Footnotes -->
 <!-- ############### -->
 <!-- Since it holds $p-1=n\cdot r$, for some $r\in\mathbb N$, just pick $a,b\in\mathbb N$ with $a,b\neq 0\bmod r$ and $a\neq b\bmod r$.  -->
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>By writing $(W_1,W_2,W_3)$ we slightly abuse notation here.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
+<li id="fn:2">
 <p>This is possible. Pick any $c_1\notin H$ and, then, any $c_2\notin H\cup c_1H$.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3" role="doc-endnote">
+<li id="fn:3">
 <p>The authors of <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a> call this a <em>ranged polynomial protocol</em>.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:4" role="doc-endnote">
+<li id="fn:4">
 <p>We convince ourselves about this last equivalence if we iteratively apply the algorithm for division with remainder in $\mathbb F_p[S,X,Y]$ (with variable ordering $S&gt;Y&gt;X$) for each $a\in H$. Then, for a polynomial $P(S,X,Y)$ we get the decomposition $P(S,X,Y) = (S-a)\cdot Q(S,X,Y) + R(X,Y)$. Since no term in $R$ is divisible by $S$, we have that $R=R(X,Y)$ is, indeed, a polynomial only in $X,Y$. Since $P(a,X,Y)=0$, we get $R(X,Y)=0$. We conclude, $(S-a)\mid P(S,X,Y)$.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:5" role="doc-endnote">
+<li id="fn:5">
 <p>The PLONK paper, e.g., assumes that $g(\omega^j,\alpha,\beta)\neq 0$ for the randomly chosen $\alpha,\beta\in\mathbb F_p$. With high probability this will be the case. If not, the protocol is aborted, which introduces a negligible completeness error. I.e., PLONK is statistically complete.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
   </div>
 </section>
@@ -431,7 +429,6 @@ for $\alpha,\beta,\gamma\in\mathbb F_p$ and assuming that $D(\gamma,\alpha,\beta
 
 
 
-
     <footer class="footer">
   
   
@@ -441,7 +438,7 @@ for $\alpha,\beta,\gamma\in\mathbb F_p$ and assuming that $D(\gamma,\alpha,\beta
   </div>
   
   <div class="text-center copyright">
-    ©2024 Reinhard Lüftenegger.
+    ©2025 Reinhard Lüftenegger.
     Some <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Rights</a> Reserved.
   </div>
   

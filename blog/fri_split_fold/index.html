@@ -17,7 +17,7 @@
 </title>
 
 
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.143.1">
 
 
 
@@ -34,7 +34,7 @@
       macros: {
         qed: "\\blacksquare",
         coloneqq: "\\mathrel{\\vcenter{:}}=",
-        eqqcolon: "=\\mathrel{\\vcenter{:}}",
+        eqqcolon: "=\\mathrel{\\vcenter{:}}\\mkern2mu",
         qex: "\\square",
       }
     },
@@ -147,8 +147,6 @@
         </div>
     </li>
     
-    
-    
     </ul>
     </div>
 
@@ -209,11 +207,11 @@ $$
 This follows immediately from the (First) Isomorphism Theorem for rings. Indeed, there is a ring homomorphism
 $$
 \begin{alignat*}{2}
-\psi':~ &amp;\mathbb F[X] &amp;&amp;\longrightarrow \mathbb F^D\\
+\psi&rsquo;:~ &amp;\mathbb F[X] &amp;&amp;\longrightarrow \mathbb F^D\\
 &amp;p(X) &amp;&amp;\longmapsto (d\mapsto p(d))
 \end{alignat*}
 $$
-such that $\ker\psi'=Z_D(X)$ and $\text{im}\,\psi' = \mathbb F^D$ (check!). As remarked above, $D$ is the set of $n=2^k$-th roots of unity and therefore $Z_D(X) = X^n-1$. As a consequence, by the Isomorphism Theorem, we get
+such that $\ker\psi&rsquo;=Z_D(X)$ and $\text{im}\,\psi&rsquo; = \mathbb F^D$ (check!). As remarked above, $D$ is the set of $n=2^k$-th roots of unity and therefore $Z_D(X) = X^n-1$. As a consequence, by the Isomorphism Theorem, we get
 $$
 \mathbb F[X]/\langle X^n-1\rangle \cong \mathbb F^D.
 $$
@@ -479,10 +477,10 @@ We observe that, both, $Q(X^{2^{\eta}},Y)$ and $L(X,Y)$ are of degree $2^{\eta}-
 $$
 Q(X^{2^{\eta}},Y) = L(X,Y).\qed
 $$</p>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>The used distance measure is the (relative) Hamming distance. For $f,g:D\subseteq\mathbb F\longrightarrow\mathbb F$, it is defined by
 $$
 \Delta(f,g)=\frac{|\{x\in D: f(x)\neq g(x)\}|}{|D|}.
@@ -492,23 +490,23 @@ $$
 \Delta(f,V)\coloneqq\min_{v\in V} \Delta(f,v).
 $$&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
+<li id="fn:2">
 <p>More generally, we could also reduce the problem size to a third, a fourth, etc.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3" role="doc-endnote">
+<li id="fn:3">
 <p>Intuitively, if $D=\{a_1,\ldots,a_n\}$, for $n\in\mathbb N$ even, this &ldquo;symmetry&rdquo; property can be described as
 $$
 \forall i=1,\ldots,n: a_i = -a_{i+(n/2)}.
 $$
 Definitely, the $n$-th roots of unity $\{\omega,\omega^2,\ldots,\omega^n=1\}$ satisfy this property. The $n$-th roots of unity are the roots of the polynomial $X^n-1$ in $\mathbb F$. They form a cyclic subgroup of the multiplicative group of $\mathbb F$ (i.e., the multiplicative group of all non-zero elements in $\mathbb F$).&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:4" role="doc-endnote">
+<li id="fn:4">
 <p>We note, every function $f:D\longrightarrow\mathbb F$ can be uniquely represented by a polynomial of degree at most $|D|-1$.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:5" role="doc-endnote">
+<li id="fn:5">
 <p>Here, we overload notation by using the same symbol $f_i$ for several different values of $\eta$. However, for each $\eta$, the polynomial $f_i$ would be a different one. For true formal disambiguity, we needed to index the function $f_i$ also with the splitting parameter $\eta$, i.e., we needed to write $f_{i,\eta}$. The same held true for $f^{(i)}$ and $D^{(i)}$ defined later in the article. For the sake of a simpler notation and presentation, we are opting to be less precise and believe this causes no confusion.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:6" role="doc-endnote">
+<li id="fn:6">
 <p>The polynomial $f^{(0)}(X)\cdot L_0(X,Y) + f^{(0)}(\varphi X)\cdot L_1(X,Y)$ resembles the Lagrange interpolation polynomial over $\mathbb F(X)$ with points $(X,f^{(0)}(X))$ and $(\varphi X,f^{(0)}(\varphi X))$. Furthermore, the equality
 $$
 \begin{alignat*}{2}
@@ -522,11 +520,11 @@ Q(X^2,Y) = f^{(0)}(X)\cdot L_0(X,Y) + f^{(0)}(\varphi X)\cdot L_1(X,Y)
 $$
 generalizes in a more straightforward manner.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:7" role="doc-endnote">
+<li id="fn:7">
 <p>$\mathbb F(X)$ is the field of rational functions over $\mathbb F$ in the variable $X$.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
   </div>
 </section>
@@ -560,7 +558,6 @@ generalizes in a more straightforward manner.&#160;<a href="#fnref:6" class="foo
 
 
 
-
     <footer class="footer">
   
   
@@ -570,7 +567,7 @@ generalizes in a more straightforward manner.&#160;<a href="#fnref:6" class="foo
   </div>
   
   <div class="text-center copyright">
-    ©2024 Reinhard Lüftenegger.
+    ©2025 Reinhard Lüftenegger.
     Some <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Rights</a> Reserved.
   </div>
   
