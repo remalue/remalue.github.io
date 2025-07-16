@@ -17,7 +17,7 @@
 </title>
 
 
-<meta name="generator" content="Hugo 0.143.1">
+<meta name="generator" content="Hugo 0.148.1">
 
 
 
@@ -271,19 +271,18 @@ $$
 The opening, then, consists of the evaluation $y_i\coloneqq f_i(w)$ and (a commitment to) the quotient polynomials $q_i(X)$, for $i=1,\ldots,l$.</p>
 <p>Instead of creating $l$ different quotients $q_1(X),\ldots,q_l(X)$, we may generate a single quotient polynomial $q(X)\in\mathbb F_p[X]$ via the relation
 $$
-\sum_{i=1}^m \beta^{i-1}\cdot (f_i(X)-y_i) = q(X)\cdot (X-w),
+\sum_{i=1}^l \beta^{i-1}\cdot (f_i(X)-y_i) = q(X)\cdot (X-w),
 $$
 for a uniformly random $\beta\in\mathbb F_p$. Let us explore why this is admissible. For $y_i\coloneqq f_i(w)$ it holds
 $$
-\hspace{-0.6em}
 \begin{alignat}{1}
 &amp;\forall i=1,\ldots,l: f_i(w)=y_i\\
 &amp;\Longleftrightarrow \forall i=1,\ldots,l: f_i(X)-y_i=q_i(X)(X-w)\\
 &amp;\Longleftrightarrow \forall i=1,\ldots,l: (X-w)\mid f_i(X)-y_i\\
-&amp;\label{eq:sum-divisor}\Longleftrightarrow (X-w)\mid \sum_{i=1}^m Y^{i-1}\cdot (f_i(X)-y_i)\\
-&amp;\Longleftrightarrow \sum_{i=1}^m Y^{i-1}\cdot (f_i(X)-y_i) = q(X,Y)\cdot (X-w)\quad (\text{for some }q\in\mathbb F_p[X,Y])\\
-&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^m \beta^{i-1}\cdot (f_i(X)-y_i) = q(X,\beta)\cdot (X-w)\quad (\text{for random }\beta\in\mathbb F_p)\\
-&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^m \beta^{i-1}\cdot (f_i(\alpha)-y_i) = q(\alpha,\beta)\cdot (\alpha-w).\quad (\text{for random }\alpha,\beta\in\mathbb F_p)
+&amp;\label{eq:sum-divisor}\Longleftrightarrow (X-w)\mid \sum_{i=1}^l Y^{i-1}\cdot (f_i(X)-y_i)\\
+&amp;\Longleftrightarrow \sum_{i=1}^l Y^{i-1}\cdot (f_i(X)-y_i) = q(X,Y)\cdot (X-w)\quad (\text{for some }q\in\mathbb F_p[X,Y])\\
+&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^l \beta^{i-1}\cdot (f_i(X)-y_i) = q(X,\beta)\cdot (X-w)\quad (\text{for random }\beta\in\mathbb F_p)\\
+&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^l \beta^{i-1}\cdot (f_i(\alpha)-y_i) = q(\alpha,\beta)\cdot (\alpha-w).\quad (\text{for random }\alpha,\beta\in\mathbb F_p)
 \end{alignat}
 $$
 Only the equivalence in \eqref{eq:sum-divisor} deserves a more detailed explanation. We give a proof here.</p>
