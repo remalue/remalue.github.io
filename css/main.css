@@ -12,6 +12,7 @@
 }
 
 :root {
+    --menu-font: "League Spartan";
     --title-font: "League Spartan";
     --title-weight: 500;
     --title-color: #353438;
@@ -21,8 +22,7 @@
     --heading-font: "Roboto Flex";
     --content-color: #0e0e0f;
     --meta-font: #737373;
-    --content-font: "Metropolis";
-    --menu-font: "League Spartan";
+    --content-font: "Inter";
     --author-font: "Metropolis";
     --role-font: "Metropolis";
     --description-font: "Metropolis";
@@ -164,7 +164,7 @@ blockquote {
 }
 .container
 {
-    overflow: auto;
+    /* overflow: auto; */
     padding: 0 15px;
     max-width: 800px;
     /* min-height: 100vh;
@@ -179,7 +179,7 @@ blockquote {
 }
 div.content
 {
-    font-family: 'Metropolis';
+    font-family: var(--content-font);;
     /* font-family: 'Source Sans 3', "Roboto Flex"; */
     /* font-family: 'Roboto Flex'; */
     font-weight: 300;

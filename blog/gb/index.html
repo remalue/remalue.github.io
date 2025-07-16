@@ -12,9 +12,11 @@
 <meta name="keywords" content="cryptography, mathematics, research, security">
 
 
-<title>
-  Gröbner Bases (Made in Austria) &middot; Reinhard Lüftenegger 
-</title>
+  
+    <title>
+      Gröbner Bases (Made in Austria) &middot; Reinhard Lüftenegger
+    </title>
+  
 
 
 <meta name="generator" content="Hugo 0.148.1">
@@ -85,11 +87,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 
-
-
 <link rel="stylesheet" href="../../css/local-fonts.css">
 <link rel="stylesheet" href="../../css/main.css">
 <link rel="stylesheet" href="../../css/custom.css">
+<link rel="stylesheet" href="../../fonts/inter/inter.css">
 <script src="../../js/main.js"></script>
 <script src="../../js/custom.js"></script>
 
@@ -98,10 +99,10 @@
 
 
 
-<link rel="icon" type="image/png" href="../../favicon-32x32.png" sizes="32x32">
 
+<link rel="icon" type="image/png" href="../../favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../favicon-16x16.png" sizes="16x16">
 <link rel="manifest" href="../../manifest.json">
-<link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
 <meta name="theme-color" content="#ffffff">
 
 </head>
@@ -206,7 +207,7 @@
 </ol>
 <!-- In this context, ``solving'' most often means finding (exactly) one solution of the equation system
 (e.g., for a key-recovery attack on a block cipher). -->
-<p>Euation systems stemming from problems in symmetric cryptography most often have a finite number of solutions.``Solving&rsquo;&rsquo; may have one of the following meanings: $(a)$ finding exactly one solution, $(b)$ finding all solutions, or $(c)$ finding that no solution exists. The situation where there is no solution might arise in a so-called hybrid form of Gröbner basis cryptanalysis. Here,
+<p>Euation systems stemming from problems in symmetric cryptography most often have a finite number of solutions.&ldquo;Solving&rdquo; may have one of the following meanings: $(a)$ finding exactly one solution, $(b)$ finding all solutions, or $(c)$ finding that no solution exists. The situation where there is no solution might arise in a so-called hybrid form of Gröbner basis cryptanalysis. Here,
 the idea is to combine exhaustive search with Gröbner basis computations: we fix some of the (unknown) variables and, subsequently, solve the remaining equation system. The remaining equation system might be ill-conditioned, and, hence, not admit any solution. In practice, the solving step is usually a triad of computations.</p>
 <ul>
 <li>Computing a $degrevlex$ Gröbner basis for the zero-dimensionl input system using an algorithm such as F4 <a href="https://doi.org/10.1016/S0022-4049(99)00005-5">[F99]</a>, or F5 <a href="https://doi.org/10.1145/2465506.2465522">[F02]</a>.</li>

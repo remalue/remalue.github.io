@@ -12,9 +12,11 @@
 <meta name="keywords" content="cryptography, mathematics, research, security">
 
 
-<title>
-  The Permutation Check in PLONK &middot; Reinhard Lüftenegger 
-</title>
+  
+    <title>
+      The Permutation Check in PLONK &middot; Reinhard Lüftenegger
+    </title>
+  
 
 
 <meta name="generator" content="Hugo 0.148.1">
@@ -85,11 +87,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 
-
-
 <link rel="stylesheet" href="../../css/local-fonts.css">
 <link rel="stylesheet" href="../../css/main.css">
 <link rel="stylesheet" href="../../css/custom.css">
+<link rel="stylesheet" href="../../fonts/inter/inter.css">
 <script src="../../js/main.js"></script>
 <script src="../../js/custom.js"></script>
 
@@ -98,10 +99,10 @@
 
 
 
-<link rel="icon" type="image/png" href="../../favicon-32x32.png" sizes="32x32">
 
+<link rel="icon" type="image/png" href="../../favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../favicon-16x16.png" sizes="16x16">
 <link rel="manifest" href="../../manifest.json">
-<link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
 <meta name="theme-color" content="#ffffff">
 
 </head>
@@ -216,14 +217,14 @@ $$
 for all $i\in\{1,\ldots,m\}$. As a consequence $a_{\sigma(i)}=b_i$, for all $i$. $\qed$</p>
 <div class="callout callout-note">
   <div class="callout-note-title">Roots of Unity as Evaluation Domain</div>
-<p>PLONK represents each column of the gate table (i.e., execution trace) as a polynomial. The evaluation domain for this polynomial representation are the powers ${\omega,\omega^2,\ldots,\omega^n}$ of a primitive $n$-th root of unity $\omega$.</p>
+<p>PLONK represents each column of the gate table (i.e., execution trace) as a polynomial. The evaluation domain for this polynomial representation are the powers $H\coloneqq\{\omega,\omega^2,\ldots,\omega^n\}$ of a primitive $n$-th root of unity $\omega$.</p>
 </div>
-<p>In PLONK, we use above permutation check to prove the correct wiring of gates, i.e., that witness variables are set or copied correctly across multiple gates. Let&rsquo;s say we have in total $m$ witness variables $(w_1,\ldots,w_m)$. We define the following permutation $\sigma\in S_m$:
+<p>In PLONK, we use above permutation check to prove the correct wiring of gates, i.e., that witness variables are set or copied correctly across multiple gates. Let&rsquo;s say we have in total $n$ witness variables $(w_1,\ldots,w_n)$. We define the following permutation $\sigma\in S_n$:
 $$
 \sigma(i)=j \Longleftrightarrow w_i = w_j.
 $$
-In other words, if some witness variables are equal (i.e., copied), then $\sigma$ permutes the indices of these variables. The indices of uncopied variables are left untouched. In terms of cycle notation of permutations, this means that all witness variables with indices in a given cycle are the same. In fact, we are applying above permutation check lemma with the premise $a=(a_1,\ldots,a_m)=(b_1,\ldots,b_m)$. Hence, we are proving that $\sigma(a)=a$.</p>
-<p><code>Example.</code> Let&rsquo;s say $m=6$ and it holds $w_1=w_3$. In this case, the permutation $\sigma$ is given by
+In other words, if some witness variables are equal (i.e., copied), then $\sigma$ permutes the indices of these variables. The indices of uncopied variables are left untouched. In terms of cycle notation of permutations, this means that all witness variables with indices in a given cycle are the same. In fact, we are applying above permutation check lemma with the premise $a=(a_1,\ldots,a_n)=(b_1,\ldots,b_n)$. Hence, we are proving that $\sigma(a)=a$.</p>
+<p><code>Example.</code> Let&rsquo;s say $n=6$ and it holds $w_1=w_3$. In this case, the permutation $\sigma$ is given by
 $$
 \sigma = (13).
 $$
@@ -275,9 +276,10 @@ $$
 0, &amp; \text{otherwise}.
 \end{cases}%
 $$</p>
-<p>To prove the correct wiring of the witness vectors in PLONK, we concatenate the witness vectors $W_1,W_2,W_3$ and combine them into a single vector $(W_1,W_2,W_3)$ of length $3n$.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> The next figure illustrates this concatenation and, additionally, lists the evaluation domain of each $S_i$ when represented as a polynomial.</p>
+<p>To prove the correct wiring of the witness vectors $W_1,W_2,W_3$ in PLONK, we concatenate and combine them into a single vector $(W_1,W_2,W_3)$ of length $3n$.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> The goal is to apply the permutation argument to the combined vector $(W_1,W_2,W_3)$.</p>
+<p>The next figure illustrates this concatenation and, additionally, lists the evaluation domain of each $S_i$ when represented as a polynomial.</p>
 <img class="svg" src="../../img/initial_layout.svg" alt="Copy constraints without shift"/>
-<p>The goal is to apply the permutation argument to the combined vector $(W_1,W_2,W_3)$. We face the problem that each $W_i$ has the same evaluation domain $\omega,\ldots,\omega^n$. The permutation argument in above lemma, however, requires distinct elements $w_1,\ldots,w_{3n}$.</p>
+<p>We face the problem that each $W_i$ has the same evaluation domain $\omega,\ldots,\omega^n$. The permutation argument in above lemma, however, requires distinct elements $w_1,\ldots,w_{3n}$.</p>
 <p>We, therefore, choose $c_1,c_2\in\mathbb F_p$ such that the sets
 $$
 H \coloneqq \{\omega,\ldots,\omega^n\},\quad c_1H = \{c_1\omega,\ldots,c_1\omega^n\},\quad c_2H = \{c_2\omega,\ldots,c_2\omega^n\},
@@ -294,17 +296,18 @@ $$ -->
 <img class="svg" src="../../img/shifted_layout.svg" alt="Copy constraints with shift"/>
 <p>We define $w=(w_1,\ldots,w_{3n})$ with
 $$
-w_{(i-1)n+j} \coloneqq x_{i,j},
-$$ and $u=(u_1,\ldots,u_{3n})$ with
+w_{(i-1)n+j} \coloneqq x_{i,j} = W_i(\omega^j),
+$$
+and $u=(u_1,\ldots,u_{3n})$ with
 $$
 u_{(i-1)n+j} \coloneqq c_i\omega^j,
 $$
 where $i=1,2,3$, $j=1,\ldots,n$, $c_0\coloneqq 1$, and $c_1,c_2$ as above. The vector $w$ contains all $3n$ witness variables and we assume that $\sigma$ encodes all copy constraints (i.e., equalities between variables in $a$).</p>
 <p>At this point, we could use the <a href="../../blog/szdl">Schwartz-Zippel-DiMello-Lipton Lemma</a> and check if</p>
 <p>$$
-\prod_{i=1}^{3n}( w_i + u_i \alpha + \beta) - \prod_{i=1}^{3n} (w_i + u_{\sigma(i)} \alpha + \beta) = 0
+\prod_{i=1}^{3n}( w_i + u_i\cdot \beta + \gamma) - \prod_{i=1}^{3n} (w_i + u_{\sigma(i)}\cdot\beta + \gamma) = 0
 $$
-for uniformly and independently at random selected $\alpha,\beta\in\mathbb F_p$. If the check held, with an error probability of at most $\frac{3n}{p}$ we could infer that the two involved polynomials are indeed identical and, hence, $\sigma(w)=w$. However, the permutation check in PLONK doesn&rsquo;t stop here but reduces above zero check to a vanishing check.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+for i.i.d. uniformly random $\beta,\gamma\in\mathbb F_p$. If the check held, with an error probability of at most $\frac{3n}{p}$ we could infer that the two involved polynomials are indeed identical and, hence, $\sigma(w)=w$. However, as we are going to discuss, the permutation check in PLONK doesn&rsquo;t stop here but reduces above zero check to a vanishing check.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
 <p>For this vanishing check, we encode the vector $u$ and its permutation $\sigma(u)$ via, in total, $6$ polynomials over the domain $\{\omega,\ldots,\omega^n\}$:
 $$
 U_{\text{id},i}(X) \coloneqq c_{i-1}X,\quad i=1,2,3,
@@ -313,69 +316,95 @@ and
 $$
 U_{\sigma,i}(X) \coloneqq \sum_{j=1}^n c_{i-1}\omega^{\sigma(j)}\cdot\mathcal{L}_j(X),\quad i=1,2,3.
 $$</p>
-<p>For notational purposes, we also define
+<p>For notational purposes, we also define the polynomials in $\mathbb F_p[T,X,Y]$
 $$
-f(T,X,Y)\coloneqq \prod_{i=1}^{3} ( W_i(T) + U_{\text{id},i}(T) X + Y),
+f(T,X,Y)\coloneqq \prod_{i=1}^{3} ( W_i(T) + U_{\text{id},i}(T)\cdot X + Y),
 $$
 and
 $$
-g(T,X,Y)\coloneqq \prod_{i=1}^{3} ( W_i(T) + U_{\sigma,i}(T) X + Y).
+g(T,X,Y)\coloneqq \prod_{i=1}^{3} ( W_i(T) + U_{\sigma,i}(T)\cdot X + Y).
 $$</p>
 <p>This gives us
 $$
 \hspace{-1.3em}
-\begin{alignat}{3}
+\begin{alignat*}{3}
 &amp;\prod_{i=1}^{3n}( w_i + u_i X + Y) &amp;&amp;= \prod_{i=1}^{3n} (w_i + u_{\sigma(i)} X + Y) \\
 \Longleftrightarrow\quad &amp;\prod_{j=1}^n\prod_{i=1}^{3} ( x_{i,j} + c_{i-1}\omega^j X + Y) &amp;&amp;= \prod_{j=1}^n\prod_{i=1}^{3} (x_{i,j} + c_{i-1}\omega^{\sigma(j)} X + Y)\\
 \Longleftrightarrow\quad &amp;\prod_{j=1}^n \underbrace{\prod_{i=1}^{3} ( W_i(\omega^j) + U_{\text{id},i}(\omega^j) X + Y)}_{= f(\omega^j,X,Y)}
 &amp;&amp;= \prod_{j=1}^n \underbrace{\prod_{i=1}^{3} (W_i(\omega^j) + U_{\sigma,i}(\omega^j) X + Y)}_{=g(\omega^j,X,Y)}\\
 \Longleftrightarrow\quad &amp;\prod_{j=1}^n f(\omega^j,X,Y) &amp;&amp;= \prod_{j=1}^n g(\omega^j,X,Y)\\
-\label{eq:inverse-check}\Longleftrightarrow\quad &amp;\frac{\prod_{j=1}^n f(\omega^j,X,Y)}{\prod_{j=1}^n g(\omega^j,X,Y)} &amp;&amp;= 1.
-\end{alignat}
-$$
-Here, we can think of $f(\omega^j, X,Y)$ as the evaluation of the polynomial $f(T,X,Y)$ at the point $T=\omega^j$. And similarly for $g(T,X,Y)$.</p>
-<p>As a further processing step, the authors of PLONK (implicitly) define the rational function $\Phi(S,X,Y)$ given by
-$$
+\stackrel{w.h.c.}{\Longleftrightarrow}\quad &amp;\prod_{j=1}^n f(\omega^j,\beta,\gamma) &amp;&amp;= \prod_{j=1}^n g(\omega^j,\beta,\gamma)\quad{ \small(\text{for random $\beta,\gamma\in\mathbb F_p$})}\\
+\Longleftrightarrow\quad &amp;\frac{\prod_{j=1}^n f(\omega^j,\beta,\gamma)}{\prod_{j=1}^n g(\omega^j,\beta,\gamma)} &amp;&amp;= 1\quad{ \small(\text{assuming that }g(\omega^j,\beta,\gamma)\neq 0,\forall j)}.
+% \label{eq:inverse-check}\Longleftrightarrow\quad &amp;\frac{\prod_{j=1}^n f(\omega^j,X,Y)}{\prod_{j=1}^n g(\omega^j,X,Y)} &amp;&amp;= 1.
+\end{alignat*}
+$$</p>
+<!-- Here, we can think of $f(\omega^j, X,Y)$ as the evaluation of the polynomial $f(T,X,Y)$ at the point $T=\omega^j$. And similarly for $g(T,X,Y)$. -->
+<p>As a further processing step, the authors of PLONK define the polynomial $\Phi(T)$ in $\mathbb F_p[T]$</p>
+<!-- rational function $\Phi(S,X,Y)$ given by -->
+<p>$$
 \begin{alignat*}{2}
-S= \;&amp;\omega &amp;&amp;\mapsto 1,\\
-&amp;\omega^2 &amp;&amp;\mapsto \frac{f(\omega,X,Y)}{g(\omega,X,Y)},\\
-&amp;\omega^3 &amp;&amp;\mapsto \frac{f(\omega,X,Y)}{g(\omega,X,Y)}\cdot \frac{f(\omega^2,X,Y)}{g(\omega^2,X,Y)},\\
-1 = \;&amp;\omega^n &amp;&amp;\mapsto \frac{f(\omega,X,Y)}{g(\omega,X,Y)}\cdot\ldots\cdot \frac{f(\omega^{n-1},X,Y)}{g(\omega^{n-1},X,Y)}.\\
+&amp;\omega &amp;&amp;\mapsto 1,\\
+&amp;\omega^2 &amp;&amp;\mapsto \frac{f(\omega,\beta,\gamma)}{g(\omega,\beta,\gamma)},\\
+&amp;\omega^3 &amp;&amp;\mapsto \frac{f(\omega,\beta,\gamma)}{g(\omega,\beta,\gamma)}\cdot \frac{f(\omega^2,\beta,\gamma)}{g(\omega^2,\beta,\gamma)},\\
+1 = \;&amp;\omega^n &amp;&amp;\mapsto \frac{f(\omega,\beta,\gamma)}{g(\omega,\beta,\gamma)}\cdot\ldots\cdot \frac{f(\omega^{n-1},\beta,\gamma)}{g(\omega^{n-1},\beta,\gamma)}.\\
 \end{alignat*}
 $$
-If $\mathcal L_1(S),\ldots, \mathcal L_n(S)$ denotes a Lagrange basis given by
+If $\mathcal L_1(T),\ldots, \mathcal L_n(T)$ denote the Lagrange basis given by
 $$
-\mathcal L_i(S)\coloneqq \prod_{j=1,\ldots,n:\;j\neq i} \frac{S-\omega^j}{\omega^i-\omega^j},
+\mathcal L_i(T)\coloneqq \prod_{j=1,\ldots,n:\;j\neq i} \frac{T-\omega^j}{\omega^i-\omega^j},
 $$
 we can write
 $$
-\Phi(S,X,Y) = \sum_{i=1}^n \mathcal L_i(S)\cdot\prod_{j=1}^{i-1}\frac{f(w^j,X,Y)}{g(w^j,X,Y)}.
+\Phi(T) = \sum_{i=1}^n \mathcal L_i(T)\cdot\prod_{j=1}^{i-1}\frac{f(\omega^j,\beta,\gamma)}{g(\omega^j\beta,\gamma)}\in\mathbb F_p[T].
+$$</p>
+<!-- We will now make our lives a bit easier and simplify the notation a bit. Since
 $$
-Given $\Phi(S,X,Y)$, the identity in $\eqref{eq:inverse-check}$ is, in turn, equivalent to the proposition that for all $a\in H$ it holds
+\mathbb F_p[T,X,Y]\cong\mathbb F_p[X,Y][T]\subseteq\mathbb F_p(X,Y)[T]
 $$
-\begin{alignat*}{2}
-&amp;1.\; &amp;&amp;\mathcal L_1(a)\cdot (\Phi(a,X,Y)-1)=0, \\
-&amp;2.\; &amp;&amp;\Phi(a,X,Y)\cdot f(a,X,Y) - \Phi(\omega a,X,Y)\cdot g(a,X,Y)=0.
+as rings, we can view $f(T,X,Y)$ and $g(T,X,Y)$ as elements in $\mathbb F_p(X,Y)[T]$. This allows us to "hide" to omit the variables $X,Y$ from the notation (for the moment), and just write $f(T)$ and $g(T)$ instead. -->
+<p>Now, above identity<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
+$$
+\frac{\prod_{j=1}^n f(\omega^j,\beta,\gamma)}{\prod_{j=1}^n g(\omega^j,\beta,\gamma)} = 1
+$$
+is equivalent to the proposition that for all $a\in H$ it holds</p>
+<ul>
+<li>$\mathcal L_1(a)\cdot (\Phi(a)-1)=0$,</li>
+<li>$\Phi(a)\cdot f(a,\beta,\gamma) - \Phi(\omega a)\cdot g(a,\beta,\gamma)=0$.</li>
+</ul>
+<p>This proposition is, in turn, equivalent to</p>
+<ul>
+<li>$\mathcal L_1(T)\cdot(\Phi(T)-1) = Q_1(T)\cdot Z_H(T)$,</li>
+<li>$\Phi(T)\cdot f(T,\beta,\gamma) - \Phi(\omega T)\cdot g(T,\beta,\gamma) = Q_2(T)\cdot Z_H(T)$,</li>
+</ul>
+<p>for certain $Q_1,Q_2\in\mathbb F_p[T]$ and
+$$
+Z_H(T)\coloneqq T^n-1 = \prod_{a\in H}(T-a)\in\mathbb F_p[T].
+$$</p>
+<!-- Let's denote
+$$
+C_1(T)\coloneqq \mathcal L_1(T)\cdot(\Phi(T)-1) - Q_1(T)\cdot Z_H(T),
+$$
+and
+$$
+C_2(T)\coloneqq \Phi(T)\cdot f(T) - \Phi(\omega T)\cdot g(T) - Q_2(T)\cdot Z_H(T)
+$$
+Even if $C_1$ and $C_2$ are rational, we can still use the [Schwartz-Zippel-DiMello-Lipton Lemma](/blog/szdl) for probabilistically checking the identities $C_1(T,X,Y)=C_2(T,X,Y)=0$.
+
+This is because for any rational function $R(T,X,Y)\in\mathbb F_p(T,X,Y)$ it holds
+$$
+\begin{alignat*}{1}
+&R(T,X,Y)=0\\\\
+\stackrel{w.h.c}{\Longleftrightarrow}\\; &R(\gamma,\alpha,\beta) = \frac{N(\gamma,\alpha,\beta)}{D(\gamma,\alpha,\beta)}=0\\\\
+\Longleftrightarrow\\; &N(\gamma,\alpha,\beta) = 0
 \end{alignat*}
 $$
-We note, that $1.$, and $2.$ are equivalent to<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
-$$
-\begin{alignat*}{2}
-&amp;\hspace{-1.5em}(A) \; &amp;&amp;\mathcal L_1(S) (\Phi(S,X,Y)-1) = Q_1(S,X,Y) Z_H(S) , \\
-&amp;\hspace{-1.5em}(B) \; &amp;&amp;\Phi(S,X,Y) f(S,X,Y) - \Phi(\omega S,X,Y) g(S,X,Y) = Q_2(S,X,Y) Z_H(S).
-\end{alignat*}
-$$
-for some $Q_1,Q_2\in\mathbb F_p(S,X,Y)$.</p>
-<p>Let&rsquo;s denote the functions in (A), (B) as $C_1(S,X,Y)$ and $C_2(S,X,Y)$, respectively. Even if $C_1$ and $C_2$ are rational, we can still use the <a href="../../blog/szdl">Schwartz-Zippel-DiMello-Lipton Lemma</a> for probabilistically checking the identities in (A), (B). This is because for any rational function $R(S,X,Y)$ it holds
-$$
-R(\gamma,\alpha,\beta) = \frac{N(\gamma,\alpha,\beta)}{D(\gamma,\alpha,\beta)}=0 \Longleftrightarrow N(\gamma,\alpha,\beta) = 0.
-$$
-for $\alpha,\beta,\gamma\in\mathbb F_p$ and assuming that $D(\gamma,\alpha,\beta)\neq 0$ (i.e., $(\gamma,\alpha,\beta)$ is not a pole of $R$).<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></p>
-<p>In practice, PLONK uses the (rational) expressions in (A), (B) to prove the copy constraints (i.e., the correct wiring of witness variables across multiple gates).</p>
+for random $\alpha,\beta,\gamma\in\mathbb F_p$ and assuming that $D(\gamma,\alpha,\beta)\neq 0$ (i.e., $(\gamma,\alpha,\beta)$ is not a pole of $R$). -->
+<p>In practice, PLONK uses the these last expressions (or $H$-ranged identities) to prove the copy constraints (i.e., the correct wiring of witness variables across multiple gates).</p>
 <!-- ############### -->
 <!-- Footnotes -->
 <!-- ############### -->
 <!-- Since it holds $p-1=n\cdot r$, for some $r\in\mathbb N$, just pick $a,b\in\mathbb N$ with $a,b\neq 0\bmod r$ and $a\neq b\bmod r$.  -->
+<!-- [^5]: We convince ourselves about this last equivalence if we iteratively apply the algorithm for division with remainder in $\mathbb F_p[S,X,Y]$ (with variable ordering $S>Y>X$) for each $a\in H$. Then, for a polynomial $P(S,X,Y)$ we get the decomposition $P(S,X,Y) = (S-a)\cdot Q(S,X,Y) + R(X,Y)$. Since no term in $R$ is divisible by $S$, we have that $R=R(X,Y)$ is, indeed, a polynomial only in $X,Y$. Since $P(a,X,Y)=0$, we get $R(X,Y)=0$. We conclude, $(S-a)\mid P(S,X,Y)$. -->
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -389,10 +418,7 @@ for $\alpha,\beta,\gamma\in\mathbb F_p$ and assuming that $D(\gamma,\alpha,\beta
 <p>The authors of <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a> call this a <em>ranged polynomial protocol</em>.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4">
-<p>We convince ourselves about this last equivalence if we iteratively apply the algorithm for division with remainder in $\mathbb F_p[S,X,Y]$ (with variable ordering $S&gt;Y&gt;X$) for each $a\in H$. Then, for a polynomial $P(S,X,Y)$ we get the decomposition $P(S,X,Y) = (S-a)\cdot Q(S,X,Y) + R(X,Y)$. Since no term in $R$ is divisible by $S$, we have that $R=R(X,Y)$ is, indeed, a polynomial only in $X,Y$. Since $P(a,X,Y)=0$, we get $R(X,Y)=0$. We conclude, $(S-a)\mid P(S,X,Y)$.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:5">
-<p>The PLONK paper, e.g., assumes that $g(\omega^j,\alpha,\beta)\neq 0$ for the randomly chosen $\alpha,\beta\in\mathbb F_p$. With high probability this will be the case. If not, the protocol is aborted, which introduces a negligible completeness error. I.e., PLONK is statistically complete.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Again, we emphasize the condition that $g(\omega^j,\beta,\gamma)\neq 0$. In particular, the PLONK paper, assumes that $g(\omega^j,\beta,\gamma)\neq 0$ for randomly chosen elements $\beta,\gamma\in\mathbb F_p$. With high probability this will be the case. If not, the protocol is aborted, which introduces a negligible completeness error. In other words, PLONK is not perfectly complete, but (only) statistically complete.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
