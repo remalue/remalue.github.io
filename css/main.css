@@ -23,9 +23,11 @@
     --content-color: #0e0e0f;
     --meta-font: #737373;
     --content-font: "Inter";
+    --content-font-size: 1.1rem;
     --author-font: "Metropolis";
     --role-font: "Metropolis";
-    --description-font: "Metropolis";
+    --description-font: "Inter";
+    --description-font-size: var(--content-font-size);
     --line-height: 1.30;
     --header-font-size: calc(1.5rem + 0.3vw);
 
@@ -110,6 +112,7 @@ body
 
 html
 {
+    scrollbar-gutter: stable; /*This is needed to prevent viewport from resizing when scrollbar appears*/
     position: relative;
     height: 100%;
     min-height: 100%;
@@ -458,8 +461,8 @@ section.meta {
 
 .social a
 {
-    color: #6f6f81;
-    /* opacity: 90%; */
+    color: rgb(7, 63, 105);
+    opacity: 100%;
 }
 
 .subtitle {
