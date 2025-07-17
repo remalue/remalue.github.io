@@ -17,9 +17,9 @@
     --title-weight: 500;
     --title-color: #353438;
     --h1-color: #353438;
-    --subtitle-font: "Roboto Flex";
+    --subtitle-font: "League Spartan";
     --subtitle-color: #1a1a1a;
-    --heading-font: "Roboto Flex";
+    --heading-font: "League Spartan";
     --content-color: #0e0e0f;
     --meta-font: #737373;
     --content-font: "Inter";
@@ -95,15 +95,11 @@ a:link
 
 body
 {
-    font-family:  "Roboto Flex", 'Montserrat', 'Roboto', 'Lato', 'Nunito' sans-serif;
-    /* font-size: 18px; */
-    /* font-weight: 400; */
-    
+    /* font-family:  "Roboto Flex", 'Montserrat', 'Roboto', 'Lato', 'Nunito' sans-serif; */
     width: auto;
     margin: 0;
     background-color: #fafafa;
     padding: 0 0 2vh 0;
-
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr;
@@ -135,7 +131,6 @@ li
 {
     font-family: var(--author-font), sans-serif;
     text-transform: uppercase;
-    letter-spacing: .05rem;
     margin-top: 25px;
     margin-bottom: 5px;
     /* margin-bottom: 10px; */
@@ -182,11 +177,9 @@ blockquote {
 }
 div.content
 {
-    font-family: var(--content-font);;
-    /* font-family: 'Source Sans 3', "Roboto Flex"; */
-    /* font-family: 'Roboto Flex'; */
+    font-family: var(--content-font);
     font-weight: 300;
-    font-size: 1.15rem;
+    font-size: var(--content-font-size);
     line-height: var(--line-height);
     color: var(--content-color);
     text-rendering: optimizeLegibility;
@@ -275,8 +268,8 @@ div.content
 
 .header
 {
-    margin-top: 40px;
-    margin-bottom: 3%;
+    margin-top: 6%;
+    margin-bottom: 4%;
 }
 
 .responsive {
