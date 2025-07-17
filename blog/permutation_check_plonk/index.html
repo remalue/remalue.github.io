@@ -193,7 +193,7 @@
   <div class="callout-note-title">Notation</div>
 <p>Let $\mathbb F$ denote a field and let $\mathbb F_p$ denote a prime field with $p$ elements.</p>
 </div>
-<p>One of the cornerstones of <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a> is an efficient statistical test for checking if two vectors $(a_1,\ldots,a_m), (b_1,\ldots,b_m)\in\mathbb F_p^m$ are a permutation of each other, i.e., for checking that
+<p>One of the cornerstones of <a href="https://eprint.iacr.org/2019/953.pdf">PLONK</a> is an efficient statistical test for checking if two vectors $(a_1,\ldots,a_m), (b_1,\ldots,b_m)\in\mathbb F_p^m$ are a fixed and specified permutation $\sigma\in\mathcal{S}_m$ of each other, i.e., for checking that
 $$
 \forall i\in\{1,\ldots,m\}: a_{\sigma(i)} = b_i.
 $$</p>
@@ -215,16 +215,30 @@ $$
 a_{\sigma(i)} + u_{\sigma(i)} X + Y = b_i + u_{\sigma(i)} X + Y,
 $$
 for all $i\in\{1,\ldots,m\}$. As a consequence $a_{\sigma(i)}=b_i$, for all $i$. $\qed$</p>
-<div class="callout callout-note">
-  <div class="callout-note-title">Roots of Unity as Evaluation Domain</div>
-<p>PLONK represents each column of the gate table (i.e., execution trace) as a polynomial. The evaluation domain for this polynomial representation are the powers $H\coloneqq\{\omega,\omega^2,\ldots,\omega^n\}$ of a primitive $n$-th root of unity $\omega$.</p>
-</div>
-<p>In PLONK, we use above permutation check to prove the correct wiring of gates, i.e., that witness variables are set or copied correctly across multiple gates. Let&rsquo;s say we have in total $n$ witness variables $(w_1,\ldots,w_n)$. We define the following permutation $\sigma\in S_n$:
+<p>In PLONK, we use above permutation check to prove the correct wiring of gates, i.e., that witness variables are set (or copied) correctly across multiple gates. Let&rsquo;s say we have in total $m$ witness variables $(w_1,\ldots,w_m)$. Then, we can apply above permutation check lemma with the premise
 $$
-\sigma(i)=j \Longleftrightarrow w_i = w_j.
+w\coloneqq(w_1,\ldots,w_m)=(a_1,\ldots,a_m)=(b_1,\ldots,b_m)
 $$
-In other words, if some witness variables are equal (i.e., copied), then $\sigma$ permutes the indices of these variables. The indices of uncopied variables are left untouched. In terms of cycle notation of permutations, this means that all witness variables with indices in a given cycle are the same. In fact, we are applying above permutation check lemma with the premise $a=(a_1,\ldots,a_n)=(b_1,\ldots,b_n)$. Hence, we are proving that $\sigma(a)=a$.</p>
-<p><code>Example.</code> Let&rsquo;s say $n=6$ and it holds $w_1=w_3$. In this case, the permutation $\sigma$ is given by
+Hence, we are proving that $\sigma(w)=w$.</p>
+<p>The equalities between witness variables define an equivalence relation $\equiv$ on the index set $\{1,\ldots, m\}$ as follows:
+$$
+i\equiv j :\Longleftrightarrow w_i=w_j.
+$$
+This equivalence relation $\equiv$ partitions the index set ${{1,\ldots,3n}}$ into a set of <em>disjoint</em> equivalence classes $[i_1]_{\equiv},\ldots,[i_t]_{\equiv}$ with
+$$
+[i]_\equiv\coloneqq \{j\in\{1,\ldots,m\} : j=i \},
+$$
+and such that
+$$
+\{1,\ldots,m\} = \bigcup_{k=1}^t[i_k]_\equiv
+$$
+We define a permutation $\sigma\in S_m$ based on these equivalence classes as the following product of cycles:
+$$
+\sigma = ([i_1]_\equiv)\cdots([i_t]_\equiv).
+$$
+The ordering of indices within a cycle doesn&rsquo;t matter. This is also the reason why $\sigma$ is not unique for a given equivalence relation. Cycles of length $1$ are not explicitly written down in the cycle notation.</p>
+<p>In other words, some witness variables are equal (i.e., copied) if and only if the corresponding indices belong to the same cycle in $\sigma$. This means, all witness variables with indices in a given cycle are the same. The indices of uncopied variables are left untouched.</p>
+<p><code>Example.</code> Let&rsquo;s say $m=6$ and it holds $w_1=w_3$. In this case, the permutation $\sigma\in\mathcal{S}_6$ is given by
 $$
 \sigma = (13).
 $$
@@ -232,25 +246,13 @@ Assuming that, additionally, it holds $w_3=w_4$, we have
 $$
 \sigma = (134).
 $$
-Since the last situation is equivalent with $w_1=w_4=w_3$, also the following definition of $\sigma$ encoded the copy constraints correctly:
+But also the following definition of $\sigma$ encoded the copy constraints correctly:
 $$
 \sigma = (143).
-$$
-Hence, to prove that $w_1=w_3=w_4$, we show the equivalent relation
-$$
-w = (w_1,w_2,w_3,w_4,w_5,w_6) = (w_3,w_2,w_4,w_1,w_5,w_6) = \sigma(w).\qex
 $$</p>
-<div class="callout callout-summary">
-  <div class="callout-summary-title">Summary</div>
-<p>To put the cart before the horse, checking the copy constraints in PLONK involves the following chain of equivalent identities:
-$$
-\begin{alignat*}{2}
-&amp; \sigma(w) = w \\
-&amp;\Longleftrightarrow \frac{\prod_{j=1}^n f(\omega^j,X,Y)}{\prod_{j=1}^n g(\omega^j,X,Y)} = 1\\
-&amp;\Longleftrightarrow C_1(T,X,Y) = C_2(T,X,Y) = 0
-\end{alignat*}
-$$
-In practice, PLONK checks the last identity. The remainder of this article elaborates on the mechanics behind these equivalences.</p>
+<div class="callout callout-note">
+  <div class="callout-note-title">Roots of Unity as Evaluation Domain</div>
+<p>PLONK represents each column of the execution trace (or gate table) as a polynomial. The evaluation domain to obtain this polynomial representation are the powers $H\coloneqq\{\omega,\omega^2,\ldots,\omega^n\}$ of a primitive $n$-th root of unity $\omega$, usually taken from the multiplicative subgroup of the scalar field of an elliptic curve group.</p>
 </div>
 <p>For $n$ (vanilla) PLONK gates, the table layout of the gates consists of $n$ rows (one for each gate) and contains the $3$ witness columns
 $$
@@ -380,14 +382,15 @@ is equivalent to the proposition that for all $a\in H$ it holds</p>
 $$
 Z_H(T)\coloneqq T^n-1 = \prod_{a\in H}(T-a)\in\mathbb F_p[T].
 $$</p>
-<!-- Let's denote
+<p>For notational purposes, let&rsquo;s introduce
 $$
 C_1(T)\coloneqq \mathcal L_1(T)\cdot(\Phi(T)-1) - Q_1(T)\cdot Z_H(T),
 $$
 and
 $$
-C_2(T)\coloneqq \Phi(T)\cdot f(T) - \Phi(\omega T)\cdot g(T) - Q_2(T)\cdot Z_H(T)
-$$
+C_2(T)\coloneqq \Phi(T)\cdot f(T,\beta,\gamma) - \Phi(\omega T)\cdot g(T,\beta,\gamma) - Q_2(T)\cdot Z_H(T).
+$$</p>
+<!-- 
 Even if $C_1$ and $C_2$ are rational, we can still use the [Schwartz-Zippel-DiMello-Lipton Lemma](/blog/szdl) for probabilistically checking the identities $C_1(T,X,Y)=C_2(T,X,Y)=0$.
 
 This is because for any rational function $R(T,X,Y)\in\mathbb F_p(T,X,Y)$ it holds
@@ -399,7 +402,18 @@ $$
 \end{alignat*}
 $$
 for random $\alpha,\beta,\gamma\in\mathbb F_p$ and assuming that $D(\gamma,\alpha,\beta)\neq 0$ (i.e., $(\gamma,\alpha,\beta)$ is not a pole of $R$). -->
-<p>In practice, PLONK uses the these last expressions (or $H$-ranged identities) to prove the copy constraints (i.e., the correct wiring of witness variables across multiple gates).</p>
+<div class="callout callout-summary">
+  <div class="callout-summary-title">Summary</div>
+<p>Checking the copy constraints in PLONK involves the following chain of equivalent identities:
+$$
+\begin{alignat*}{2}
+&amp; \sigma(w) = w \\
+&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \frac{\prod_{j=1}^n f(\omega^j,\beta,\gamma)}{\prod_{j=1}^n g(\omega^j,\beta,\gamma)} = 1{\small\quad(\text{for random $\beta,\gamma\in\mathbb F_p\wedge g(\omega^j,\beta,\gamma)\neq 0, \forall j$})}\\
+&amp;\Longleftrightarrow C_1(T) = C_2(T) = 0
+\end{alignat*}
+$$
+In practice, PLONK uses the last expressions (or $H$-ranged identities) to prove the copy constraints (i.e., the correct wiring of witness variables across multiple gates).</p>
+</div>
 <!-- ############### -->
 <!-- Footnotes -->
 <!-- ############### -->
