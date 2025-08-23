@@ -49,18 +49,21 @@ a:link
     src: url("/fonts/metropolis/Metropolis-Regular.woff") format("opentype");
     font-weight: 400;
 }
+
 @font-face {
     font-family: 'Metropolis';
     src: url("/fonts/metropolis/Metropolis-RegularItalic.woff") format("opentype");
     font-style: italic;
     font-weight: 400;
 }
+
 @font-face {
     font-family: 'Metropolis';
     src: url("/fonts/metropolis/Metropolis-RegularItalic.woff") format("opentype");
     font-style: oblique;
     font-weight: 400;
 }
+
 @font-face {
     font-family: 'Metropolis';
     src: url("/fonts/metropolis/Metropolis-Light.woff") format("opentype");
