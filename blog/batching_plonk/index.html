@@ -19,7 +19,7 @@
   
 
 
-<meta name="generator" content="Hugo 0.148.2">
+<meta name="generator" content="Hugo 0.152.2">
 
 
 
@@ -313,7 +313,7 @@ $$</p>
 <p>How to verify that $f_1(w)=y_1, \ldots,f_m(w)=y_m$ given commitments $C_1,\ldots,C_m$ to $f_1,\ldots,f_m$ and commitments $Q_1,\ldots,Q_m$ to quotients $q_1,\ldots,q_m$? Naively, we can carry out $m$ pairing checks
 $$
 \begin{aligned}
-\forall i=1,\ldots,m: e(C_i,g_2)=e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i},
+\forall i=1,\ldots,m: e(C_i,g)=e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i},
 \end{aligned}
 $$
 where $g_2^{\tau}$ is one of the powers created during the trusted setup ceremony of PLONK. However, we can combine these $m$ checks into a single check as follows. We first observe that for any $i=1,\ldots,m$ it holds
@@ -321,7 +321,7 @@ $$
 \begin{aligned}
 &amp;e(C_i,g_2)= e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i} \\
 % \Longleftrightarrow\quad &amp;e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\
-\Longleftrightarrow\quad &amp;e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g_2^{\tau}\cdot g_2^{-w}) \\
+\Longleftrightarrow\quad &amp;e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g^{\tau}/g_2^w) \\
 % \Longleftrightarrow\quad &amp;e(g_1,g_2)^{f_i(\tau)}\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g^{\tau}/g_2^w) \\
 % \Longleftrightarrow\quad &amp;e(g_1,g_2)^{f_1(\tau)-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\
 % \Longleftrightarrow\quad &amp;e\left(C_i/g_1^{y_i},g_2\right) = e(Q_i,g_2^{\tau}/g_2^w) \\
@@ -351,9 +351,7 @@ $$
 % \Longleftrightarrow\quad &amp; f_1(\alpha)-y_1-Q_1(\alpha) w + \beta\cdot (f_2(\alpha)-y_2-Q_2(\alpha) w) = \alpha Q_1(\alpha) + \beta\cdot \alpha Q_2(\alpha)
 \end{aligned}
 $$
-In this form, above $m$ pairing checks boil down to a single pairing check for checking that $f(w)=0$.</p>
-<!-- For this pairing check, it remains to discuss how to construct the commitments $C$ (for $f(X)$) and $Q$ (for the corresponding quotient $q(X)$). -->
-<p>We can compute the commitment $C$ to $f(X)$ via
+In this form, above $m$ pairing checks boil down to a single pairing check. We can compute the commitment $C$ to $f(X)$ via
 $$
 C \coloneqq g_1^{f(\tau)} = \prod_{i=1}^m \left(\frac{g_1^{f_i(\tau)}}{g_1^{y_i}}\right)^{\beta^{i-1}} = \prod_{i=1}^m \left(\frac{C_1}{g_1^{y_i}}\right)^{\beta^{i-1}} ,
 $$
@@ -361,10 +359,10 @@ and the commitment $Q$ to $q(X)$ via
 $$
 Q\coloneqq g_1^{q(\tau)} = g_1^{\sum_{i=1}^m \beta^{i-1} q_i(\tau)} = \prod_{i=1}^m g_1^{\beta^{i-1} q_i(\tau)} = \prod_{i=1}^m Q_i^{\beta^{i-1}}.
 $$
-Now, verifying the opening $f(w)=0$ of $f(X)$ at $w$ can be done via the pairing check
+Now, verifying the opening $y=f(w)=0$ of $f(X)$ at $w$ can be done via the pairing check
 $$
 \begin{aligned}
-e\left(C\cdot Q^w, g_2\right)
+e\left(C / g_1^0\cdot Q^w, g_2\right)
 = e\left(\prod_{i=1}^m (C_i/g_1^{y_i}\cdot Q_i^w)^{\beta^{i-1}},g_2\right)
 = e\left(\prod_{i=1}^m Q_i^{\beta^{i-1}}, g_2^\tau\right)
 = e\left(Q, g_2^{\tau}\right).
