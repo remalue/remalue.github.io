@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://remalue.github.io/blog/minimalism/</loc>
+    <lastmod>2025-11-19T19:21:14+01:00</lastmod>
+  </url><url>
+    <loc>https://remalue.github.io/</loc>
+    <lastmod>2025-11-19T19:21:14+01:00</lastmod>
+  </url><url>
     <loc>https://remalue.github.io/categories/algebra/</loc>
     <lastmod>2025-07-17T12:46:59+02:00</lastmod>
   </url><url>
@@ -10,9 +16,6 @@
   </url><url>
     <loc>https://remalue.github.io/blog/gb/</loc>
     <lastmod>2025-07-17T12:46:59+02:00</lastmod>
-  </url><url>
-    <loc>https://remalue.github.io/</loc>
-    <lastmod>2025-09-18T14:33:21+02:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/blog/fri_split_fold/</loc>
     <lastmod>2025-07-17T12:57:01+02:00</lastmod>
