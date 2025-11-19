@@ -458,7 +458,8 @@ section.meta {
 
 .social a
 {
-    color: rgb(7, 63, 105);
+    /* color: rgb(7, 63, 105); */
+    color: rgb(17, 59, 91);
     opacity: 100%;
 }
 
