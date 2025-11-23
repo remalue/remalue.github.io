@@ -163,6 +163,7 @@ blockquote {
 {
     color: #966 !important;
 }
+
 .container
 {
     /* overflow: auto; */
@@ -172,6 +173,77 @@ blockquote {
     display: grid;
     grid-template-rows: 1fr auto; */
 }
+
+.outer-container {
+    /* min-height: 91vh; */
+    /* display: grid; */
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* grid-template-rows: 1fr auto; */
+}
+.middle-container
+{
+    /* overflow: auto; */
+    padding: 0 25px;
+    /* max-width: 800px; */
+    flex-basis: 50%;
+    flex-grow: 1;
+    /* min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto; */
+}
+
+.left-container {
+    flex-basis: 25%;
+    flex-grow: 1;
+}
+
+.right-container {
+    flex-basis: 25%;
+    flex-grow: 1;
+    /* align-items: end; */
+    justify-content: left;
+    display: flex;
+    position: relative;
+}
+@media (max-width: 1400px) {
+    .left-container, .right-container {
+        flex-basis: 20%;
+    }
+    .middle-container {
+        flex-basis: 60%;
+        flex-grow: 1;
+    }
+}
+@media (max-width: 1200px) {
+    .left-container, .right-container {
+        flex-basis: 15%;
+    }
+    .middle-container {
+        flex-basis: 70%;
+        flex-grow: 1;
+    }
+}
+@media (max-width: 800px) {
+    .left-container, .right-container {
+        flex-basis: 10%;
+    }
+    .middle-container {
+        flex-basis: 80%;
+        flex-grow: 1;
+    }
+}
+@media (max-width: 576px) {
+    .left-container, .right-container {
+        flex-basis: 0%;
+    }
+    .middle-container {
+        flex-basis: 100%;
+        flex-grow: 1;
+    }
+}
+
 
 .content
 {
@@ -343,11 +415,9 @@ h3.intro
     padding: 0;
 }
 
-/* main {
-    min-height: 91vh;
-    display: grid;
-    grid-template-rows: 1fr auto;
-} */
+main {
+    height: 100%;
+}
 
 .main-menu
 {
@@ -394,8 +464,6 @@ h3.intro
     color: #000000b3;
 }
 
-
-
 .meta
 {
     font-family: 'Lato', sans-serif;
@@ -440,6 +508,24 @@ section.meta {
 
 #head-toggle-button > .navbar-toggler {
     box-shadow: none;
+}
+
+#head-navbar {
+    /* 
+    position: sticky;
+    top: 0; 
+    z-index: 1000;
+    */
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fafafa;
+}
+
+.container-fluid {
+    padding: 0;
 }
 
 .copyright, .powered
@@ -493,8 +579,18 @@ section.meta {
     font-size: 2.6rem;
     /* color: #494949; */
     /* text-transform: uppercase; */
-    
 }
+@media (max-width: 576px) {
+  .title {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 330px) {
+  .title {
+    font-size: 2rem;
+  }
+}
+
 header.title
 {
     margin-top: 70px;
@@ -563,4 +659,34 @@ h4, .h4 {
   margin-top: 10px;
   margin-bottom: 10px;
   float: left;
+}
+
+.svg-container {
+    width: 100%; /* Use 90% of viewport width */
+    max-width: 1000px; /* Increased max size for scaling up the display */
+    height: auto;
+    /* Set a background here for the <img> method to show the black lines */
+    /* background-color: white;  */
+    /* padding: 20px; */
+    border-radius: 8px;
+    /* z-index: 1; */
+    max-width: 800px;
+    /* padding: 0 15px; */
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: right;
+}
+#wavy-art {
+    position: absolute;
+    /* width: 95%; */
+    height: 95%;
+    transition: transform 0.6s ease-in-out;
+    
+}
+/* New CSS rule for scaling the image on hover */
+#wavy-art:hover {
+    transform: scale(1.05); /* Scales the image up by 5% */
+    /* cursor: zoom-in; */
+    /* transition: transform 0.6s ease-in-out;  */
 }

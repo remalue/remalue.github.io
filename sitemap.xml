@@ -2,20 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://remalue.github.io/blog/minimalism/</loc>
-    <lastmod>2025-11-20T12:39:31+01:00</lastmod>
+    <loc>https://remalue.github.io/blog/ripples/</loc>
+    <lastmod>2025-11-29T13:46:01+01:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/</loc>
-    <lastmod>2025-11-20T12:39:31+01:00</lastmod>
+    <lastmod>2025-11-29T13:46:01+01:00</lastmod>
+  </url><url>
+    <loc>https://remalue.github.io/blog/minimalism/</loc>
+    <lastmod>2025-11-29T13:46:01+01:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/categories/algebra/</loc>
-    <lastmod>2025-07-17T12:46:59+02:00</lastmod>
+    <lastmod>2025-11-26T02:28:43+01:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/categories/</loc>
-    <lastmod>2025-07-17T14:52:49+02:00</lastmod>
+    <lastmod>2025-11-26T02:28:43+01:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/blog/gb/</loc>
-    <lastmod>2025-07-17T12:46:59+02:00</lastmod>
+    <lastmod>2025-11-26T02:28:43+01:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/blog/fri_split_fold/</loc>
     <lastmod>2025-07-17T12:57:01+02:00</lastmod>
@@ -48,10 +51,10 @@
     <lastmod>2025-02-15T22:10:25+01:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/cryptography/</loc>
-    <lastmod>2025-11-20T12:39:31+01:00</lastmod>
+    <lastmod>2025-11-26T02:28:43+01:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/about/</loc>
-    <lastmod>2025-11-20T12:39:31+01:00</lastmod>
+    <lastmod>2025-11-26T02:28:43+01:00</lastmod>
   </url><url>
     <loc>https://remalue.github.io/andes/</loc>
     <lastmod>2025-02-15T22:10:25+01:00</lastmod>

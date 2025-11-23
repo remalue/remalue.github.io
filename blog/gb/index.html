@@ -64,13 +64,11 @@
 
 
 
+ 
+
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,320;0,325;0,340;0,350;0,360;0,370;0,380;0,390;0,400;0,500;0,600;0,700;1,330;1,340;1,350;1,360;1,370;1,380;1,390;1,400&display=swap" rel="stylesheet"> 
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,330;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,700;1,800;1,900&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&family=Roboto+Slab:wght@200;300;338;400;500;600;700&display=swap" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
@@ -95,15 +93,11 @@
 
 
 
-
-
 <link rel="icon" type="image/png" href="../../favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
 <link rel="shortcut icon" href="../../favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
 <link rel="manifest" href="../../site.webmanifest" />
-
-
 
 </head>
 
@@ -155,9 +149,11 @@
 </div>
 </nav>
 
-    <main class="container">
-
-    
+    <main>
+    <div class="outer-container">
+        <div class="left-container"></div>
+        <div class="middle-container">
+        
 <header class="text-left title">
   <div class="title">Gröbner Bases (Made in Austria)</div>
   <h3 class="subtitle"> Solving Systems of Non-Linear Polynomial Equations </h3>
@@ -219,9 +215,9 @@ using an algorithm such as FGLM <a href="https://doi.org/10.1006/jsco.1993.1051"
 <img class="svg" style="width: 90%; margin-top: 0em;" src="../../img/gb_approach.svg" alt="Solving systems of equations with Groebner Bases"/>
 <p>Having presented a little insight how Gröbner bases are applied in cryptanalysis, I would like to close this article with a comparison of Gaussian row reduction and Gröbner basis algorithms. The aim is to build some intuition about Gröbner bases and why they can be used to solve systems of non-linear polynomial equations.</p>
 <h1 id="triangularize-and-conquer">Triangularize and Conquer</h1>
-<p>In secondary school, we all are taught a basic algorithm to solve systems of linear equations: Gaussian elimination. The basic idea is the following: we successively eliminate variables in the equation system until we get a linear equation in only one variable. From this univariate equation we can easily derive the solution for the corresponding variable and back-substitute into the other equations to obtain the full solution. The resulting shape of the equation system after Gaussian elimination resembles a triangle (or flipped staircase, if you like). Hence, this process is also called <em>triangularization</em>.</p>
-<p>Now, what I have just said is true, but it is only half of the truth. I should have been a bit more precise. I should have said: <em>if a unique solution exists</em>, we proceed as described. It is entirely possible, that the equation system has no solution. Or infinitely many solutions. It is well known<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>, the set of solutions to a linear system of equations forms a vector space (or affine space). In any case, Gaussian elimination yields a basis of this vector space.</p>
-<p>As a first mental model of Gröbner basis algorithms it is valid to think about them as a generalization of Gaussian elimination to the case of non-linear systems of polynomial equations. Instead of a linear equation system, a Gröbner basis algorithm takes as input a polynomial equation system (which, by the way, can be linear as well) and outputs a triangularized form of this system.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> From this triangularized form, we can extract the solutions to the initial system in a straightforward manner.</p>
+<p>In secondary school, we all are taught a basic algorithm to solve systems of linear equations: Gaussian elimination. The basic idea is the following: we successively eliminate variables in the equation system until we get a linear equation in only one variable. From this univariate equation we can easily derive the solution for the corresponding variable and back-substitute into the other equations to obtain the full solution. The resulting shape of the equation system after Gaussian elimination resembles a triangle (or staircase, if you like). Hence, this process is also called <em>triangularization</em> or <em>reduction to row echelon form</em>.</p>
+<p>What I have just said about triangularization is true, but it is only half of the truth. I should have been a bit more precise. I should have said: <em>if a unique solution exists</em>, we proceed as described. It is entirely possible, that the equation system has no solution. Or infinitely many solutions. Phrased more formally: it is well known<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> that the set of solutions to a linear system of equations forms a vector space (or affine space). In any of the above cases, triangularization yields a basis of this vector space.</p>
+<p>As a first mental model of Gröbner basis algorithms it is valid to think about them as a generalization of Gaussian elimination to the case of non-linear systems of polynomial equations. Instead of a linear equation system, a Gröbner basis algorithm takes as input a polynomial equation system (which, in general, is non-linear but can be linear as well) and outputs a triangularized form of this system.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> From this triangularized form, we can extract the solutions to the initial system in a straightforward manner.</p>
 <p>The following figure aims to highlight the analogy between Gaussian elimination and the computation of a Gröbner basis.</p>
 <img class="svg" style="width: 90%; margin-top: 0em;" src="../../img/gb_posso.svg" alt="Solving systems of equations"/>
 <!-- ############# -->
@@ -260,12 +256,17 @@ using an algorithm such as FGLM <a href="https://doi.org/10.1006/jsco.1993.1051"
   
 </section>
 
-    
+        
 
-    
+        
 
-    
-
+        
+        </div>
+        <div class="right-container">
+            
+            
+        </div>
+    </div>
     </main>
 
     
