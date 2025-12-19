@@ -45,7 +45,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
@@ -57,7 +57,6 @@
 
 <link rel="stylesheet" href="../css/local-fonts.css">
 <link rel="stylesheet" href="../css/main.css">
-<link rel="stylesheet" href="../css/custom.css">
 <link rel="stylesheet" href="../fonts/inter/inter.css">
 
 
@@ -72,6 +71,20 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
 <link rel="manifest" href="../site.webmanifest" />
 
+<script src="../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
 </head>
 
 
@@ -91,29 +104,48 @@
     </div>
 
     <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
-    <ul class="navbar-nav">
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="../">home</a>
-        </div>
-    </li>
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/about/">about</a>
-        </div>
-    </li>
-    
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
-        </div>
-    </li>
-    
-    </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+
+    <div>
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
     </div>
 
 
@@ -211,6 +243,13 @@
 
   
 </footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
 
 </body>
 

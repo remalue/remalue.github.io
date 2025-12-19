@@ -72,7 +72,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
@@ -84,7 +84,6 @@
 
 <link rel="stylesheet" href="../../css/local-fonts.css">
 <link rel="stylesheet" href="../../css/main.css">
-<link rel="stylesheet" href="../../css/custom.css">
 <link rel="stylesheet" href="../../fonts/inter/inter.css">
 
 
@@ -99,6 +98,20 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
 <link rel="manifest" href="../../site.webmanifest" />
 
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
 </head>
 
 
@@ -120,29 +133,48 @@
     </div>
 
     <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
-    <ul class="navbar-nav">
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="../../">home</a>
-        </div>
-    </li>
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/about/">about</a>
-        </div>
-    </li>
-    
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
-        </div>
-    </li>
-    
-    </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+
+    <div>
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
     </div>
 
 
@@ -163,7 +195,7 @@
   <div class="col-md-12">
     <h6 class="text-left meta">
       
-        PUBLISHED ON OCT 25, 2024
+        OCT 25, 2024
       
       
       
@@ -233,7 +265,7 @@ $$
 \sigma = ([i_1]_\equiv)\cdots([i_t]_\equiv).
 $$
 The ordering of indices within a cycle doesn&rsquo;t matter. This is also the reason why $\sigma$ is not unique for a given equivalence relation. Cycles of length $1$ are not explicitly written down in the cycle notation.</p>
-<p>In other words, some witness variables are equal (i.e., copied) if and only if the corresponding indices belong to the same cycle in $\sigma$. This means, all witness variables with indices in a given cycle are the same. The indices of uncopied variables are left untouched.</p>
+<p>In other words, two witness variables are equal (i.e., copied) if and only if the corresponding indices belong to the same cycle in $\sigma$. The indices of uncopied variables are left untouched.</p>
 <p><code>Example.</code> Let&rsquo;s say $m=6$ and it holds $w_1=w_3$. In this case, the permutation $\sigma\in\mathcal{S}_6$ is given by
 $$
 \sigma = (13).
@@ -248,7 +280,7 @@ $$
 $$</p>
 <div class="callout callout-note">
   <div class="callout-note-title">Roots of Unity as Evaluation Domain</div>
-<p>PLONK represents each column of the execution trace (or gate table) as a polynomial. The evaluation domain to obtain this polynomial representation are the powers $H\coloneqq\{\omega,\omega^2,\ldots,\omega^n\}$ of a primitive $n$-th root of unity $\omega$, usually taken from the multiplicative subgroup of the scalar field of an elliptic curve group.</p>
+<p>PLONK represents each column of the execution trace (or gate table) as a polynomial. The evaluation domain to obtain this polynomial representation are the powers $$H\coloneqq\{1, \omega,\omega^2,\ldots,\omega^{n-1}\}$$ of a primitive $n$-th root of unity $\omega$, usually taken from the multiplicative subgroup of the scalar field of an elliptic curve group.</p>
 </div>
 <p>For $n$ (vanilla) PLONK gates, the table layout of the gates consists of $n$ rows (one for each gate) and contains the $3$ witness columns
 $$
@@ -276,7 +308,7 @@ $$
 $$</p>
 <p>To prove the correct wiring of the witness vectors $W_1,W_2,W_3$ in PLONK, we concatenate and combine them into a single vector $(W_1,W_2,W_3)$ of length $3n$.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> The goal is to apply the permutation argument to the combined vector $(W_1,W_2,W_3)$.</p>
 <p>The next figure illustrates this concatenation and, additionally, lists the evaluation domain of each $S_i$ when represented as a polynomial.</p>
-<img class="svg" src="../../img/initial_layout.svg" alt="Copy constraints without shift"/>
+<img class="svg" src="../../img/initial_layout.svg" style="background-color: #fafafa;" alt="Copy constraints without shift"/>
 <p>We face the problem that each $W_i$ has the same evaluation domain $\omega,\ldots,\omega^n$. The permutation argument in above lemma, however, requires distinct elements $w_1,\ldots,w_{3n}$.</p>
 <p>We, therefore, choose $c_1,c_2\in\mathbb F_p$ such that the sets
 $$
@@ -291,7 +323,7 @@ and
 $$
 W\coloneqq (\omega,\ldots,\omega^n,c_1\omega,\ldots,c_1\omega^n,c_2\omega,\ldots,c_2\omega^n).
 $$ -->
-<img class="svg" src="../../img/shifted_layout.svg" alt="Copy constraints with shift"/>
+<img class="svg" src="../../img/shifted_layout.svg" style="background-color: #fafafa;" alt="Copy constraints with shift"/>
 <p>We define $w=(w_1,\ldots,w_{3n})$ with
 $$
 w_{(i-1)n+j} \coloneqq x_{i,j} = W_i(\omega^j),
@@ -495,6 +527,13 @@ In practice, PLONK uses the last expressions (or $H$-ranged identities) to prove
 
   
 </footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
 
 </body>
 

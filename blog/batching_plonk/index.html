@@ -72,7 +72,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
@@ -84,7 +84,6 @@
 
 <link rel="stylesheet" href="../../css/local-fonts.css">
 <link rel="stylesheet" href="../../css/main.css">
-<link rel="stylesheet" href="../../css/custom.css">
 <link rel="stylesheet" href="../../fonts/inter/inter.css">
 
 
@@ -99,6 +98,20 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
 <link rel="manifest" href="../../site.webmanifest" />
 
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
 </head>
 
 
@@ -120,29 +133,48 @@
     </div>
 
     <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
-    <ul class="navbar-nav">
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="../../">home</a>
-        </div>
-    </li>
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/about/">about</a>
-        </div>
-    </li>
-    
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
-        </div>
-    </li>
-    
-    </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+
+    <div>
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
     </div>
 
 
@@ -163,7 +195,7 @@
   <div class="col-md-12">
     <h6 class="text-left meta">
       
-        PUBLISHED ON OCT 30, 2024
+        OCT 30, 2024
       
       
       
@@ -185,7 +217,7 @@
   <div class="col-md-12 text-justify content">
     
     <div><br><div>
-    <p>The PLONK protocol uses batching techniques at several places. Generally speaking, batching allows to combine multiple different checks (or instances) into a single one. Conceptually, it can be compared to a <em>compression</em> (or <em>folding</em>) of instances, where the validity of a single batched instance attests to the validity of all input instances. We use the terms &ldquo;compression&rdquo;, &ldquo;batching&rdquo;, and &ldquo;folding&rdquo; synonymously.</p>
+    <p>The PLONK protocol uses batching techniques in several places. Generally speaking, batching allows to combine multiple different checks (or instances) into a single one. Conceptually, it can be compared to a <em>compression</em> (or <em>folding</em>) of instances, where the validity of a single batched instance attests to the validity of all input instances. In this article, we use the terms &ldquo;compression&rdquo;, &ldquo;batching&rdquo;, and &ldquo;folding&rdquo; synonymously.</p>
 <p>Let us exemplify the underlying idea before we explore how PLONK leverages batching. Assume we want to check that all numbers in the sequence $(a_1,\ldots,a_n)\in\mathbb R^n$ of real numbers are zero. How can we do that? Naively, we could apply $n$ zero checks
 $$
 a_1\stackrel{?}{=}0,\ldots,a_n\stackrel{?}{=}0.
@@ -201,7 +233,7 @@ a_1+\lambda_1\cdot a_2 + \cdots + \lambda_{n-1}\cdot a_n\stackrel{\text{high con
 $$
 How strong our confidence will be, crucially depends on the size of the set $S$. For a more detailed (and technical) explanation why this works see the write-up on the <a href="../../blog/szdl">Schwartz-Zippel-DeMillo-Lipton Lemma</a>. And for a visualization (as well as a fun quiz) take a <a href="../../blog/random_walk">Random Walk Home</a>.</p>
 <div class="callout callout-note">
-  <div class="callout-note-title">Different Compression (or Batching) Modes</div>
+  <div class="callout-note-title">Different Batching (or Compression) Modes</div>
 <p>There is more than one way to compress the input instances. So far, we have seen the technique to take a random linear combination
 $$
 a_1+\lambda_1\cdot a_2 + \cdots + \lambda_{n-1}\cdot a_n,
@@ -210,7 +242,7 @@ for independent and random $\lambda_1,\ldots,\lambda_{n-1}\in\mathbb F_p$. Anoth
 $$
 a_1+\lambda\cdot a_2 + \cdots + \lambda^{n-1}\cdot a_n.
 $$
-This is perfectly admissible as well. If we write above checks in terms of the underlying polynomials, the admissibility and difference become apparent. In the first case, we have
+This is perfectly admissible as well (but comes with a different soundness error). If we write above checks in terms of the underlying polynomials, the difference becomes apparent. In the first case, we have
 $$
 a_1+X_1\cdot a_2 + \cdots + X_{n-1}\cdot a_n \in\mathbb F_p[X_1,\ldots,X_{n-1}].
 $$
@@ -218,7 +250,8 @@ And for the second case we get
 $$
 a_1+X\cdot a_2 + \cdots + X^{n-1}\cdot a_n \in\mathbb F_p[X].
 $$
-We call the first compression mode <em>affine</em> (or <em>linear</em>) compression. On the polynomial level, it introduces $n-1$ new variables to separate (or discriminate) the individual instances. The second mode is also called <em>algebraic</em> (or <em>parametric</em>) compression. It introduces only a single new variable and separates the input instances via successive powers of this new variable.</p>
+We call the first mode <em>affine</em> (or <em>linear</em>) batching. On the polynomial level, it introduces $n-1$ new variables to separate (or discriminate) the individual instances. The second mode is called <em>algebraic</em> (or <em>parametric</em>) batching. It introduces only a single new variable and separates the input instances via successive powers of this new variable.</p>
+<p>The soundness error is $1/ |\mathbb F|$ in the first case, and $(n-1)/{|\mathbb F|}$ in the second one.</p>
 </div>
 <p>Let us return to our main inquiry and see where and how PLONK employs batching techniques. PLONK uses batching for:</p>
 <ol>
@@ -308,11 +341,13 @@ $$</p>
 <h1 id="batch-verifying-openings">Batch Verifying Openings</h1>
 <p>How to verify that $f_1(w)=y_1, \ldots,f_m(w)=y_m$ given commitments $C_1,\ldots,C_m$ to $f_1,\ldots,f_m$ and commitments $Q_1,\ldots,Q_m$ to quotients $q_1,\ldots,q_m$? Naively, we can carry out $m$ pairing checks
 $$
-\begin{aligned}
+\begin{align}
+\label{eq:m-checks}
 \forall i=1,\ldots,m: e(C_i,g)=e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i},
-\end{aligned}
+\end{align}
 $$
-where $g_2^{\tau}$ is one of the powers created during the trusted setup ceremony of PLONK. However, we can combine these $m$ checks into a single check as follows. We first observe that for any $i=1,\ldots,m$ it holds
+where $g_2^{\tau}$ is (one of the powers) created during the setup ceremony of PLONK. However, we can also combine these $m$ checks into a single one as follows.</p>
+<p>We first observe that for any $i=1,\ldots,m$ it holds
 $$
 \begin{aligned}
 &amp;e(C_i,g_2)= e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i} \\
@@ -332,30 +367,36 @@ f_i(w) = y_i &amp;\Longleftrightarrow f_1(X)-y_1=q_i(X)\cdot (X-w)\\
 &amp;\Longleftrightarrow \underbrace{f_1(X)-y_1-q_i(X)\cdot (X-w)}_{\eqqcolon F_i(X)}=0.\\
 \end{aligned}
 $$
-We can combine above $m$ checks into a single one via the equivalences
+Crucially, for combining above $m$ checks into a single one, we use the equivalences
 $$
 \begin{aligned}
 &amp;\forall i=1,\ldots,m: f_i(w) = y_i\\
 &amp;\stackrel{}{\Longleftrightarrow} \sum_{i=1}^m Y^{i-1}\cdot F_i(X)=0 \quad(\text{in }\mathbb F_p[X,Y])\\
-&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^m \beta^{i-1}\cdot F_i(X)=0. \quad(\text{in }\mathbb F_p[X])
+&amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^m \beta^{i-1}\cdot F_i(X)=0 \quad(\text{in }\mathbb F_p[X])
 \end{aligned}
 $$
 for random $\beta\in\mathbb F_p$. Rewriting the last equivalence gives us
 $$
 \begin{aligned}
-&amp; \underbrace{\sum_{i=1}^m \beta^{i-1}\cdot(f_i(X)-y_i)}_{\eqqcolon f(X)} = (X-w)\cdot \underbrace{\sum_{i=1}^m \beta^{i-1}\cdot q_i(X)}_{\eqqcolon q(X)}\\
+&amp; \underbrace{\sum_{i=1}^m \beta^{i-1}\cdot(f_i(X)-y_i)}_{\eqqcolon f(X)} = (X-w)\cdot \underbrace{\sum_{i=1}^m \beta^{i-1}\cdot q_i(X)}_{\eqqcolon q(X)}.\\
 % \Longleftrightarrow\quad &amp; f_1(\alpha)-y_1-Q_1(\alpha) w + \beta\cdot (f_2(\alpha)-y_2-Q_2(\alpha) w) = \alpha Q_1(\alpha) + \beta\cdot \alpha Q_2(\alpha)
 \end{aligned}
 $$
-In this form, above $m$ pairing checks boil down to a single pairing check. We can compute the commitment $C$ to $f(X)$ via
+In this form, $\eqref{eq:m-checks}$ is equivalent to
 $$
-C \coloneqq g_1^{f(\tau)} = \prod_{i=1}^m \left(\frac{g_1^{f_i(\tau)}}{g_1^{y_i}}\right)^{\beta^{i-1}} = \prod_{i=1}^m \left(\frac{C_1}{g_1^{y_i}}\right)^{\beta^{i-1}} ,
+\begin{aligned}
+e\left(C/g_1^{0}\cdot Q^w,g_2\right) = e(Q,g_2^{\tau}),
+\end{aligned}
 $$
-and the commitment $Q$ to $q(X)$ via
+where $C$ is the commitment to $f(X)$, and $Q$ is the commitment to $q(X)$. We can compute $C$ via the commitments $C_1,\ldots, C_m$
 $$
-Q\coloneqq g_1^{q(\tau)} = g_1^{\sum_{i=1}^m \beta^{i-1} q_i(\tau)} = \prod_{i=1}^m g_1^{\beta^{i-1} q_i(\tau)} = \prod_{i=1}^m Q_i^{\beta^{i-1}}.
+C = g_1^{f(\tau)} = \prod_{i=1}^m \left(\frac{g_1^{f_i(\tau)}}{g_1^{y_i}}\right)^{\beta^{i-1}} = \prod_{i=1}^m \left(\frac{C_i}{g_1^{y_i}}\right)^{\beta^{i-1}} ,
 $$
-Now, verifying the opening $y=f(w)=0$ of $f(X)$ at $w$ can be done via the pairing check
+and $Q$ via the commitments $Q_1,\ldots,Q_m$
+$$
+Q = g_1^{q(\tau)} = g_1^{\sum_{i=1}^m \beta^{i-1} q_i(\tau)} = \prod_{i=1}^m g_1^{\beta^{i-1} q_i(\tau)} = \prod_{i=1}^m Q_i^{\beta^{i-1}}.
+$$
+To conclude, verifying the opening $y=f(w)=0$ of $f(X)$ at $w$ can be done via the pairing check
 $$
 \begin{aligned}
 e\left(C / g_1^0\cdot Q^w, g_2\right)
@@ -438,6 +479,13 @@ $$</p>
 
   
 </footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
 
 </body>
 

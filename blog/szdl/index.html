@@ -72,7 +72,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
@@ -84,7 +84,6 @@
 
 <link rel="stylesheet" href="../../css/local-fonts.css">
 <link rel="stylesheet" href="../../css/main.css">
-<link rel="stylesheet" href="../../css/custom.css">
 <link rel="stylesheet" href="../../fonts/inter/inter.css">
 
 
@@ -99,6 +98,20 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
 <link rel="manifest" href="../../site.webmanifest" />
 
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
 </head>
 
 
@@ -120,29 +133,48 @@
     </div>
 
     <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
-    <ul class="navbar-nav">
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="../../">home</a>
-        </div>
-    </li>
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/about/">about</a>
-        </div>
-    </li>
-    
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
-        </div>
-    </li>
-    
-    </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+
+    <div>
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
     </div>
 
 
@@ -163,7 +195,7 @@
   <div class="col-md-12">
     <h6 class="text-left meta">
       
-        PUBLISHED ON OCT 20, 2024
+        OCT 20, 2024
       
       
       
@@ -198,22 +230,23 @@ $$
 \{ (0,y) : y\in \mathbb F\}\cup\{(x,0) : x\in\mathbb F\}.
 $$</p>
 <p>But not all hope is lost. We are still able to make a statement about the <em>density</em> of roots of polynomials.</p>
-<p>For a univariate polynomial $f(X)\in\mathbb F[X]$ of degree $d$, the Fundamental Theorem of Algebra yields that the density of roots of $f$ over any <em>finite</em> subset $S\subseteq\mathbb F$ with $|S|\geq d$ is at most
+<p>Viewing the Fundamental Theorem of Algebra from a different perspective, we have that for a univariate polynomial $f(X)\in\mathbb F[X]$ of degree $d$, the density of roots of $f$ over any <em>finite</em> subset $S\subseteq\mathbb F$ with $|S|\geq d$ is at most
 $$
 \frac{|\{a\in S : f(a)=0\}|}{|S|}\leq \frac{d}{|S|}.
 $$
-As it turns out, this statement carries over to the multivariate case. It is exactly the assertion of the following lemma.</p>
+As it turns out, this formulation carries over to the multivariate case. It is exactly the assertion of the following lemma.</p>
 <p><code>Schwartz-Zippel-DeMillo-Lipton Lemma.</code>
 Let $n\in\mathbb N$ and let $f\in\mathbb F[X_1,\ldots,X_n]$ be a multivariate plynomial of degree $d$. Let $S\subseteq \mathbb F$ be a finite subset with $|S|\geq d$. Then it holds
 $$
 \frac{|\{(a_1,\ldots,a_n)\in S^n : f(a_1,\ldots,a_n)=0\}|}{|S|^n}
 \leq \frac{d}{|S|}.
 $$</p>
-<p>This is a <em>very</em> powerful result which is used extensively in many constructions for (succinct) argument systems. In particular, argument systems use this result for polynomial identity testing or to compress (batch, accumulate) many such tests into a single test. As a concrete example, the <a href="../../blog/permutation_check_plonk/">permutation check</a> employed in PLONK uses this result as well. Before we proceed to the proof of the lemma, let us have another look at the counterexample from above. It helps us to illustrate the assertion of the lemma.</p>
+<p>This is a <em>very</em> powerful result which is used extensively in many constructions for (succinct) argument systems.</p>
+<p>In particular, it is used for polynomial identity testing or for batching many such tests into a single test. As one concrete example, the <a href="../../blog/permutation_check_plonk/">permutation check</a> in PLONK uses this result as well. Before we proceed to the proof of the lemma, let us have another look at the counterexample from above. It helps us to illustrate the assertion of the lemma.</p>
 <p><code>Counterexample; revisited.</code> For the polynomial $f(X,Y) = X\cdot Y$ over $\mathbb F$ and a finite subset $S\subseteq \mathbb F$, we have
 $$
 \begin{aligned}
-\frac{|\{(a_1,a_2)\in S^2 : f(a_1,a_2)=0\}|}{|S|^2} &amp;=
+\frac{|\{(a_1,a_2)\in S^2 : a_1\cdot a_2=0\}|}{|S|^2} &amp;=
 \begin{cases}
 0, &amp; 0\notin S\\
 \frac{2|S|-1}{|S|^2}, &amp; 0\in S
@@ -228,7 +261,8 @@ $$
 \text{Pr}(f(U_1,\ldots,U_n)=0)\leq\frac{d}{|S|}.
 $$
 In other words, the probability that (uniformly and independently selected) random elements $u_1,\ldots,u_n\in S$ are a root of $f$ is at most $\frac{d}{|S|}$.</p>
-<p>The real power of the lemma is unlocked if the set $S$ is very large compared to the degree $d$ of $f$, i.e., if $d\ll |S|$. In this case, the lemma asserts that it is highly unlikely for a uniformly at random selected element from $\mathbb F_q^n$ to be a root of $f$. This gives us an efficient statistical test for checking if a polynomial is the zero polynomial, or, equivalently, if two polynomials are identical. Such a test is particularly advantageous if we don&rsquo;t want (or don&rsquo;t can) compare polynomials coefficient-wise due to high computational complexity.</p>
+<p>The real power of the lemma is unlocked if the set $S$ is very large compared to the degree $d$ of $f$, i.e., if $d\ll |S|$. In this case, the lemma asserts that it is highly unlikely for an element sampled uniformly at random from $\mathbb F_q^n$ to be a root of $f$.</p>
+<p>This gives us an efficient statistical test for checking if a (multivariate) polynomial is the zero polynomial, or, equivalently, if two (multivariate) polynomials are identical. Such a test is particularly advantageous if we don&rsquo;t want (or don&rsquo;t can) compare polynomials coefficient-wise.</p>
 <p><code>Polynomial Zero Testing.</code> Let $n\in\mathbb N$ and let $\mathbb F$ be a field. Given a polynomial $f\in\mathbb F[X_1,\ldots,X_n]$ of degree at most $d$, we employ the following statistical test for the claim $f=0$.</p>
 <ol>
 <li>Choose $u_1,\ldots,u_n\in S\subseteq\mathbb F$ uniformly and independently at random.</li>
@@ -314,6 +348,13 @@ Let us elaborate on this test and have a look at the involved errors.</p>
 
   
 </footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
 
 </body>
 

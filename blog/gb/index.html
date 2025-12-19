@@ -72,7 +72,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
@@ -84,7 +84,6 @@
 
 <link rel="stylesheet" href="../../css/local-fonts.css">
 <link rel="stylesheet" href="../../css/main.css">
-<link rel="stylesheet" href="../../css/custom.css">
 <link rel="stylesheet" href="../../fonts/inter/inter.css">
 
 
@@ -99,6 +98,20 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png" />
 <link rel="manifest" href="../../site.webmanifest" />
 
+<script src="../../js/darkmode.js" defer></script>
+<script>
+    
+    (function() {
+        const theme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
 </head>
 
 
@@ -120,29 +133,48 @@
     </div>
 
     <div class="justify-content-center collapse navbar-collapse" id="navbarTogglerDemo01">
-    <ul class="navbar-nav">
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="../../">home</a>
-        </div>
-    </li>
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/about/">about</a>
-        </div>
-    </li>
-    
-    
-    
-    <li class="nav-item top">
-        <div>
-        <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
-        </div>
-    </li>
-    
-    </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="../../">home</a>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/about/">about</a>
+                </div>
+            </li>
+            
+            
+            
+            <li class="nav-item top">
+                <div>
+                <a class="nav-link" href="https://remalue.github.io/blog/">writing</a>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+
+    <div>
+        <button id="theme-toggle">
+        <svg id="moon" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+        <svg id="sun" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        </button>
     </div>
 
 
@@ -163,7 +195,7 @@
   <div class="col-md-12">
     <h6 class="text-left meta">
       
-        PUBLISHED ON FEB 15, 2025
+        FEB 15, 2025
       
       
       
@@ -212,14 +244,14 @@ using an algorithm such as FGLM <a href="https://doi.org/10.1006/jsco.1993.1051"
 <li>Factoring the univariate polynomial in the $lex$ Gröbner basis using any polynomial factoring algorithm. Determine the solutions of the corresponding variable. If needed, back-subsitute any solution into other equations in the $lex$ Gröbner basis to obtain a partial or full solution of the system.</li>
 </ul>
 <p>The following figure summarizes above description.</p>
-<img class="svg" style="width: 90%; margin-top: 0em;" src="../../img/gb_approach.svg" alt="Solving systems of equations with Groebner Bases"/>
+<img class="svg" style="width: 90%; margin-top: 0em; background-color: #fafafa" src="../../img/gb_approach.svg" alt="Solving systems of equations with Groebner Bases"/>
 <p>Having presented a little insight how Gröbner bases are applied in cryptanalysis, I would like to close this article with a comparison of Gaussian row reduction and Gröbner basis algorithms. The aim is to build some intuition about Gröbner bases and why they can be used to solve systems of non-linear polynomial equations.</p>
 <h1 id="triangularize-and-conquer">Triangularize and Conquer</h1>
 <p>In secondary school, we all are taught a basic algorithm to solve systems of linear equations: Gaussian elimination. The basic idea is the following: we successively eliminate variables in the equation system until we get a linear equation in only one variable. From this univariate equation we can easily derive the solution for the corresponding variable and back-substitute into the other equations to obtain the full solution. The resulting shape of the equation system after Gaussian elimination resembles a triangle (or staircase, if you like). Hence, this process is also called <em>triangularization</em> or <em>reduction to row echelon form</em>.</p>
 <p>What I have just said about triangularization is true, but it is only half of the truth. I should have been a bit more precise. I should have said: <em>if a unique solution exists</em>, we proceed as described. It is entirely possible, that the equation system has no solution. Or infinitely many solutions. Phrased more formally: it is well known<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> that the set of solutions to a linear system of equations forms a vector space (or affine space). In any of the above cases, triangularization yields a basis of this vector space.</p>
 <p>As a first mental model of Gröbner basis algorithms it is valid to think about them as a generalization of Gaussian elimination to the case of non-linear systems of polynomial equations. Instead of a linear equation system, a Gröbner basis algorithm takes as input a polynomial equation system (which, in general, is non-linear but can be linear as well) and outputs a triangularized form of this system.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> From this triangularized form, we can extract the solutions to the initial system in a straightforward manner.</p>
 <p>The following figure aims to highlight the analogy between Gaussian elimination and the computation of a Gröbner basis.</p>
-<img class="svg" style="width: 90%; margin-top: 0em;" src="../../img/gb_posso.svg" alt="Solving systems of equations"/>
+<img class="svg" style="width: 90%; margin-top: 0em; background-color: #fafafa;" src="../../img/gb_posso.svg" alt="Solving systems of equations"/>
 <!-- ############# -->
 <!-- Footnotes     -->
 <!-- ############# -->
@@ -306,6 +338,13 @@ using an algorithm such as FGLM <a href="https://doi.org/10.1006/jsco.1993.1051"
 
   
 </footer>
+
+<script>
+  
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
 
 </body>
 

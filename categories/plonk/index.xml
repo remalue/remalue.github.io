@@ -6,14 +6,14 @@
     <description>Recent content in Plonk on Reinhard Lüftenegger</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Jul 2025 14:52:49 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 19 Dec 2025 02:00:11 +0100</lastBuildDate>
     <atom:link href="https://remalue.github.io/categories/plonk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Batching Techniques in PLONK</title>
       <link>https://remalue.github.io/blog/batching_plonk/</link>
       <pubDate>Wed, 30 Oct 2024 09:20:31 +0100</pubDate>
       <guid>https://remalue.github.io/blog/batching_plonk/</guid>
-      <description>&lt;p&gt;The PLONK protocol uses batching techniques at several places. Generally speaking, batching allows to combine multiple different checks (or instances) into a single one. Conceptually, it can be compared to a &lt;em&gt;compression&lt;/em&gt; (or &lt;em&gt;folding&lt;/em&gt;) of instances, where the validity of a single batched instance attests to the validity of all input instances. We use the terms &amp;ldquo;compression&amp;rdquo;, &amp;ldquo;batching&amp;rdquo;, and &amp;ldquo;folding&amp;rdquo; synonymously.&lt;/p&gt;&#xA;&lt;p&gt;Let us exemplify the underlying idea before we explore how PLONK leverages batching. Assume we want to check that all numbers in the sequence $(a_1,\ldots,a_n)\in\mathbb R^n$ of real numbers are zero. How can we do that? Naively, we could apply $n$ zero checks&#xA;$$&#xA;a_1\stackrel{?}{=}0,\ldots,a_n\stackrel{?}{=}0.&#xA;$$&#xA;The point is, we can also do that in a &lt;em&gt;single&lt;/em&gt; zero check. The underlying idea is very powerful and widely used across the domain of (zero-knowledge) argument systems. It works by taking a &lt;em&gt;random&lt;/em&gt; linear combination of the numbers $a_1,\ldots,a_n$.&lt;/p&gt;</description>
+      <description>&lt;p&gt;The PLONK protocol uses batching techniques in several places. Generally speaking, batching allows to combine multiple different checks (or instances) into a single one. Conceptually, it can be compared to a &lt;em&gt;compression&lt;/em&gt; (or &lt;em&gt;folding&lt;/em&gt;) of instances, where the validity of a single batched instance attests to the validity of all input instances. In this article, we use the terms &amp;ldquo;compression&amp;rdquo;, &amp;ldquo;batching&amp;rdquo;, and &amp;ldquo;folding&amp;rdquo; synonymously.&lt;/p&gt;&#xA;&lt;p&gt;Let us exemplify the underlying idea before we explore how PLONK leverages batching. Assume we want to check that all numbers in the sequence $(a_1,\ldots,a_n)\in\mathbb R^n$ of real numbers are zero. How can we do that? Naively, we could apply $n$ zero checks&#xA;$$&#xA;a_1\stackrel{?}{=}0,\ldots,a_n\stackrel{?}{=}0.&#xA;$$&#xA;The point is, we can also do that in a &lt;em&gt;single&lt;/em&gt; zero check. The underlying idea is very powerful and widely used across the domain of (zero-knowledge) argument systems. It works by taking a &lt;em&gt;random&lt;/em&gt; linear combination of the numbers $a_1,\ldots,a_n$.&lt;/p&gt;</description>
     </item>
     <item>
       <title>The Permutation Check in PLONK</title>
