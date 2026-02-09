@@ -13,7 +13,7 @@
       <link>https://remalue.github.io/blog/random_walk/</link>
       <pubDate>Thu, 31 Oct 2024 18:49:14 +0100</pubDate>
       <guid>https://remalue.github.io/blog/random_walk/</guid>
-      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;&lt;/div&gt;&#xA;&lt;p&gt;$\ldots$ you decide to go for a walk and start from home. You are in a playful mood and decide to only take random left turns every now and then. You do the following:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;You roll a dice, get number $x$, and walk $x$ hundred meters straight ahead.&lt;/li&gt;&#xA;&lt;li&gt;You turn left.&lt;/li&gt;&#xA;&lt;li&gt;You repeat the process.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;What&amp;rsquo;s your (maximum) chance that after, let&amp;rsquo;s say, 4 dice rolls you end up home again? And after 10?&lt;/p&gt;</description>
+      <description>&lt;div class=&#34;callout callout-note&#34;&gt;&#xA;  &lt;div class=&#34;callout-note-title&#34;&gt;&lt;/div&gt;&#xA;&lt;p&gt;$\ldots$ you decide to go for a walk and start from home. You are in a playful mood and decide to only take random left turns every now and then. You do the following:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;You roll a dice, get number $x$, and walk $x$ hundred meters straight ahead.&lt;/li&gt;&#xA;&lt;li&gt;You turn left.&lt;/li&gt;&#xA;&lt;li&gt;You repeat.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;What&amp;rsquo;s your (maximum) chance that after, let&amp;rsquo;s say, 4 dice rolls you end up home again? And after 10?&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

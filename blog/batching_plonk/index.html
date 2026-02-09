@@ -19,7 +19,7 @@
   
 
 
-<meta name="generator" content="Hugo 0.152.2">
+<meta name="generator" content="Hugo 0.157.0">
 
 
 
@@ -225,7 +225,7 @@ $$
 a_1\stackrel{?}{=}0,\ldots,a_n\stackrel{?}{=}0.
 $$
 The point is, we can also do that in a <em>single</em> zero check. The underlying idea is very powerful and widely used across the domain of (zero-knowledge) argument systems. It works by taking a <em>random</em> linear combination of the numbers $a_1,\ldots,a_n$.</p>
-<p>Suppose we check the random linear combination
+<p>Suppose, we check the random linear combination
 $$
 a_1+\lambda_1\cdot a_2 + \cdots + \lambda_{n-1}\cdot a_n\stackrel{?}{=} 0
 $$
@@ -307,7 +307,7 @@ $$
 $$
 for a uniformly random $\beta\in\mathbb F_p$. Let us explore why this is admissible. For $y_i\coloneqq f_i(w)$ it holds
 $$
-\begin{alignat}{1}
+\begin{align}
 &amp;\forall i=1,\ldots,l: f_i(w)=y_i\\
 &amp;\Longleftrightarrow \forall i=1,\ldots,l: f_i(X)-y_i=q_i(X)(X-w)\\
 &amp;\Longleftrightarrow \forall i=1,\ldots,l: (X-w)\mid (f_i(X)-y_i)\\
@@ -315,15 +315,15 @@ $$
 &amp;\Longleftrightarrow \sum_{i=1}^l Y^{i-1}\cdot (f_i(X)-y_i) = q(X,Y)\cdot (X-w)\quad (\text{for some }q\in\mathbb F_p[X,Y])\\
 &amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^l \beta^{i-1}\cdot (f_i(X)-y_i) = q(X,\beta)\cdot (X-w)\quad (\text{for random }\beta\in\mathbb F_p)\\
 &amp;\stackrel{w.h.c.}{\Longleftrightarrow} \sum_{i=1}^l \beta^{i-1}\cdot (f_i(\alpha)-y_i) = q(\alpha,\beta)\cdot (\alpha-w).\quad (\text{for random }\alpha,\beta\in\mathbb F_p)
-\end{alignat}
+\end{align}
 $$
-Only the equivalence in \eqref{eq:sum-divisor} deserves a more detailed explanation. We give a proof here.</p>
+Only the equivalence in $\eqref{eq:sum-divisor}$ deserves a more detailed explanation. We give a proof here.</p>
 <p><code>Claim.</code>
 $$
 \forall i=1,\ldots,l: (X-w)\mid g_i(X)
 \Longleftrightarrow (X-w)\mid \sum_{i=1}^l Y^{i-1}\cdot g_i(X)
-$$
-<code>Proof.</code> The direction &quot; $\Longrightarrow$&quot; is clear. For the direction &ldquo;$\Longleftarrow$&rdquo; we use induction over $l$. For $l=1$, the claim is clear. Now suppose the claim holds for $l$. We show that it holds for $l+1$. We have
+$$</p>
+<p><code>Proof.</code> The direction &quot; $\Longrightarrow$&quot; is clear. For the direction &ldquo;$\Longleftarrow$&rdquo; we use induction over $l$. For $l=1$, the claim is clear. Now suppose the claim holds for $l$. We show that it holds for $l+1$. We have
 $$
 \begin{aligned}
 &amp;(X-w)\mid \sum_{i=1}^{l+1} Y^{i-1} g_i(X)\\
@@ -345,7 +345,7 @@ $$</p>
 $$
 \begin{align}
 \label{eq:m-checks}
-\forall i=1,\ldots,m: e(C_i,g)=e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i},
+\forall i=1,\ldots,m: e(C_i,g_2)=e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i},
 \end{align}
 $$
 where $g_2^{\tau}$ is (one of the powers) created during the setup ceremony of PLONK. However, we can also combine these $m$ checks into a single one as follows.</p>
@@ -354,7 +354,7 @@ $$
 \begin{aligned}
 &amp;e(C_i,g_2)= e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i} \\
 % \Longleftrightarrow\quad &amp;e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\
-\Longleftrightarrow\quad &amp;e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g^{\tau}/g_2^w) \\
+\Longleftrightarrow\quad &amp;e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\
 % \Longleftrightarrow\quad &amp;e(g_1,g_2)^{f_i(\tau)}\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g^{\tau}/g_2^w) \\
 % \Longleftrightarrow\quad &amp;e(g_1,g_2)^{f_1(\tau)-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\
 % \Longleftrightarrow\quad &amp;e\left(C_i/g_1^{y_i},g_2\right) = e(Q_i,g_2^{\tau}/g_2^w) \\
@@ -418,6 +418,219 @@ $$</p>
 </li>
 </ol>
 </div>
+
+<!-- The PLONK protocol uses batching techniques in several places. Generally speaking, batching allows to combine multiple different checks (or instances) into a single one. Conceptually, it can be compared to a *compression* (or *folding*) of instances, where the validity of a single batched instance attests to the validity of all input instances. In this article, we use the terms "compression", "batching", and "folding" synonymously.
+
+Let us exemplify the underlying idea before we explore how PLONK leverages batching. Assume we want to check that all numbers in the sequence $(a_1,\ldots,a_n)\in\mathbb R^n$ of real numbers are zero. How can we do that? Naively, we could apply $n$ zero checks
+$$
+a_1\stackrel{?}{=}0,\ldots,a_n\stackrel{?}{=}0.
+$$
+The point is, we can also do that in a *single* zero check. The underlying idea is very powerful and widely used across the domain of (zero-knowledge) argument systems. It works by taking a *random* linear combination of the numbers $a_1,\ldots,a_n$.
+
+Suppose, we check the random linear combination
+$$
+a_1+\lambda_1\cdot a_2 + \cdots + \lambda\_{n-1}\cdot a_n\stackrel{?}{=} 0
+$$
+for uniformly and independently random $\lambda_1,\ldots,\lambda\_{n-1}\in S\subseteq\mathbb R$, where $S$ is finite. Then with high confidence we can infer that all $a_i$ are zero if and only if the random linear combination is zero. I.e., we have
+$$
+a_1+\lambda_1\cdot a_2 + \cdots + \lambda\_{n-1}\cdot a_n\stackrel{\text{high confidence}}{\Longleftrightarrow} a_1=\cdots=a_n=0.
+$$
+How strong our confidence will be, crucially depends on the size of the set $S$. For a more detailed (and technical) explanation why this works see the write-up on the [Schwartz-Zippel-DeMillo-Lipton Lemma](/blog/szdl). And for a visualization (as well as a fun quiz) take a [Random Walk Home](/blog/random_walk).
+
+<div class="callout callout-note">
+  <div class="callout-note-title">Different Batching (or Compression) Modes</div>
+  
+There is more than one way to compress the input instances. So far, we have seen the technique to take a random linear combination
+$$
+a_1+\lambda_1\cdot a_2 + \cdots + \lambda\_{n-1}\cdot a_n,
+$$
+for independent and random $\lambda_1,\ldots,\lambda\_{n-1}\in\mathbb F_p$. Another approach is to use successive powers of a random element $\lambda\in\mathbb F_p$, i.e.,
+$$
+a_1+\lambda\cdot a_2 + \cdots + \lambda^{n-1}\cdot a_n.
+$$
+This is perfectly admissible as well (but comes with a different soundness error). If we write above checks in terms of the underlying polynomials, the difference becomes apparent. In the first case, we have
+$$
+a_1+X_1\cdot a_2 + \cdots + X\_{n-1}\cdot a_n \in\mathbb F_p[X_1,\ldots,X\_{n-1}].
+$$
+And for the second case we get
+$$
+a_1+X\cdot a_2 + \cdots + X^{n-1}\cdot a_n \in\mathbb F_p[X].
+$$
+We call the first mode *affine* (or *linear*) batching. On the polynomial level, it introduces $n-1$ new variables to separate (or discriminate) the individual instances. The second mode is called *algebraic* (or *parametric*) batching. It introduces only a single new variable and separates the input instances via successive powers of this new variable.
+
+The soundness error is $1/ |\mathbb F|$ in the first case, and $(n-1)/{|\mathbb F|}$ in the second one.
+
+</div>
+
+
+Let us return to our main inquiry and see where and how PLONK employs batching techniques. PLONK uses batching for:
+1. Batch identity testing $f_1=0,\ldots,f_k=0$.
+2. Batch opening commitments $C_1,\ldots,C_l$ to $f_1,\ldots,f_l$ at point $w$.
+3. Batch verifying openings $f_1(w_1)=y_1,\ldots,f(w_m)=y_m$ with commitments $C_1,\ldots,C_m$.
+
+In the remainder of this article, we elaborate on each of these batching techniques. The principle is always the same:
++ take a random parametric combination of the instances to check,
++ do the check on the batched instance,
++ infer a statement about the input instances and derive soundness error through the [Schwartz-Zippel-DeMillo-Lipton Lemma](/blog/szdl).
+
+<div class="callout callout-note">
+  <div class="callout-note-title">Nomenclature</div>
+  
+We use the abbreviation "w.h.c." to denote "with high confidence". The notion of *confidence* (or *likelihood*) is relevant in our setting of probabilistic polynomial identity testing. In this setting, we test the polynomial identity claim $F=0$ by checking if $F(u_1,\ldots,u_n)=0$ at independent and random $u_1,\ldots,u_n$.
+
+This statistical test has a certain (soundness) error $\beta$, i.e., an error that we wrongly accept a non-zero polynomial as the zero polynomial. We thus speak of *confidence* in this test, or the *likelihood* that this test correctly detects the zero-polynomial. If the evaluation check at a certain point holds, we may say "the confidence (or likelihood ) that $F$ is the zero polynomial is $1-\beta$".[^1]
+
+</div>
+
+
+# Batch Identity Testing 
+Let $f_1,\ldots, f_k\in\mathbb F_p[X]$. How can we check the $k$ polynomial identities
+$$
+f_1(X) = 0,\ldots,f_k(X)=0?
+$$
+Naively applying a statistical test, we can test each identity probabilistically and conduct $k$ checks
+$$
+f_1(\alpha)=0,\ldots,f_k(\alpha)=0.
+$$
+at a random point $\alpha\in\mathbb F_p$. However, there is a possibility to compress all $k$ checks into a single check. We view the problem as the following polynomial identity:
+$$
+0 = f_1(X)+Y\cdot f_2(X)+\cdots+Y^{k-1}\cdot f_k(X)\in\mathbb F_p[X,Y].
+$$
+This gives us
+$$
+\begin{alignat*}{3}
+&\forall i=1,\ldots,k: f_i(X)=0\\\\
+&\Longleftrightarrow f_1(X)+Y\cdot f_2(X)+\cdots+Y^{k-1}\cdot f_k(X)=0 &&\quad (\text{in }\mathbb F_p[X,Y]) \\\\
+&\stackrel{w.h.c}{\Longleftrightarrow} f_1(X)+\beta\cdot f_2(X)+\cdots+\beta^{k-1}\cdot f_k(X)=0 &&\quad (\text{in }\mathbb F_p[X]) \\\\
+&\stackrel{w.h.c}{\Longleftrightarrow} f_1(\alpha)+\beta\cdot f_2(\alpha)+\cdots+\beta^{k-1}\cdot f_k(\alpha)=0 &&\quad (\text{in }\mathbb F_p)
+\end{alignat*}
+$$
+for independent and uniformly random $\alpha,\beta\in\mathbb F_p$.
+
+
+# Batch Opening Commitments
+Given commitments $C_1,\ldots, C_l$ to $f_1,\ldots,f_l$, how to open all of them at $w$? The naive method constructs $l$ different quotient polynomials $q_1(X),\ldots,q_l(X)$ such that
+$$
+\forall i=1,\ldots,l: f_i(X)-f_i(w)=q_i(X)(X-w).
+$$
+The opening, then, consists of the evaluation $y_i\coloneqq f_i(w)$ and (commitments to) the quotient polynomials $q_i(X)$, for $i=1,\ldots,l$.
+
+Instead of creating $l$ different quotients $q_1(X),\ldots,q_l(X)$, we may generate a single quotient polynomial $q(X)\in\mathbb F_p[X]$ arising from the identity
+$$
+\sum\_{i=1}^l \beta^{i-1}\cdot (f_i(X)-y_i) = q(X)\cdot (X-w),
+$$
+for a uniformly random $\beta\in\mathbb F_p$. Let us explore why this is admissible. For $y_i\coloneqq f_i(w)$ it holds
+$$
+\begin{alignat}{1}
+&\forall i=1,\ldots,l: f_i(w)=y_i\\\\
+&\Longleftrightarrow \forall i=1,\ldots,l: f_i(X)-y_i=q_i(X)(X-w)\\\\
+&\Longleftrightarrow \forall i=1,\ldots,l: (X-w)\mid (f_i(X)-y_i)\\\\
+&\label{eq:sum-divisor}\Longleftrightarrow (X-w)\mid \sum\_{i=1}^l Y^{i-1}\cdot (f_i(X)-y_i)\\\\
+&\Longleftrightarrow \sum\_{i=1}^l Y^{i-1}\cdot (f_i(X)-y_i) = q(X,Y)\cdot (X-w)\quad (\text{for some }q\in\mathbb F_p[X,Y])\\\\
+&\stackrel{w.h.c.}{\Longleftrightarrow} \sum\_{i=1}^l \beta^{i-1}\cdot (f_i(X)-y_i) = q(X,\beta)\cdot (X-w)\quad (\text{for random }\beta\in\mathbb F_p)\\\\
+&\stackrel{w.h.c.}{\Longleftrightarrow} \sum\_{i=1}^l \beta^{i-1}\cdot (f_i(\alpha)-y_i) = q(\alpha,\beta)\cdot (\alpha-w).\quad (\text{for random }\alpha,\beta\in\mathbb F_p)
+\end{alignat}
+$$
+Only the equivalence in \eqref{eq:sum-divisor} deserves a more detailed explanation. We give a proof here.
+
+`Claim.`
+$$
+\forall i=1,\ldots,l: (X-w)\mid g_i(X)
+\Longleftrightarrow (X-w)\mid \sum\_{i=1}^l Y^{i-1}\cdot g_i(X)
+$$
+
+`Proof.` The direction " $\Longrightarrow$" is clear. For the direction "$\Longleftarrow$" we use induction over $l$. For $l=1$, the claim is clear. Now suppose the claim holds for $l$. We show that it holds for $l+1$. We have
+$$
+\begin{aligned}
+&(X-w)\mid \sum\_{i=1}^{l+1} Y^{i-1} g_i(X)\\\\
+&\Longrightarrow \sum\_{i=1}^{l+1} Y^{i-1} g_i(X) = q(X,Y)\cdot(X-w)\\\\
+&\stackrel{Y=0}{\Longrightarrow} g_1(X) = q(X,0)\cdot (X-w)
+\end{aligned}
+$$
+This means, $(X-w)\mid g_1(X)$. Hence, we can write
+$$
+\begin{aligned}
+&\sum\_{i=2}^{l+1} Y^{i-1}\cdot g_i(X) = (q(X,Y)-q(X,0))\cdot(X-w)\\\\
+&\Longrightarrow (X-w)\mid Y\cdot\sum\_{i=1}^{l} Y^{i-1} g\_{i+1}(X)\\\\
+&\Longrightarrow (X-w)\mid \sum\_{i=1}^{l} Y^{i-1} g\_{i+1}(X)\quad (\text{since }\text{gcd}(X-w,Y)=1)\\\\
+&\stackrel{I.H.}{\Longrightarrow}(X-w)\mid g_2(X),\ldots,g_l(X).\qed
+\end{aligned}
+$$
+
+# Batch Verifying Openings
+
+How to verify that $f_1(w)=y_1, \ldots,f_m(w)=y_m$ given commitments $C_1,\ldots,C_m$ to $f_1,\ldots,f_m$ and commitments $Q_1,\ldots,Q_m$ to quotients $q_1,\ldots,q_m$? Naively, we can carry out $m$ pairing checks
+$$
+\begin{align}
+\label{eq:m-checks}
+\forall i=1,\ldots,m: e(C_i,g_2)=e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i},
+\end{align}
+$$
+where $g_2^{\tau}$ is (one of the powers) created during the setup ceremony of PLONK. However, we can also combine these $m$ checks into a single one as follows.
+
+We first observe that for any $i=1,\ldots,m$ it holds
+$$
+\begin{aligned}
+&e(C_i,g_2)= e(Q_i,g_2^{\tau}/g_2^w)\cdot e(g_1,g_2)^{y_i} \\\\
+% \Longleftrightarrow\quad &e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\\\
+\Longleftrightarrow\quad &e(C_i,g_2)\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g^{\tau}/g_2^w) \\\\
+% \Longleftrightarrow\quad &e(g_1,g_2)^{f_i(\tau)}\cdot e(g_1,g_2)^{-y_i}= e(Q_i,g^{\tau}/g_2^w) \\\\
+% \Longleftrightarrow\quad &e(g_1,g_2)^{f_1(\tau)-y_i}= e(Q_i,g_2^{\tau}/g_2^w) \\\\
+% \Longleftrightarrow\quad &e\left(C_i/g_1^{y_i},g_2\right) = e(Q_i,g_2^{\tau}/g_2^w) \\\\
+\Longleftrightarrow\quad &e\left(C_i/g_1^{y_i},g_2\right) = e(Q_i,g_2^{\tau})\cdot e(Q_i,g_2^{w})^{-1} \\\\
+\Longleftrightarrow\quad &e\left(C_i/g_1^{y_i}\cdot Q_i^w,g_2\right) = e(Q_i,g_2^{\tau}). \\\\
+\end{aligned}
+$$
+Furthermore, it holds
+$$
+\begin{aligned}
+f_i(w) = y_i &\Longleftrightarrow f_1(X)-y_1=q_i(X)\cdot (X-w)\\\\
+&\Longleftrightarrow \underbrace{f_1(X)-y_1-q_i(X)\cdot (X-w)}\_{\eqqcolon F_i(X)}=0.\\\\
+\end{aligned}
+$$
+Crucially, for combining above $m$ checks into a single one, we use the equivalences
+$$
+\begin{aligned}
+&\forall i=1,\ldots,m: f_i(w) = y_i\\\\
+&\stackrel{}{\Longleftrightarrow} \sum\_{i=1}^m Y^{i-1}\cdot F_i(X)=0 \quad(\text{in }\mathbb F_p[X,Y])\\\\
+&\stackrel{w.h.c.}{\Longleftrightarrow} \sum\_{i=1}^m \beta^{i-1}\cdot F_i(X)=0 \quad(\text{in }\mathbb F_p[X])
+\end{aligned}
+$$
+for random $\beta\in\mathbb F_p$. Rewriting the last equivalence gives us
+$$
+\begin{aligned}
+& \underbrace{\sum\_{i=1}^m \beta^{i-1}\cdot(f_i(X)-y_i)}\_{\eqqcolon f(X)} = (X-w)\cdot \underbrace{\sum\_{i=1}^m \beta^{i-1}\cdot q_i(X)}\_{\eqqcolon q(X)}.\\\\
+% \Longleftrightarrow\quad & f_1(\alpha)-y_1-Q_1(\alpha) w + \beta\cdot (f_2(\alpha)-y_2-Q_2(\alpha) w) = \alpha Q_1(\alpha) + \beta\cdot \alpha Q_2(\alpha)
+\end{aligned}
+$$
+In this form, $\eqref{eq:m-checks}$ is equivalent to
+$$
+\begin{aligned}
+e\left(C/g_1^{0}\cdot Q^w,g_2\right) = e(Q,g_2^{\tau}),
+\end{aligned}
+$$
+where $C$ is the commitment to $f(X)$, and $Q$ is the commitment to $q(X)$. We can compute $C$ via the commitments $C_1,\ldots, C_m$
+$$
+C = g_1^{f(\tau)} = \prod\_{i=1}^m \left(\frac{g_1^{f_i(\tau)}}{g_1^{y_i}}\right)^{\beta^{i-1}} = \prod\_{i=1}^m \left(\frac{C_i}{g_1^{y_i}}\right)^{\beta^{i-1}} ,
+$$
+and $Q$ via the commitments $Q_1,\ldots,Q_m$
+$$
+Q = g_1^{q(\tau)} = g_1^{\sum\_{i=1}^m \beta^{i-1} q_i(\tau)} = \prod\_{i=1}^m g_1^{\beta^{i-1} q_i(\tau)} = \prod\_{i=1}^m Q_i^{\beta^{i-1}}.
+$$
+To conclude, verifying the opening $y=f(w)=0$ of $f(X)$ at $w$ can be done via the pairing check
+$$
+\begin{aligned}
+e\left(C / g_1^0\cdot Q^w, g_2\right)
+= e\left(\prod\_{i=1}^m (C_i/g_1^{y_i}\cdot Q_i^w)^{\beta^{i-1}},g_2\right)
+= e\left(\prod\_{i=1}^m Q_i^{\beta^{i-1}}, g_2^\tau\right)
+= e\left(Q, g_2^{\tau}\right).
+\end{aligned}
+$$
+
+
+<!-- ############### -->
+<!-- Footnotes -->
+<!-- ############### -->
 
   </div>
 </section>
